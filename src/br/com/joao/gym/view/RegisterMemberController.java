@@ -65,7 +65,7 @@ public class RegisterMemberController {
        //birthField.setText(DateUtil.format(member.getBirth()));
         birthField.setPromptText("dd.mm.yyyy");
         contractBox.getItems().addAll("Smart", "Black");
-        
+        //teste
     }
 
     /**
