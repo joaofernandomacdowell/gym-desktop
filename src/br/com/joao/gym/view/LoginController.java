@@ -36,7 +36,7 @@ public class LoginController {
 	
 	public void setLogin(User user) throws Exception {
         this.user = user;
-        userGroupBox = ChoiceBoxBuilder.create().items(usersGroup).build();
+        //userGroupBox = 
 	}
 	
 	  public void setMainApp(MainApp mainApp) {
