@@ -25,6 +25,8 @@ public class MainApp extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Gym");
+		
+		//Adiciona o ícone da SmartFit
 		this.primaryStage.getIcons().add(new Image("file:resources/images/smart_fit.png"));
 		
 		
@@ -54,7 +56,7 @@ public class MainApp extends Application {
 	}
 
 	//Mostra o Login dentro do root layout.
-	public boolean showLogin() throws Exception {
+	public void showLogin() throws Exception {
 		
 		 try {
 			 // Carrega a person overview.
@@ -67,15 +69,17 @@ public class MainApp extends Application {
 	         //Define o controller da view Login
 	         LoginController controller = loader.getController();
 	         
-	         controller.setLogin(user);
+	         try {
+					controller.setLogin(user);
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+	        
 	         controller.setMainApp(this);
-	            
-	         return true;
-		 } 
-		 
-		 catch (IOException e) {
+	         
+		 } catch (IOException e) {
 	            e.printStackTrace();
-	            return false;
 	      }
 	}
 	
