@@ -1,5 +1,7 @@
 package br.com.joao.gym.view;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
@@ -40,7 +42,12 @@ public class RegisterMemberController {
     private Member member;
     private boolean registerClicked = false;
 	private MainApp mainApp;
-
+	
+	ObservableList contracts = FXCollections.observableArrayList(
+			"Smart",
+			"Black"
+			);
+			
     
      //Inicializa a classe controlle. Este método é chamado automaticamente
     // após o arquivo fxml ter sido carregado.
