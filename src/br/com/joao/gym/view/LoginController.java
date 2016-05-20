@@ -22,7 +22,7 @@ public class LoginController {
 	
 	//User Login informations
 	@FXML
-	private TextField userNameField;
+	private TextField 	Field;
 	@FXML
 	private TextField passwordField;
 	@FXML

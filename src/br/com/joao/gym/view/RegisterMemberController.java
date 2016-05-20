@@ -9,6 +9,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 
 import java.util.Calendar;
 
@@ -61,9 +63,9 @@ public class RegisterMemberController {
     @FXML
     private Label userNameLabel1;
     @FXML
-    private Label userNameLabel2;
+    private Tab userNameLabel2;
     @FXML
-    private Label userNameLabel3;
+    private Tab userNameLabel3;
     
     private Member member;
     private boolean registerClicked = false;
@@ -87,7 +89,7 @@ public class RegisterMemberController {
     	
     	paymentBox.setItems(paymentList);
     	
-    	calculateAge();
+    	//calculateAge();
     }
 
     private void calculateAge() {

@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane style="-fx-background-color: #787878;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.joao.gym.view.RegisterMemberController">
    <children>
       <TabPane prefHeight="550.0" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE">
@@ -47,7 +46,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <Label text="Adress:" textFill="WHITE" GridPane.rowIndex="4">
+                              <Label text="Address:" textFill="WHITE" GridPane.rowIndex="4">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
