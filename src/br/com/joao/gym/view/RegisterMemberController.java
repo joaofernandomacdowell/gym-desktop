@@ -7,7 +7,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+
+import java.util.Calendar;
+
 import br.com.joao.gym.application.MainApp;
 import br.com.joao.gym.model.Member;
 import br.com.joao.gym.util.DateUtil;
@@ -16,6 +20,8 @@ import br.com.joao.gym.util.DateUtil;
 
 public class RegisterMemberController {
 
+	//Contact Informations
+	
     @FXML
     private TextField fullNameField;
     @FXML
@@ -29,33 +35,69 @@ public class RegisterMemberController {
     @FXML
     private TextField postalCodeField;
     @FXML
-    private TextField telephoneField;
+    private TextField phoneField;
     @FXML
-    private TextField birthField;
+    private TextField emailField;
+    
+    
+    //Personal Informations
+    
     @FXML
-    private TextField email;
+    private DatePicker dateOfBirth;
+    @FXML
+    private TextField ageField;
+    
+    
+    //Contract and Payment
+    
     @FXML
     private ComboBox<String> contractBox; 
     @FXML
-    private Label userNameLabel;
+    private ComboBox<String> paymentBox;
+    
+    
+    //Recepcionist that is logged
+    
+    @FXML
+    private Label userNameLabel1;
+    @FXML
+    private Label userNameLabel2;
+    @FXML
+    private Label userNameLabel3;
     
     private Member member;
     private boolean registerClicked = false;
 	private MainApp mainApp;
 	
-	ObservableList contracts = FXCollections.observableArrayList(
-			"Smart",
-			"Black"
-			);
-			
-    
+	ObservableList<String> contractList = FXCollections.observableArrayList(
+			"Smart", "Black"
+		);
+    	
+	ObservableList<String> paymentList = FXCollections.observableArrayList(
+			"Credit Card", "Debit Card"
+		);
+	
      //Inicializa a classe controlle. Este método é chamado automaticamente
     // após o arquivo fxml ter sido carregado.
      
     @FXML
     private void initialize() {
+    	contractBox.setValue("Black");
+    	contractBox.setItems(contractList);
+    	
+    	paymentBox.setItems(paymentList);
+    	
+    	calculateAge();
     }
 
+    private void calculateAge() {
+    	Calendar now = Calendar.getInstance();
+    	int year = now.get(Calendar.YEAR);
+    	int birthYear = dateOfBirth.getValue().getYear();
+    	int age = year - birthYear;
+    	ageField.setText(Integer.toString(age) + " years");
+    }
+    
     
     public void setMember(Member member) throws Exception {
     	
@@ -68,10 +110,12 @@ public class RegisterMemberController {
         
         adressField.setText(member.getCity());
         postalCodeField.setText(Integer.toString(member.getPostalCode()));
-        telephoneField.setText(Integer.toString(member.getTelephone()));
-       //birthField.setText(DateUtil.format(member.getBirth()));
-        birthField.setPromptText("dd.mm.yyyy");
-        contractBox.getItems().addAll("Smart", "Black");
+        phoneField.setText(Integer.toString(member.getPhone()));
+        emailField.setText(member.getEmail());
+        
+        //birthday.setText(DateUtil.format(member.getBirth()));
+        //birthdayField.setPromptText("dd.mm.yyyy");
+       
         //teste
     }
 

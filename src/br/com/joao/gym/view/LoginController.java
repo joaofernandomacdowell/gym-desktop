@@ -6,37 +6,39 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ChoiceBoxBuilder;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 
 public class LoginController {
 	
+	ObservableList<String> userGroupList = FXCollections.observableArrayList(
+			"admin",
+			"recepcionist",
+			"instructor"
+		);
+	
+	User user;
+	private MainApp mainApp;
+	
+	//User Login informations
 	@FXML
 	private TextField userNameField;
 	@FXML
 	private TextField passwordField;
 	@FXML
-	private ChoiceBox<Object> userGroupBox;
+	private ChoiceBox<String> userGroupBox;
 	
-	ObservableList<Object> usersGroup = FXCollections.observableArrayList(
-			"admin",
-			"recepcionist",
-			"instructor"
-		);
-			
-	
-	User user;
-	
-	private MainApp mainApp;
 	
 	@FXML
 	private void initialize(){
+		userGroupBox.setItems(userGroupList); 
 	}
 	
 	public void setLogin(User user) throws Exception {
         this.user = user;
-        //userGroupBox = 
+        //userNameField.setText(user.getUserName());
+        //passwordField.setText(user.getUserPassword());
+        //userGroupBox.setItems(userGroupList); 
 	}
 	
 	  public void setMainApp(MainApp mainApp) {

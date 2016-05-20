@@ -9,6 +9,7 @@ import br.com.joao.gym.view.RegisterMemberController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -90,10 +91,10 @@ public class MainApp extends Application {
 			// Carrega o registerMember.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("/br/com/joao/gym/view/RegisterMember.fxml"));
-			AnchorPane registerMember = (AnchorPane) loader.load();
+			AnchorPane RegisterMember = (AnchorPane) loader.load();
 
 			// Define o person overview dentro do root layout.
-			rootLayout.setCenter(registerMember);
+			rootLayout.setCenter(RegisterMember);
 			
 			//Define o controller da view RegisterMember
 			RegisterMemberController controller = loader.getController();

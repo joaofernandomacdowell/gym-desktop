@@ -18,21 +18,23 @@ public class Member {
 	private final StringProperty city;
 	private final StringProperty adress;
 	private final IntegerProperty postalCode;
-	private final IntegerProperty telephone;
+	private final IntegerProperty phone;
+	private final StringProperty email;
 	private final ObjectProperty<LocalDate> birth;
 	
 	 /* private final StringProperty postalCode; private final StringProperty
-	 * telephone; private final ObjectProperty<LocalDate> birth; private final
+	 * phone; private final ObjectProperty<LocalDate> birth; private final
 	 * StringProperty email;
 	 */
 
 	
 	 public Member() { 
-		 this(null, 0, 0, null, null, 0, 0, null); 
+		 this(null, 0, 0, null, null, 0, 0, null, null); 
 	 }
 	 
 
-	public Member(String fullName, int cpf, int rg, String city, String adress, int postalCode, int telephone, LocalDate birth) {
+	public Member(String fullName, int cpf, int rg, String city, String adress, 
+			int postalCode, int phone, String email, LocalDate birth) {
 		
 		this.fullName = new SimpleStringProperty (fullName);
 		this.cpf = new SimpleIntegerProperty (cpf);
@@ -40,7 +42,8 @@ public class Member {
 		this.city = new SimpleStringProperty (city);
 		this.adress = new SimpleStringProperty ("Rua Engenheiro Cesar Grilo");
 		this.postalCode = new SimpleIntegerProperty (postalCode);
-		this.telephone = new SimpleIntegerProperty (telephone);
+		this.phone = new SimpleIntegerProperty (phone);
+		this.email = new SimpleStringProperty(email);
 		this.birth = new SimpleObjectProperty<LocalDate> (LocalDate.of (1999, 2, 21));
 	}
 
@@ -99,7 +102,7 @@ public class Member {
 	}
 
 	public StringProperty cityProperty() {
-		return adress;
+		return city;
 	}
 	//end: city methods
 	
@@ -116,10 +119,10 @@ public class Member {
 	public StringProperty adressProperty() {
 		return adress;
 	}
-	//end: fullName methods
+	//end: adress methods
 	
 	
-	//postal code methods
+	//postalCode methods
 	public int getPostalCode() {
 		return postalCode.get();
 	}
@@ -134,21 +137,36 @@ public class Member {
 	//end: postalCode methods
 	
 	
-	//telephone methods
-	public int getTelephone() {
-		return telephone.get();
+	//phone methods
+	public int getPhone() {
+		return phone.get();
 	}
 
-	public void setTelephone(int rg) {
-		this.telephone.set(rg);
+	public void setPhone(int phone) {
+		this.phone.set(phone);
 	}
 
-	public IntegerProperty telephoneProperty() {
-		return rg;
+	public IntegerProperty phoneProperty() {
+		return phone;
 	}
-	//end: telephone methods
-		
-		
+	//end: phone methods
+	
+	
+	//email methods
+	public String getEmail() {
+		return email.get();
+	} 
+
+	public void setEmail(String email) {
+		this.email.set(email);
+	}
+
+	public StringProperty emailProperty() {
+		return email;
+	}
+	//end: email methods
+	
+	
 	//birth methods
 		
 		
