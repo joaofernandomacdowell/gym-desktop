@@ -87,7 +87,7 @@
                            </font>
                         </Label>
                         <Separator layoutX="40.0" layoutY="80.0" prefHeight="20.0" prefWidth="559.0" />
-                        <Button layoutX="492.0" layoutY="460.0" mnemonicParsing="false" text="Register">
+                        <Button layoutX="492.0" layoutY="460.0" mnemonicParsing="false" onAction="#handleRegister" text="Register">
                            <font>
                               <Font size="14.0" />
                            </font>

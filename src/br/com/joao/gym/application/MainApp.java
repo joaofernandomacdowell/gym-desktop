@@ -3,6 +3,7 @@ package br.com.joao.gym.application;
 import java.io.IOException;
 import java.sql.Connection;
 
+import br.com.joao.gym.conection.DataBase;
 import br.com.joao.gym.model.User;
 import br.com.joao.gym.view.LoginController;
 import br.com.joao.gym.view.RegisterMemberController;
@@ -19,7 +20,7 @@ public class MainApp extends Application {
 
 	private Stage primaryStage;
 	private BorderPane rootLayout;
-	static Connection connection;
+	static DataBase connection;
 	User user;
 	
 	@Override
@@ -115,8 +116,8 @@ public class MainApp extends Application {
 		return primaryStage;
 	}
 	
-	public static void main(String[] args) {
-		//connection.getConnection();
+	public static void main(String[] args) throws Exception {
+		connection.getConnection();
 		launch(args);
 	}
 }

@@ -18,13 +18,13 @@ public class LoginController {
 		);
 	
 	User user;
-	private MainApp mainApp;
+	MainApp mainApp;
 	
 	//User Login informations
 	@FXML
-	private TextField 	Field;
+	private TextField userNameField;
 	@FXML
-	private TextField passwordField;
+	private TextField userPasswordField;
 	@FXML
 	private ChoiceBox<String> userGroupBox;
 	
@@ -36,7 +36,8 @@ public class LoginController {
 	
 	public void setLogin(User user) throws Exception {
         this.user = user;
-        //userNameField.setText(user.getUserName());
+        handleSubmit();
+        //user.userName = userNameField.getText();//loginField.setText(user.getUserName());
         //passwordField.setText(user.getUserPassword());
         //userGroupBox.setItems(userGroupList); 
 	}
@@ -50,7 +51,9 @@ public class LoginController {
     @FXML
     private void handleSubmit() throws Exception {
     	//if(isLoginValid()){
-    		System.out.println("User Correto");
+    		//user.userName = userNameField.getText();
+    		user.setUserName(userNameField.getText());
+    	    System.out.println(user.getUserName());
     		
     		mainApp.showRegisterMember();	
     }

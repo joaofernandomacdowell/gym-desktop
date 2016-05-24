@@ -5,7 +5,7 @@ import javafx.beans.property.StringProperty;
 
 public class User {
 	
-	private final StringProperty userName;
+	public final StringProperty userName;
 	private final StringProperty userPassword;
 	private final StringProperty userGroup;
 	
