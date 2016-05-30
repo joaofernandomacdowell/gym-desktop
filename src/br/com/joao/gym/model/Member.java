@@ -1,11 +1,7 @@
 package br.com.joao.gym.model;
 
-import java.time.LocalDate;
-
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -16,35 +12,38 @@ public class Member {
 	private final IntegerProperty cpf;
 	private final IntegerProperty rg; 
 	private final StringProperty city;
-	private final StringProperty adress;
+	private final StringProperty address;
 	private final IntegerProperty postalCode;
 	private final IntegerProperty phone;
 	private final StringProperty email;
-	private final ObjectProperty<LocalDate> birth;
+	private final StringProperty birthday;
+	//private final ObjectProperty<LocalDate> birthday;
+	private IntegerProperty age;
+	private final StringProperty contract;
+	private final StringProperty paymentType;
 	
-	 /* private final StringProperty postalCode; private final StringProperty
-	 * phone; private final ObjectProperty<LocalDate> birth; private final
-	 * StringProperty email;
-	 */
-
 	
-	 public Member() { 
-		 this(null, 0, 0, null, null, 0, 0, null, null); 
+	public Member() { 
+		 this(null, 0, 0, null, null, 0, 0, null, null, 0, null, null); 
 	 }
 	 
 
-	public Member(String fullName, int cpf, int rg, String city, String adress, 
-			int postalCode, int phone, String email, LocalDate birth) {
+	public Member(String fullName, int cpf, int rg, String city, String address, 
+			int postalCode, int phone, String email, String birthday, int age,
+			String contract, String paymentType) {
 		
 		this.fullName = new SimpleStringProperty (fullName);
 		this.cpf = new SimpleIntegerProperty (cpf);
 		this.rg = new SimpleIntegerProperty (rg);
 		this.city = new SimpleStringProperty (city);
-		this.adress = new SimpleStringProperty ("Rua Engenheiro Cesar Grilo");
+		this.address = new SimpleStringProperty ("Rua Engenheiro Cesar Grilo");
 		this.postalCode = new SimpleIntegerProperty (postalCode);
 		this.phone = new SimpleIntegerProperty (phone);
 		this.email = new SimpleStringProperty(email);
-		this.birth = new SimpleObjectProperty<LocalDate> (LocalDate.of (1999, 2, 21));
+		this.birthday = new SimpleStringProperty(birthday);
+		//this.birthday = new SimpleObjectProperty<LocalDate>(birthday);
+		this.contract = new SimpleStringProperty(contract);
+		this.paymentType = new SimpleStringProperty(paymentType);
 	}
 
 	//fullName methods
@@ -107,19 +106,19 @@ public class Member {
 	//end: city methods
 	
 			
-	//adress methods
-	public String getAdress() {
-		return adress.get();
+	//address methods
+	public String getAddress() {
+		return address.get();
 	} 
 
-	public void setAdress(String adress) {
-		this.adress.set(adress);
+	public void setAddress(String address) {
+		this.address.set(address);
 	}
 
-	public StringProperty adressProperty() {
-		return adress;
+	public StringProperty addressProperty() {
+		return address;
 	}
-	//end: adress methods
+	//end: address methods
 	
 	
 	//postalCode methods
@@ -168,7 +167,61 @@ public class Member {
 	
 	
 	//birth methods
-		
-		
+	public String getBirthday() {
+		return birthday.get();
+	} 
+
+	public void setBirthday(String birthday) {
+		this.birthday.set(birthday);
+	}
+
+	public StringProperty birthdayProperty() {
+		return birthday;
+	}	
 	//end: birth methods
+	
+	
+	//age methods
+	public int getAge() {
+		return rg.get();
+	}
+
+	public void setAge(int age) {
+		this.age.set(age);
+	}
+
+	public IntegerProperty ageProperty() {
+		return age;
+	}
+	//end: age methods
+	
+	
+	//contract methods
+	public String getContract() {
+		return contract.get();
+	} 
+
+	public void setContract(String contract) {
+		this.contract.set(contract);
+	}
+
+	public StringProperty contractProperty() {
+		return contract;
+	}
+	//end: contract methods
+	
+	
+	//paymentType methods
+	public String getPaymentType() {
+		return paymentType.get();
+	} 
+
+	public void setPaymentType(String paymentType) {
+		this.paymentType.set(paymentType);
+	}
+
+	public StringProperty paymentTypeProperty() {
+		return paymentType;
+	}
+	//end: paymentType methods
 }

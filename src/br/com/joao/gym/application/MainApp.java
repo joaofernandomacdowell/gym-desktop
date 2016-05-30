@@ -1,8 +1,6 @@
 package br.com.joao.gym.application;
 
 import java.io.IOException;
-import java.sql.Connection;
-
 import br.com.joao.gym.conection.DataBase;
 import br.com.joao.gym.model.User;
 import br.com.joao.gym.view.LoginController;
@@ -10,7 +8,6 @@ import br.com.joao.gym.view.RegisterMemberController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -20,7 +17,7 @@ public class MainApp extends Application {
 
 	private Stage primaryStage;
 	private BorderPane rootLayout;
-	static DataBase connection;
+	DataBase connection;
 	User user;
 	
 	@Override
@@ -31,7 +28,7 @@ public class MainApp extends Application {
 		//Adiciona o ícone da SmartFit
 		this.primaryStage.getIcons().add(new Image("file:resources/images/smart_fit.png"));
 		
-		
+		//carrega o layout
 		initRootLayout();
 		
 		showLogin();
@@ -117,7 +114,7 @@ public class MainApp extends Application {
 	}
 	
 	public static void main(String[] args) throws Exception {
-		connection.getConnection();
+		DataBase.getConnection();
 		launch(args);
 	}
 }

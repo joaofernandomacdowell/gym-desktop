@@ -64,8 +64,7 @@
                               <TextField fx:id="fullNameField" GridPane.columnIndex="1" />
                               <TextField fx:id="cpfField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <TextField fx:id="rgField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <TextField fx:id="adressField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                              <TextField fx:id="phoneField" mouseTransparent="true" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                              <TextField fx:id="addressField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                               <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                               <Label text="Postal Code:" textFill="WHITE" GridPane.rowIndex="5">
                                  <font>
@@ -79,6 +78,7 @@
                                  </font>
                               </Label>
                               <TextField fx:id="cityField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <TextField fx:id="phoneField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                            </children>
                         </GridPane>
                         <Label layoutX="40.0" layoutY="50.0" text="Contact Informations" textFill="WHITE">
@@ -92,7 +92,7 @@
                               <Font size="14.0" />
                            </font>
                         </Button>
-                        <Button layoutX="415.0" layoutY="460.0" mnemonicParsing="false" text="Back">
+                        <Button layoutX="415.0" layoutY="460.0" mnemonicParsing="false" onAction="#handleBack" text="Back">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -125,7 +125,7 @@
                                  </font>
                               </Label>
                               <TextField fx:id="ageField" prefHeight="25.0" prefWidth="170.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <DatePicker fx:id="dateOfBirth" prefHeight="25.0" prefWidth="170.0" GridPane.columnIndex="1" />
+                              <TextField fx:id="birthdayField" GridPane.columnIndex="1" />
                            </children>
                            <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="214.0" minWidth="10.0" prefWidth="88.0" />
@@ -164,7 +164,7 @@
                                  </font>
                               </Label>
                               <ComboBox fx:id="contractBox" prefWidth="150.0" GridPane.columnIndex="1" />
-                              <ComboBox fx:id="paymentBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <ComboBox fx:id="paymentTypeBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                            </children>
                            <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="214.0" minWidth="10.0" prefWidth="88.0" />

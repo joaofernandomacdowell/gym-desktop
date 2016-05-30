@@ -1,11 +1,15 @@
 package br.com.joao.gym.util;
 
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-
-//Funções auxiliares para lidar com datas.
+/**
+ * Funções auxiliares para lidar com datas.
+ * 
+ * @author Marco Jakob
+ */
 public class DateUtil {
 
     /** O padrão usado para conversão. Mude como quiser. */
@@ -20,9 +24,8 @@ public class DateUtil {
      * {@link DateUtil#DATE_PATTERN}  (padrão de data) que é utilizado.
      * 
      * @param date A data a ser retornada como String
-     * @return String formadado
+     * @return String formatado
      */
-    
     public static String format(LocalDate date) {
         if (date == null) {
             return null;

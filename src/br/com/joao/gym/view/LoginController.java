@@ -1,21 +1,15 @@
 package br.com.joao.gym.view;
 
 import br.com.joao.gym.application.MainApp;
+import br.com.joao.gym.conection.DataBase;
 import br.com.joao.gym.model.User;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
 
 public class LoginController {
-	
-	ObservableList<String> userGroupList = FXCollections.observableArrayList(
-			"admin",
-			"recepcionist",
-			"instructor"
-		);
 	
 	User user;
 	MainApp mainApp;
@@ -24,37 +18,82 @@ public class LoginController {
 	@FXML
 	private TextField userNameField;
 	@FXML
-	private TextField userPasswordField;
-	@FXML
-	private ChoiceBox<String> userGroupBox;
-	
+	private PasswordField userPasswordField;
 	
 	@FXML
-	private void initialize(){
-		userGroupBox.setItems(userGroupList); 
+	private void initialize(){ 
 	}
 	
 	public void setLogin(User user) throws Exception {
         this.user = user;
-        handleSubmit();
         //user.userName = userNameField.getText();//loginField.setText(user.getUserName());
         //passwordField.setText(user.getUserPassword());
         //userGroupBox.setItems(userGroupList); 
 	}
 	
-	  public void setMainApp(MainApp mainApp) {
+	@FXML
+    private void handleSubmit() throws Exception {
+    	if(loginIsValid()){
+    		System.out.println("User Correto");
+    		
+    		mainApp.showRegisterMember();	
+    	}
+    }
+	
+    public boolean loginIsValid () throws Exception {
+    	String errorMessage = "";
+    	
+    	user = (DataBase.getUser(userNameField.getText()));
+    	System.out.println("LoginController recebeu o usuer: " + user.getUserName());
+    	
+    	//System.out.println(user.getUserName());
+    	//System.out.println(user.getUserPassword());
+    	
+    	if (user.getUserName().equals("root") && user.getUserPassword().equals("root")){
+    		System.out.println("If: User root");
+    		return true;
+    	}
+    	
+    	else {
+	    	Alert alert = new Alert(AlertType.ERROR);
+	    	
+	    	alert.setTitle("User Invalido");
+	        alert.setContentText(errorMessage);
+	        alert.setHeaderText("Usuário Invalido");
+	        alert.setContentText("Por favor, digite um usuário existente");
+	        alert.showAndWait();
+	        
+	        return false;
+    	}
+    	
+    	/*
+    	if (user.getUserName() == null || userNameField.getText().isEmpty() ||!userNameField.getText().contentEquals(user.getUserName())) {
+    		
+    		errorMessage += "Invalid user!\n";
+    		Alert alert = new Alert(AlertType.ERROR);
+    	
+	    	alert.setTitle("User Invalido");
+	        alert.setContentText(errorMessage);
+	        alert.setHeaderText("Usuário Invalido");
+	        alert.setContentText("Por favor, digite um usuário existente");
+	        alert.showAndWait();
+    	
+	        return false;
+    	}
+    	
+    	else if (errorMessage.length() == 0) {
+    		return true;
+    	}
+    	
+    	else {
+    		return false;
+    	}
+    	*/
+    }
+	  
+    
+    public void setMainApp(MainApp mainApp) {
 
 		this.mainApp = mainApp;
 	}
-	
-    
-    @FXML
-    private void handleSubmit() throws Exception {
-    	//if(isLoginValid()){
-    		//user.userName = userNameField.getText();
-    		user.setUserName(userNameField.getText());
-    	    System.out.println(user.getUserName());
-    		
-    		mainApp.showRegisterMember();	
-    }
 }
