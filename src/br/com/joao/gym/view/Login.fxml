@@ -6,9 +6,9 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onDragDetected="#handleSubmit" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #787878;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.joao.gym.view.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onDragDetected="#handleSubmit" prefHeight="550.0" prefWidth="700.0" style="-fx-background-color: #787878;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.joao.gym.view.LoginController">
    <children>
-      <GridPane layoutX="40.0" layoutY="115.0" prefHeight="106.0" prefWidth="230.0" vgap="20.0">
+      <GridPane layoutX="40.0" layoutY="115.0" prefHeight="106.0" prefWidth="230.0" vgap="20.0" AnchorPane.bottomAnchor="329.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="430.0" AnchorPane.topAnchor="115.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="79.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="167.0" minWidth="10.0" prefWidth="151.0" />
@@ -16,7 +16,6 @@
         <rowConstraints>
           <RowConstraints maxHeight="32.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="34.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="34.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="34.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
@@ -32,7 +31,7 @@
             </Label>
             <TextField fx:id="userNameField" minWidth="150.0" prefHeight="22.0" prefWidth="150.0" GridPane.columnIndex="1" />
             <PasswordField fx:id="userPasswordField" minWidth="150.0" prefHeight="25.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" onAction="#handleSubmit" text="Sign in" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+            <Button mnemonicParsing="false" onAction="#handleSubmit" text="Sign in" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                <font>
                   <Font size="14.0" />
                </font>

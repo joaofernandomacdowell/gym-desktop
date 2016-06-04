@@ -10,8 +10,7 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onDragDetected="#initialize" prefHeight="550.0" prefWidth="700.0" style="-fx-background-color: #787878;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onDragDetected="#initialize" prefHeight="550.0" prefWidth="700.0" style="-fx-background-color: #787878;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.joao.gym.view.VerifyPaymentController">
    <children>
       <GridPane layoutX="61.0" layoutY="130.0" prefHeight="85.0" prefWidth="293.0" vgap="10.0">
          <children>
@@ -20,13 +19,13 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="userNameField" minWidth="133.0" prefHeight="25.0" prefWidth="155.0" GridPane.columnIndex="1" />
+            <TextField minWidth="133.0" prefHeight="25.0" prefWidth="155.0" GridPane.columnIndex="1" />
             <Label prefHeight="20.0" prefWidth="143.0" text="CPF:" textFill="WHITE" GridPane.rowIndex="1">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="userNameField1" minWidth="133.0" prefHeight="25.0" prefWidth="155.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="cpfField" minWidth="133.0" prefHeight="25.0" prefWidth="155.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="139.0" minWidth="10.0" prefWidth="92.0" />
@@ -46,23 +45,23 @@
          </font>
       </Label>
       <Separator layoutX="50.0" layoutY="90.0" prefHeight="20.0" prefWidth="559.0" />
-      <Button layoutX="208.0" layoutY="235.0" mnemonicParsing="false" text="Back">
+      <Button layoutX="204.0" layoutY="230.0" mnemonicParsing="false" onAction="#handleBack" text="Back">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button layoutX="288.0" layoutY="235.0" mnemonicParsing="false" onAction="#handleRegister" text="Search">
+      <Button layoutX="284.0" layoutY="230.0" mnemonicParsing="false" onAction="#handleSearch" text="Search">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Label layoutX="82.0" layoutY="371.0" text="memberName" textFill="WHITE">
+      <Label fx:id="memberNameLabel" layoutX="82.0" layoutY="371.0" text="memberName" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
       <Separator layoutX="60.0" layoutY="314.0" prefHeight="20.0" prefWidth="559.0" />
-      <Label layoutX="82.0" layoutY="418.0" text="memberPaymentStatus" textFill="WHITE">
+      <Label fx:id="paymentStatusLabel" layoutX="82.0" layoutY="418.0" text="memberPaymentStatus" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>

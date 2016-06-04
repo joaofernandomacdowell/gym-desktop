@@ -1,6 +1,8 @@
 package br.com.joao.gym.model;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -9,41 +11,44 @@ import javafx.beans.property.StringProperty;
 public class Member {
 
 	private final StringProperty fullName;
-	private final IntegerProperty cpf;
-	private final IntegerProperty rg; 
+	private final StringProperty cpf;
+	private final StringProperty rg; 
 	private final StringProperty city;
 	private final StringProperty address;
-	private final IntegerProperty postalCode;
-	private final IntegerProperty phone;
+	private final StringProperty postalCode;
+	private final StringProperty phone;
 	private final StringProperty email;
 	private final StringProperty birthday;
 	//private final ObjectProperty<LocalDate> birthday;
-	private IntegerProperty age;
+	private final IntegerProperty age;
 	private final StringProperty contract;
 	private final StringProperty paymentType;
-	
-	
-	public Member() { 
-		 this(null, 0, 0, null, null, 0, 0, null, null, 0, null, null); 
-	 }
-	 
+	private final BooleanProperty paymentStatus;
 
-	public Member(String fullName, int cpf, int rg, String city, String address, 
-			int postalCode, int phone, String email, String birthday, int age,
-			String contract, String paymentType) {
-		
+
+	public Member() { 
+		this(null, null, null, null, null, null, null, null, null, 0, null, null, false); 
+	}
+
+
+	public Member(String fullName, String cpf, String rg, String city, String address, 
+			String postalCode, String phone, String email, String birthday, int age,
+			String contract, String paymentType, boolean paymentStatus) {
+
 		this.fullName = new SimpleStringProperty (fullName);
-		this.cpf = new SimpleIntegerProperty (cpf);
-		this.rg = new SimpleIntegerProperty (rg);
+		this.cpf = new SimpleStringProperty (cpf);
+		this.rg = new SimpleStringProperty (rg);
 		this.city = new SimpleStringProperty (city);
-		this.address = new SimpleStringProperty ("Rua Engenheiro Cesar Grilo");
-		this.postalCode = new SimpleIntegerProperty (postalCode);
-		this.phone = new SimpleIntegerProperty (phone);
+		this.address = new SimpleStringProperty (address);
+		this.postalCode = new SimpleStringProperty (postalCode);
+		this.phone = new SimpleStringProperty (phone);
 		this.email = new SimpleStringProperty(email);
 		this.birthday = new SimpleStringProperty(birthday);
+		this.age = new SimpleIntegerProperty(age);
 		//this.birthday = new SimpleObjectProperty<LocalDate>(birthday);
 		this.contract = new SimpleStringProperty(contract);
 		this.paymentType = new SimpleStringProperty(paymentType);
+		this.paymentStatus = new SimpleBooleanProperty(paymentStatus);
 	}
 
 	//fullName methods
@@ -59,38 +64,38 @@ public class Member {
 		return fullName;
 	}
 	//end: fullName methods
-	
-	
+
+
 	//cpf methods
-	public int getCpf() {
+	public String getCpf() {
 		return cpf.get();
 	}
 
-	public void setCpf(int cpf) {
+	public void setCpf(String cpf) {
 		this.cpf.set(cpf);
 	}
 
-	public IntegerProperty cpfProperty() {
+	public StringProperty cpfProperty() {
 		return cpf;
 	}
 	//end: cpf methods
-	
-	
+
+
 	//rg methods
-	public int getRg() {
+	public String getRg() {
 		return rg.get();
 	}
 
-	public void setRg(int rg) {
+	public void setRg(String rg) {
 		this.rg.set(rg);
 	}
 
-	public IntegerProperty rgProperty() {
+	public StringProperty rgProperty() {
 		return rg;
 	}
 	//end: rg methods
-	
-	
+
+
 	//city methods
 	public String getCity() {
 		return city.get();
@@ -104,8 +109,8 @@ public class Member {
 		return city;
 	}
 	//end: city methods
-	
-			
+
+
 	//address methods
 	public String getAddress() {
 		return address.get();
@@ -119,38 +124,38 @@ public class Member {
 		return address;
 	}
 	//end: address methods
-	
-	
+
+
 	//postalCode methods
-	public int getPostalCode() {
+	public String getPostalCode() {
 		return postalCode.get();
 	}
 
-	public void setPostalCode(int postalCode) {
+	public void setPostalCode(String postalCode) {
 		this.postalCode.set(postalCode);
 	}
 
-	public IntegerProperty postalCodeProperty() {
+	public StringProperty postalCodeProperty() {
 		return postalCode;
 	}
 	//end: postalCode methods
-	
-	
+
+
 	//phone methods
-	public int getPhone() {
+	public String getPhone() {
 		return phone.get();
 	}
 
-	public void setPhone(int phone) {
+	public void setPhone(String phone) {
 		this.phone.set(phone);
 	}
 
-	public IntegerProperty phoneProperty() {
+	public StringProperty phoneProperty() {
 		return phone;
 	}
 	//end: phone methods
-	
-	
+
+
 	//email methods
 	public String getEmail() {
 		return email.get();
@@ -164,8 +169,8 @@ public class Member {
 		return email;
 	}
 	//end: email methods
-	
-	
+
+
 	//birth methods
 	public String getBirthday() {
 		return birthday.get();
@@ -179,11 +184,11 @@ public class Member {
 		return birthday;
 	}	
 	//end: birth methods
-	
-	
+
+
 	//age methods
 	public int getAge() {
-		return rg.get();
+		return age.get();
 	}
 
 	public void setAge(int age) {
@@ -194,8 +199,8 @@ public class Member {
 		return age;
 	}
 	//end: age methods
-	
-	
+
+
 	//contract methods
 	public String getContract() {
 		return contract.get();
@@ -209,8 +214,8 @@ public class Member {
 		return contract;
 	}
 	//end: contract methods
-	
-	
+
+
 	//paymentType methods
 	public String getPaymentType() {
 		return paymentType.get();
@@ -224,4 +229,18 @@ public class Member {
 		return paymentType;
 	}
 	//end: paymentType methods
+
+	//paymentStatus methods
+	public boolean getPaymentStatus() {
+		return paymentStatus.get();
+	} 
+
+	public void setPaymentStatus(boolean paymentStatus) {
+		this.paymentStatus.set(paymentStatus);
+	}
+
+	public BooleanProperty paymentStatusProperty() {
+		return paymentStatus;
+	}
+	//end: paymentStatus methods
 }

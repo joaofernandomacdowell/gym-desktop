@@ -17,7 +17,7 @@
         <columns>
           <TableColumn prefWidth="44.0" text="Num." />
           <TableColumn prefWidth="153.0" resizable="false" text="Exercise" />
-            <TableColumn prefWidth="107.0" text="Aparelho" />
+            <TableColumn prefWidth="107.0" text="Equipment" />
             <TableColumn prefWidth="79.0" text="Series" />
             <TableColumn prefWidth="48.0" text="Reps." />
             <TableColumn prefWidth="73.0" text="Weight" />

@@ -7,18 +7,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-
-import java.util.Calendar;
-
 import br.com.joao.gym.application.MainApp;
 import br.com.joao.gym.conection.DataBase;
 import br.com.joao.gym.model.Member;
-import br.com.joao.gym.util.DateUtil;
-//import ch.makery.address.util.DateUtil;
 
 
 public class RegisterMemberController {
@@ -44,7 +37,7 @@ public class RegisterMemberController {
 
 
 	//Personal Informations
-	
+	//INSERIR GÊNERO: MASCULINO/FEMININO
 	@FXML
 	private TextField birthdayField;
 	//@FXML
@@ -61,7 +54,7 @@ public class RegisterMemberController {
 	private ComboBox<String> paymentTypeBox;
 
 
-	//Recepcionist that is logged
+	//Receptionist that is logged
 
 	@FXML
 	private Label userNameLabel1;
@@ -71,9 +64,7 @@ public class RegisterMemberController {
 	private Tab userNameLabel3;
 
 	private Member member;
-	public boolean paymentStatus;
-	private boolean registerClicked = false;
-	private int registry;
+	public boolean paymentStatus = false;
 	private MainApp mainApp;
 
 	ObservableList<String> contractList = FXCollections.observableArrayList(
@@ -91,9 +82,10 @@ public class RegisterMemberController {
 	private void initialize() {
 		contractBox.setValue("Black");
 		contractBox.setItems(contractList);
-
+		
+		paymentTypeBox.setValue("Debit Card");
 		paymentTypeBox.setItems(paymentList);
-
+	
 		//calculateAge();
 	}
 
@@ -111,23 +103,22 @@ public class RegisterMemberController {
 		this.member = member;
 
 		fullNameField.setText(member.getFullName());
-		cpfField.setText(Integer.toString(member.getCpf()));
-		rgField.setText(Integer.toString(member.getRg()));
+		cpfField.setText(member.getCpf());
+		rgField.setText(member.getRg());
 		cityField.setText(member.getCity());
 
 		addressField.setText(member.getCity());
-		postalCodeField.setText(Integer.toString(member.getPostalCode()));
-		phoneField.setText(Integer.toString(member.getPhone()));
+		postalCodeField.setText(member.getPostalCode());
+		phoneField.setText(member.getPhone());
 		emailField.setText(member.getEmail());
 
 		birthdayField.setText(member.getBirthday());
-		birthdayField.setPromptText("dd.mm.yyyy");
+		//birthdayField.setPromptText("dd.mm.yyyy");
 		ageField.setText(Integer.toString(member.getAge()));
 		
 		contractBox.setValue(member.getContract());
 		paymentTypeBox.setValue(member.getPaymentType());
 
-		//teste
 	}
 
 	/**
@@ -135,45 +126,45 @@ public class RegisterMemberController {
 	 * 
 	 * @return
 	 */
-	public boolean isRegisterClicked() {
-		return registerClicked;
-	}
 
-	/**
-	 * Chamado quando o usuário clica Register.
-	 */
+	//Chamado quando User clica no botão Register
 	@FXML
 	private void handleRegister() {
 		if (isInputValid()) {
 			member.setFullName(fullNameField.getText());
-			member.setCpf(Integer.parseInt(cpfField.getText()));
-			member.setRg(Integer.parseInt(rgField.getText()));
+			member.setCpf(cpfField.getText());
+			member.setRg(rgField.getText());
 			member.setCity(cityField.getText());
 			member.setAddress(addressField.getText());
-			member.setPostalCode(Integer.parseInt(postalCodeField.getText()));
-			member.setPhone(Integer.parseInt(phoneField.getText()));
+			member.setPostalCode(postalCodeField.getText());
+			member.setPhone(phoneField.getText());
 			member.setEmail(emailField.getText());
+			
 			member.setBirthday(birthdayField.getText());
 			member.setAge(Integer.parseInt(ageField.getText()));
+			
 			member.setContract(contractBox.getValue());
 			member.setPaymentType(paymentTypeBox.getValue());
-
-			registerClicked = true;
-
-			System.out.println("Entro na função");
-
+			
 			//entra nova scene
+
+		}
+		
+		else {
+			System.out.println("Entro na função");
 		}
 	}
 
 	//Chamado quando o usuário clica Back.
 	@FXML
-	private void handleBack() {
+	private void handleBack() throws Exception {
+		mainApp.showMenuReceptionist();
 	}
 
 	//Chamado quando o usuário clica em LogOut
 	@FXML
-	private void handleLogOut(){	
+	private void handleLogOut() throws Exception{	
+		mainApp.showLogin();
 	}
 
 	/**
@@ -187,18 +178,62 @@ public class RegisterMemberController {
 		
 		try {
 		
-			if (DataBase.insertNewMember(fullNameField.getText(), Integer.parseInt(cpfField.getText()), 
-			    Integer.parseInt(rgField.getText()), cityField.getText(), addressField.getText(), 
-			    Integer.parseInt(postalCodeField.getText()), Integer.parseInt(phoneField.getText()), 
-			    emailField.getText(), birthdayField.getText(), Integer.parseInt(ageField.getText()), 
-			    contractBox.getValue(), paymentTypeBox.getValue())) {
+			DataBase.insertNewMember(fullNameField.getText(), cpfField.getText(), 
+			   rgField.getText(), cityField.getText(), addressField.getText(), 
+			    postalCodeField.getText(), phoneField.getText(), emailField.getText(), 
+			    birthdayField.getText(), Integer.parseInt(ageField.getText()), 
+			    contractBox.getValue(), paymentTypeBox.getValue(), paymentStatus);
+			
+				/*
+				if (fullNameField.getText() == null || fullNameField.getText().length() == 0) {
+					errorMessage += "Nome inválido!\n"; 
+				}
+		
+				if (cpfField.getText() == null || cpfField.getText().length() == 0) {
+					errorMessage += "CPF inválido!\n"; 
+				}
+		
+				if (rgField.getText() == null || rgField.getText().length() == 0) {
+					errorMessage += "RG inválido!\n"; 
+				}
+		
+				if (cityField.getText() == null || cityField.getText().length() == 0) {
+					errorMessage += "Cidade inválida!\n"; 
+				}
+		
+				if (addressField.getText() == null || addressField.getText().length() == 0) {
+					errorMessage += "Endereço inválida!\n"; 
+				}
+		
+				if (postalCodeField.getText() == null || postalCodeField.getText().length() == 0) {
+					errorMessage += "Invalid postal code!\n"; 
+				}
 				
-				return true;
-			}
+				if (phoneField.getText() == null || phoneField.getText().length() == 0) {
+					errorMessage += "Invalid Phone!\n"; 
+				}
+		
+				if (emailField.getText() == null || emailField.getText().length() == 0) {
+					errorMessage += "Invalid email!\n"; 
+				}
+		
+				if (birthdayField.getText() == null || birthdayField.getText().length() == 0) {
+				     errorMessage += "Invalid birthday!\n"; 
+				}
+		
+				if (ageField.getText() == null || ageField.getText().length() == 0) {
+					errorMessage += "Invalid age!\n"; 
+				}
+	
+				if (errorMessage.length() == 0) {
+					return true;
+				} 
+			}*/
 		}
 		
 		catch(Exception e) {
-			// Mostra a mensagem de erro.
+			System.out.print(e);
+			
 			Alert alert2 = new Alert(AlertType.ERROR);
 			alert2.setTitle("Campos Inválidos");
 			alert2.setHeaderText("Por favor, corrija os campos inválidos");

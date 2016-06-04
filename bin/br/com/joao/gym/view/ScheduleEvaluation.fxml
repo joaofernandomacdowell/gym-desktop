@@ -7,11 +7,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onDragDetected="#initialize" prefHeight="550.0" prefWidth="700.0" style="-fx-background-color: #787878;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.joao.gym.view.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onDragDetected="#initialize" prefHeight="550.0" prefWidth="700.0" style="-fx-background-color: #787878;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.joao.gym.view.ScheduleEvaluationController">
    <children>
       <GridPane layoutX="60.0" layoutY="130.0" prefHeight="225.0" prefWidth="290.0" vgap="10.0">
          <children>
-            <Label prefHeight="20.0" prefWidth="143.0" text="Registry:" textFill="WHITE">
+            <Label prefHeight="20.0" prefWidth="143.0" text="CPF:" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -21,7 +21,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="userNameField" minWidth="133.0" prefHeight="25.0" prefWidth="155.0" GridPane.columnIndex="1" />
+            <TextField fx:id="cpfField" minWidth="133.0" prefHeight="25.0" prefWidth="155.0" GridPane.columnIndex="1" />
             <Label prefHeight="20.0" prefWidth="140.0" text="Hour:" textFill="WHITE" GridPane.rowIndex="2">
                <font>
                   <Font size="14.0" />
@@ -37,10 +37,10 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <PasswordField fx:id="userPasswordField1" minWidth="150.0" prefHeight="25.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <PasswordField fx:id="userPasswordField11" minWidth="150.0" prefHeight="25.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextArea prefHeight="30.0" prefWidth="79.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <DatePicker prefHeight="25.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <PasswordField fx:id="hourField" minWidth="150.0" prefHeight="25.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <PasswordField fx:id="instructorField" minWidth="150.0" prefHeight="25.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextArea fx:id="obsArea" prefHeight="30.0" prefWidth="79.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="dateField" minWidth="133.0" prefHeight="25.0" prefWidth="155.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="139.0" minWidth="10.0" prefWidth="92.0" />
@@ -63,12 +63,12 @@
          </font>
       </Label>
       <Separator layoutX="50.0" layoutY="90.0" prefHeight="20.0" prefWidth="559.0" />
-      <Button layoutX="194.0" layoutY="389.0" mnemonicParsing="false" text="Back">
+      <Button layoutX="194.0" layoutY="389.0" mnemonicParsing="false" onAction="#handleBack" text="Back">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button layoutX="271.0" layoutY="389.0" mnemonicParsing="false" onAction="#handleRegister" text="Confirm">
+      <Button layoutX="271.0" layoutY="389.0" mnemonicParsing="false" onAction="#handleConfirm" text="Confirm">
          <font>
             <Font size="14.0" />
          </font>

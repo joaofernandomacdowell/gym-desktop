@@ -21,26 +21,33 @@ public class LoginController {
 	private PasswordField userPasswordField;
 	
 	@FXML
-	private void initialize(){ 
+	private void initialize() { 
+		
 	}
 	
 	public void setLogin(User user) throws Exception {
         this.user = user;
         //user.userName = userNameField.getText();//loginField.setText(user.getUserName());
         //passwordField.setText(user.getUserPassword());
-        //userGroupBox.setItems(userGroupList); 
 	}
 	
 	@FXML
     private void handleSubmit() throws Exception {
-    	if(loginIsValid()){
-    		System.out.println("User Correto");
-    		
-    		mainApp.showRegisterMember();	
+		
+    	if (loginIsValid() == 0) {
+    		mainApp.showMenuAdmin();
+    	}
+    	
+    	else if (loginIsValid() == 1) {
+    		mainApp.showMenuReceptionist();
+    	}
+    	
+    	else if (loginIsValid() == 2) {
+    		mainApp.showMenuInstructor();
     	}
     }
 	
-    public boolean loginIsValid () throws Exception {
+    public int loginIsValid () throws Exception {
     	String errorMessage = "";
     	
     	user = (DataBase.getUser(userNameField.getText()));
@@ -49,9 +56,19 @@ public class LoginController {
     	//System.out.println(user.getUserName());
     	//System.out.println(user.getUserPassword());
     	
-    	if (user.getUserName().equals("root") && user.getUserPassword().equals("root")){
+    	if (user.getUserName().equals("root") && user.getUserPassword().equals("root")) {
     		System.out.println("If: User root");
-    		return true;
+    		return 0;
+    	}
+    	
+    	else if (user.getUserName().equals("recep") && user.getUserPassword().equals("recep")) {
+    		System.out.println("If: User receptionist");
+    		return 1;
+    	}
+    	
+    	else if (user.getUserName().equals("inst") && user.getUserPassword().equals("inst")) {
+    		System.out.println("If: User instructor");
+    		return 2;
     	}
     	
     	else {
@@ -63,7 +80,7 @@ public class LoginController {
 	        alert.setContentText("Por favor, digite um usuário existente");
 	        alert.showAndWait();
 	        
-	        return false;
+	        return -1;
     	}
     	
     	/*
@@ -93,7 +110,6 @@ public class LoginController {
 	  
     
     public void setMainApp(MainApp mainApp) {
-
 		this.mainApp = mainApp;
 	}
 }
