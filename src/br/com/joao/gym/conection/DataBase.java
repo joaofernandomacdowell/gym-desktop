@@ -168,7 +168,7 @@ public class DataBase {
 		Connection c = getConnection();
 
 		PreparedStatement ps = c.prepareStatement("INSERT INTO Member (full_name, cpf, rg, city, address, "
-				+ "postal_code, phone, email, birthday, age, contract, payment_type, payment_status) "
+				+ "postal_code, phone, email, birthday, age, contract, payment_type, payday) "
 				+ "VALUES" + "(?,?,?,?,?,?,?,?,?,?,?,?,?)");
 
 		System.out.println("Nome completo: " + full_name);

@@ -29,7 +29,7 @@ public class VerifyPaymentController {
 	@FXML
 	private void handleSearch() throws Exception {	
 		if (isInputValid()) {
-			member.setCpf(member.getCpf());
+			member.setCpf(cpfField.getText());
 			memberNameLabel.setText(member.getFullName());
 			//paymentStatusLabel.setText(checkPaymentStatus());
 		}
@@ -70,7 +70,6 @@ public class VerifyPaymentController {
 		}
 		
 		catch(Exception e) {
-			System.out.println("Entrou catch");
 			System.out.println(e);
 			return false;
 		}

@@ -80,7 +80,7 @@ public class MainApp extends Application {
 			e.printStackTrace();
 		}
 	}
-	
+
 	//Mostra o MenuAdmin dentro do root layout
 	public boolean showMenuAdmin() throws Exception {
 
@@ -119,7 +119,7 @@ public class MainApp extends Application {
 			// Define o person overview dentro do root layout.
 			rootLayout.setCenter(RegisterMember);
 
-			//Define o controller da view RegisterMember
+			//Define o controller da view MenuReceptionist
 			MenuReceptionistController controller = loader.getController();
 
 			controller.setMainApp(this);
@@ -145,7 +145,7 @@ public class MainApp extends Application {
 			// Define o person overview dentro do root layout.
 			rootLayout.setCenter(RegisterMember);
 
-			//Define o controller da view RegisterMember
+			//Define o controller da view MenuInstructor
 			MenuInstructorController controller = loader.getController();
 
 			controller.setMainApp(this);
@@ -197,7 +197,7 @@ public class MainApp extends Application {
 			// Define o person overview dentro do root layout.
 			rootLayout.setCenter(RegisterMember);
 
-			//Define o controller da view RegisterMember
+			//Define o controller da view VerifyPayment
 			VerifyPaymentController controller = loader.getController();
 
 			controller.setMainApp(this);
@@ -223,8 +223,60 @@ public class MainApp extends Application {
 			// Define o person overview dentro do root layout.
 			rootLayout.setCenter(RegisterMember);
 
-			//Define o controller da view RegisterMember
+			//Define o controller da view ScheduleEvaluation
 			RegisterMemberController controller = loader.getController();
+
+			controller.setMainApp(this);
+
+			return true;
+		}
+
+		catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	//Mostra o MenuInstructor dentro do root layout
+	public boolean showCreateSeries() throws Exception {
+
+		try {
+			// Carrega o registerMember.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("/br/com/joao/gym/view/CreateSeries.fxml"));
+			AnchorPane RegisterMember = (AnchorPane) loader.load();
+
+			// Define o person overview dentro do root layout.
+			rootLayout.setCenter(RegisterMember);
+
+			//Define o controller da view CreateSeries
+			CreateSeriesController controller = loader.getController();
+
+			controller.setMainApp(this);
+
+			return true;
+		}
+
+		catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	//Mostra o MenuInstructor dentro do root layout
+	public boolean showCurrentSeries() throws Exception {
+
+		try {
+			// Carrega o registerMember.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("/br/com/joao/gym/view/CurrentSeries.fxml"));
+			AnchorPane RegisterMember = (AnchorPane) loader.load();
+
+			// Define o person overview dentro do root layout.
+			rootLayout.setCenter(RegisterMember);
+
+			//Define o controller da view CurrentSeries
+			CurrentSeriesController controller = loader.getController();
 
 			controller.setMainApp(this);
 
