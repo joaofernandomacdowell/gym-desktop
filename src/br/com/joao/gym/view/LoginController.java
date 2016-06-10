@@ -101,7 +101,7 @@ public class LoginController {
     	else {
         	alert.setTitle("Password Error");
         	alert.setHeaderText("Incorrect Password");
-        	alert.setContentText("Please insert the correct password.");
+        	alert.setContentText("Please insert the correct password.rmd");
         	alert.showAndWait();
     		
         	return false;
