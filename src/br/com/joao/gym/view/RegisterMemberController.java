@@ -52,6 +52,8 @@ public class RegisterMemberController {
 	private ComboBox<String> contractBox; 
 	@FXML
 	private ComboBox<String> paymentTypeBox;
+	@FXML
+	private ComboBox<String> paydayBox;
 
 
 	//Receptionist that is logged
@@ -74,6 +76,10 @@ public class RegisterMemberController {
 	ObservableList<String> paymentList = FXCollections.observableArrayList(
 			"Credit Card", "Debit Card"
 			);
+	
+	ObservableList<String> paydayList = FXCollections.observableArrayList(
+			"10", "20"
+			);
 
 	//Inicializa a classe controlle. Este método é chamado automaticamente
 	// após o arquivo fxml ter sido carregado.
@@ -85,6 +91,9 @@ public class RegisterMemberController {
 		
 		paymentTypeBox.setValue("Debit Card");
 		paymentTypeBox.setItems(paymentList);
+		
+		paydayBox.setValue("20");
+		paydayBox.setItems(paydayList);
 	
 		//calculateAge();
 	}
@@ -118,6 +127,7 @@ public class RegisterMemberController {
 		
 		contractBox.setValue(member.getContract());
 		paymentTypeBox.setValue(member.getPaymentType());
+		paydayBox.setValue(member.getPayday());
 
 	}
 
@@ -182,7 +192,7 @@ public class RegisterMemberController {
 			   rgField.getText(), cityField.getText(), addressField.getText(), 
 			    postalCodeField.getText(), phoneField.getText(), emailField.getText(), 
 			    birthdayField.getText(), Integer.parseInt(ageField.getText()), 
-			    contractBox.getValue(), paymentTypeBox.getValue(), paymentStatus);
+			    contractBox.getValue(), paymentTypeBox.getValue(), paydayBox.getValue());
 			
 				/*
 				if (fullNameField.getText() == null || fullNameField.getText().length() == 0) {

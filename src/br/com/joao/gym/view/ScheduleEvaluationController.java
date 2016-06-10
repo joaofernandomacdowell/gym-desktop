@@ -1,5 +1,6 @@
 package br.com.joao.gym.view;
 
+import br.com.joao.gym.application.MainApp;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextArea;
@@ -17,6 +18,8 @@ public class ScheduleEvaluationController {
 	private TextField instructorField;
 	@FXML
 	private TextArea obsArea;
+	
+	private MainApp mainApp;
 
 	@FXML
 	private void initialize() { 
@@ -29,7 +32,11 @@ public class ScheduleEvaluationController {
 	}
 	
 	@FXML
-	private void handleBack() {
-		
+	private void handleBack() throws Exception {
+		mainApp.showMenuReceptionist();
+	}
+	
+	public void setMainApp(MainApp mainApp) {
+		this.mainApp = mainApp;
 	}
 }

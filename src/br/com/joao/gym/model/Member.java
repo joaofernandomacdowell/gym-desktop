@@ -1,6 +1,5 @@
 package br.com.joao.gym.model;
 
-import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -23,17 +22,17 @@ public class Member {
 	private final IntegerProperty age;
 	private final StringProperty contract;
 	private final StringProperty paymentType;
-	private final BooleanProperty paymentStatus;
+	private final StringProperty payday;
 
 
 	public Member() { 
-		this(null, null, null, null, null, null, null, null, null, 0, null, null, false); 
+		this(null, null, null, null, null, null, null, null, null, 0, null, null, null); 
 	}
 
 
 	public Member(String fullName, String cpf, String rg, String city, String address, 
 			String postalCode, String phone, String email, String birthday, int age,
-			String contract, String paymentType, boolean paymentStatus) {
+			String contract, String paymentType, String payday) {
 
 		this.fullName = new SimpleStringProperty (fullName);
 		this.cpf = new SimpleStringProperty (cpf);
@@ -48,7 +47,7 @@ public class Member {
 		//this.birthday = new SimpleObjectProperty<LocalDate>(birthday);
 		this.contract = new SimpleStringProperty(contract);
 		this.paymentType = new SimpleStringProperty(paymentType);
-		this.paymentStatus = new SimpleBooleanProperty(paymentStatus);
+		this.payday = new SimpleStringProperty(payday);
 	}
 
 	//fullName methods
@@ -230,17 +229,17 @@ public class Member {
 	}
 	//end: paymentType methods
 
-	//paymentStatus methods
-	public boolean getPaymentStatus() {
-		return paymentStatus.get();
+	//payday methods
+	public String getPayday() {
+		return payday.get();
 	} 
 
-	public void setPaymentStatus(boolean paymentStatus) {
-		this.paymentStatus.set(paymentStatus);
+	public void setPayday(String paymentStatus) {
+		this.payday.set(paymentStatus);
 	}
 
-	public BooleanProperty paymentStatusProperty() {
-		return paymentStatus;
+	public StringProperty paydayProperty() {
+		return payday;
 	}
-	//end: paymentStatus methods
+	//end: payday methods
 }

@@ -98,7 +98,7 @@ public class DataBase {
 		return member;		
 	}
 
-	public static Series getSeries (int id) throws SQLException, Exception {
+	public static Series getSeries (String id) throws SQLException, Exception {
 
 		Connection c = getConnection();
 		Statement stmt = null;
@@ -108,7 +108,7 @@ public class DataBase {
 		PreparedStatement ps = c.prepareStatement("SELECT * FROM Series WHERE id = ? ");  
 
 		//Aqui você seta os valores dos ?   
-		ps.setInt(1, id);   
+		ps.setString(1, id);   
 		ResultSet rs = ps.executeQuery();
 
 		System.out.println("Fazendo consulta da serie");
@@ -162,7 +162,7 @@ public class DataBase {
 	public static boolean insertNewMember(String full_name, String cpf, 
 			String rg, String city, String address, String postal_code,
 			String phone, String email, String birthday, int age, 
-			String contract, String payment_type, boolean payment_status) throws Exception {
+			String contract, String payment_type, String payday) throws Exception {
 
 		System.out.println("--------------------Iniciando cadastro de novo Member-----------------------");
 		Connection c = getConnection();
@@ -213,8 +213,8 @@ public class DataBase {
 		System.out.println("payment_type: " + payment_type);
 		ps.setString(12, payment_type);
 
-		System.out.println("payment_status: " + payment_status);
-		ps.setBoolean(13, payment_status);
+		System.out.println("payday: " + payday);
+		ps.setString(13, payday);
 
 		int res = ps.executeUpdate();
 
