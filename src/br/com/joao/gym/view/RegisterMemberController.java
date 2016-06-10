@@ -176,15 +176,6 @@ public class RegisterMemberController {
 		
 		String errorMessage = "";
 		
-		try {
-		
-			DataBase.insertNewMember(fullNameField.getText(), cpfField.getText(), 
-			   rgField.getText(), cityField.getText(), addressField.getText(), 
-			    postalCodeField.getText(), phoneField.getText(), emailField.getText(), 
-			    birthdayField.getText(), Integer.parseInt(ageField.getText()), 
-			    contractBox.getValue(), paymentTypeBox.getValue(), paymentStatus);
-			
-				/*
 				if (fullNameField.getText() == null || fullNameField.getText().length() == 0) {
 					errorMessage += "Nome inválido!\n"; 
 				}
@@ -224,26 +215,36 @@ public class RegisterMemberController {
 				if (ageField.getText() == null || ageField.getText().length() == 0) {
 					errorMessage += "Invalid age!\n"; 
 				}
-	
 				if (errorMessage.length() == 0) {
-					return true;
+					
+					try {
+						DataBase.insertNewMember(fullNameField.getText(), cpfField.getText(), 
+							rgField.getText(), cityField.getText(), addressField.getText(), 
+						    postalCodeField.getText(), phoneField.getText(), emailField.getText(), 
+						    birthdayField.getText(), Integer.parseInt(ageField.getText()), 
+						    contractBox.getValue(), paymentTypeBox.getValue(), paymentStatus);
+						
+							return true;
+					} catch (NumberFormatException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				} 
-			}*/
-		}
-		
-		catch(Exception e) {
-			System.out.print(e);
-			
-			Alert alert2 = new Alert(AlertType.ERROR);
-			alert2.setTitle("Campos Inválidos");
-			alert2.setHeaderText("Por favor, corrija os campos inválidos");
-			alert2.setContentText(errorMessage);
-			alert2.showAndWait();
+				
+				else if (errorMessage.length() != 0) {
+					Alert alert2 = new Alert(AlertType.ERROR);
+					
+					alert2.setTitle("Campos Inválidos");
+					alert2.setHeaderText("Por favor, corrija os campos inválidos");
+					alert2.setContentText(errorMessage);
+					alert2.showAndWait();
 
-			return false;
+					return false;
 		}
-		
-		return false;
+		 return false;
 	}
 
 	public void setMainApp (MainApp mainApp){

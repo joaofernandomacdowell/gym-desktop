@@ -114,7 +114,7 @@
                         </Label>
                         <GridPane layoutX="40.0" layoutY="130.0" prefHeight="77.0" prefWidth="246.0">
                            <children>
-                              <Label text="Date of Birth:" textFill="WHITE">
+                              <Label text="Birthday:" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
