@@ -33,83 +33,78 @@ public class LoginController {
 	
 	@FXML
     private void handleSubmit() throws Exception {
+		int acc_type = loginIsValid();
 		
-    	if (loginIsValid() == 0) {
+    	if (acc_type == 0) {
     		mainApp.showMenuAdmin();
     	}
     	
-    	else if (loginIsValid() == 1) {
+    	else if (acc_type == 1) {
     		mainApp.showMenuReceptionist();
     	}
     	
-    	else if (loginIsValid() == 2) {
+    	else if (acc_type == 2) {
     		mainApp.showMenuInstructor();
     	}
     }
 	
     public int loginIsValid () throws Exception {
-    	String errorMessage = "";
-    	
+    	Alert alert = new Alert(AlertType.ERROR);
     	user = (DataBase.getUser(userNameField.getText()));
-    	System.out.println("LoginController recebeu o usuer: " + user.getUserName());
     	
-    	//System.out.println(user.getUserName());
+    	System.out.println("Usuário encontrado no banco: " + user.getUserName());
+    	System.out.println("Senha encontrado no banco: " + user.getUserPassword());
+    	System.out.println("Senha encontrado no banco: " + user.getUserPassword());
+    	//System.out.println("conteudo do startswith: " + user.getUserName().startsWith("a"));
     	//System.out.println(user.getUserPassword());
     	
-    	if (user.getUserName().equals("root") && user.getUserPassword().equals("root")) {
-    		System.out.println("If: User root");
+    	
+    	if(userNameField.getText().isEmpty() || user.getUserName() == null 
+    			|| !userNameField.getText().contentEquals(user.getUserName())){
+        	alert.setTitle("User Error!");
+        	alert.setHeaderText("Invalid User");
+        	alert.setContentText("Invalid user, please insert a valid user.");
+        	alert.showAndWait();
+        
+        	return 3; //3 means error 
+    	}
+    	
+    	else if (user.getUserName().startsWith("a") && checkPassword()) {   		
+    		System.out.println("If: User admin");
     		return 0;
     	}
     	
-    	else if (user.getUserName().equals("recep") && user.getUserPassword().equals("recep")) {
+    	else if (user.getUserName().startsWith("r") && checkPassword()) {
     		System.out.println("If: User receptionist");
     		return 1;
     	}
     	
-    	else if (user.getUserName().equals("inst") && user.getUserPassword().equals("inst")) {
+    	else if (user.getUserName().startsWith("i") && checkPassword()) {
     		System.out.println("If: User instructor");
     		return 2;
-    	}
+    	} 
     	
-    	else {
-	    	Alert alert = new Alert(AlertType.ERROR);
-	    	
-	    	alert.setTitle("User Invalido");
-	        alert.setContentText(errorMessage);
-	        alert.setHeaderText("Usuário Invalido");
-	        alert.setContentText("Por favor, digite um usuário existente");
-	        alert.showAndWait();
-	        
-	        return -1;
-    	}
-    	
-    	/*
-    	if (user.getUserName() == null || userNameField.getText().isEmpty() ||!userNameField.getText().contentEquals(user.getUserName())) {
-    		
-    		errorMessage += "Invalid user!\n";
-    		Alert alert = new Alert(AlertType.ERROR);
-    	
-	    	alert.setTitle("User Invalido");
-	        alert.setContentText(errorMessage);
-	        alert.setHeaderText("Usuário Invalido");
-	        alert.setContentText("Por favor, digite um usuário existente");
-	        alert.showAndWait();
-    	
-	        return false;
-    	}
-    	
-    	else if (errorMessage.length() == 0) {
-    		return true;
-    	}
-    	
-    	else {
-    		return false;
-    	}
-    	*/
-    }
-	  
+    	return 3; //for future purposes this method can't use else here                     
+	}  
     
     public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 	}
+    
+    public boolean checkPassword(){
+    	Alert alert = new Alert(AlertType.ERROR);
+    	
+    	if(userPasswordField.getText().equals(user.getUserPassword())){
+    		return true;
+    	}
+    	
+    	else {
+        	alert.setTitle("Password Error");
+        	alert.setHeaderText("Incorrect Password");
+        	alert.setContentText("Please insert the correct password.");
+        	alert.showAndWait();
+    		
+        	return false;
+    	}
+    }
 }
