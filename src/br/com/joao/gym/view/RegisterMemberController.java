@@ -140,24 +140,29 @@ public class RegisterMemberController {
 	//Chamado quando User clica no botão Register
 	@FXML
 	private void handleRegister() {
+
+
 		if (isInputValid()) {
-			member.setFullName(fullNameField.getText());
-			member.setCpf(cpfField.getText());
-			member.setRg(rgField.getText());
-			member.setCity(cityField.getText());
-			member.setAddress(addressField.getText());
-			member.setPostalCode(postalCodeField.getText());
-			member.setPhone(phoneField.getText());
-			member.setEmail(emailField.getText());
+			Alert alertSuccess = new Alert(AlertType.CONFIRMATION);
 
-			member.setBirthday(birthdayField.getText());
-			member.setAge(Integer.parseInt(ageField.getText()));
+			try {
+				DataBase.insertNewMember(fullNameField.getText(), cpfField.getText(), 
+						rgField.getText(), cityField.getText(), addressField.getText(), 
+						postalCodeField.getText(), phoneField.getText(), emailField.getText(), 
+						birthdayField.getText(), Integer.parseInt(ageField.getText()), 
+						contractBox.getValue(), paymentTypeBox.getValue(), paydayBox.getValue());
 
-			member.setContract(contractBox.getValue());
-			member.setPaymentType(paymentTypeBox.getValue());
-
-			//entra nova scene
-
+				alertSuccess.showAndWait();
+				alertSuccess.setTitle("User Registred!");
+				alertSuccess.setContentText("User Registred Successfully");
+				mainApp.showMenuReceptionist();
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 		else {
@@ -226,22 +231,7 @@ public class RegisterMemberController {
 			errorMessage += "Invalid age!\n"; 
 		}
 		if (errorMessage.length() == 0) {
-
-			try {
-				DataBase.insertNewMember(fullNameField.getText(), cpfField.getText(), 
-						rgField.getText(), cityField.getText(), addressField.getText(), 
-						postalCodeField.getText(), phoneField.getText(), emailField.getText(), 
-						birthdayField.getText(), Integer.parseInt(ageField.getText()), 
-						contractBox.getValue(), paymentTypeBox.getValue(), paydayBox.getValue());
-
-				return true;
-			} catch (NumberFormatException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			return true;
 		} 
 
 		else if (errorMessage.length() != 0) {
