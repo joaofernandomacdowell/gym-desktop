@@ -57,11 +57,36 @@
       </Button>
       <Label fx:id="memberNameLabel" layoutX="82.0" layoutY="371.0" text="memberName" textFill="WHITE">
          <font>
-            <Font size="14.0" />
+            <Font name="System Bold" size="14.0" />
          </font>
       </Label>
       <Separator layoutX="60.0" layoutY="314.0" prefHeight="20.0" prefWidth="559.0" />
-      <Label fx:id="paymentStatusLabel" layoutX="82.0" layoutY="418.0" text="memberPaymentStatus" textFill="WHITE">
+      <Label fx:id="paymentStatusLabel" layoutX="268.0" layoutY="421.0" text="memberPaymentStatus" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="memberNameLabel1" layoutX="82.0" layoutY="421.0" text="Payment1" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="memberNameLabel11" layoutX="82.0" layoutY="462.0" text="Payment2" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="memberNameLabel111" layoutX="82.0" layoutY="501.0" text="Payment3" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="paymentStatusLabel1" layoutX="268.0" layoutY="462.0" text="memberPaymentStatus" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="paymentStatusLabel11" layoutX="268.0" layoutY="501.0" text="memberPaymentStatus" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>

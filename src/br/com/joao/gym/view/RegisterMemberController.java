@@ -52,6 +52,8 @@ public class RegisterMemberController {
 	private ComboBox<String> contractBox; 
 	@FXML
 	private ComboBox<String> paymentTypeBox;
+	@FXML
+	private ComboBox<String> paydayBox;
 
 
 	//Receptionist that is logged
@@ -75,6 +77,10 @@ public class RegisterMemberController {
 			"Credit Card", "Debit Card"
 			);
 
+	ObservableList<String> paydayList = FXCollections.observableArrayList(
+			"10", "20"
+			);
+
 	//Inicializa a classe controlle. Este método é chamado automaticamente
 	// após o arquivo fxml ter sido carregado.
 
@@ -82,10 +88,13 @@ public class RegisterMemberController {
 	private void initialize() {
 		contractBox.setValue("Black");
 		contractBox.setItems(contractList);
-		
+
 		paymentTypeBox.setValue("Debit Card");
 		paymentTypeBox.setItems(paymentList);
-	
+
+		paydayBox.setValue("20");
+		paydayBox.setItems(paydayList);
+
 		//calculateAge();
 	}
 
@@ -115,9 +124,10 @@ public class RegisterMemberController {
 		birthdayField.setText(member.getBirthday());
 		//birthdayField.setPromptText("dd.mm.yyyy");
 		ageField.setText(Integer.toString(member.getAge()));
-		
+
 		contractBox.setValue(member.getContract());
 		paymentTypeBox.setValue(member.getPaymentType());
+		paydayBox.setValue(member.getPayday());
 
 	}
 
@@ -139,17 +149,17 @@ public class RegisterMemberController {
 			member.setPostalCode(postalCodeField.getText());
 			member.setPhone(phoneField.getText());
 			member.setEmail(emailField.getText());
-			
+
 			member.setBirthday(birthdayField.getText());
 			member.setAge(Integer.parseInt(ageField.getText()));
-			
+
 			member.setContract(contractBox.getValue());
 			member.setPaymentType(paymentTypeBox.getValue());
-			
+
 			//entra nova scene
 
 		}
-		
+
 		else {
 			System.out.println("Entro na função");
 		}
@@ -173,78 +183,78 @@ public class RegisterMemberController {
 	 * @return true se a entrada é válida
 	 */
 	private boolean isInputValid() {
-		
-		String errorMessage = "";
-		
-				if (fullNameField.getText() == null || fullNameField.getText().length() == 0) {
-					errorMessage += "Nome inválido!\n"; 
-				}
-		
-				if (cpfField.getText() == null || cpfField.getText().length() == 0) {
-					errorMessage += "CPF inválido!\n"; 
-				}
-		
-				if (rgField.getText() == null || rgField.getText().length() == 0) {
-					errorMessage += "RG inválido!\n"; 
-				}
-		
-				if (cityField.getText() == null || cityField.getText().length() == 0) {
-					errorMessage += "Cidade inválida!\n"; 
-				}
-		
-				if (addressField.getText() == null || addressField.getText().length() == 0) {
-					errorMessage += "Endereço inválida!\n"; 
-				}
-		
-				if (postalCodeField.getText() == null || postalCodeField.getText().length() == 0) {
-					errorMessage += "Invalid postal code!\n"; 
-				}
-				
-				if (phoneField.getText() == null || phoneField.getText().length() == 0) {
-					errorMessage += "Invalid Phone!\n"; 
-				}
-		
-				if (emailField.getText() == null || emailField.getText().length() == 0) {
-					errorMessage += "Invalid email!\n"; 
-				}
-		
-				if (birthdayField.getText() == null || birthdayField.getText().length() == 0) {
-				     errorMessage += "Invalid birthday!\n"; 
-				}
-		
-				if (ageField.getText() == null || ageField.getText().length() == 0) {
-					errorMessage += "Invalid age!\n"; 
-				}
-				if (errorMessage.length() == 0) {
-					
-					try {
-						DataBase.insertNewMember(fullNameField.getText(), cpfField.getText(), 
-							rgField.getText(), cityField.getText(), addressField.getText(), 
-						    postalCodeField.getText(), phoneField.getText(), emailField.getText(), 
-						    birthdayField.getText(), Integer.parseInt(ageField.getText()), 
-						    contractBox.getValue(), paymentTypeBox.getValue(), paymentStatus);
-						
-							return true;
-					} catch (NumberFormatException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				} 
-				
-				else if (errorMessage.length() != 0) {
-					Alert alert2 = new Alert(AlertType.ERROR);
-					
-					alert2.setTitle("Campos Inválidos");
-					alert2.setHeaderText("Por favor, corrija os campos inválidos");
-					alert2.setContentText(errorMessage);
-					alert2.showAndWait();
 
-					return false;
+		String errorMessage = "";
+
+		if (fullNameField.getText() == null || fullNameField.getText().length() == 0) {
+			errorMessage += "Nome inválido!\n"; 
 		}
-		 return false;
+
+		if (cpfField.getText() == null || cpfField.getText().length() == 0) {
+			errorMessage += "CPF inválido!\n"; 
+		}
+
+		if (rgField.getText() == null || rgField.getText().length() == 0) {
+			errorMessage += "RG inválido!\n"; 
+		}
+
+		if (cityField.getText() == null || cityField.getText().length() == 0) {
+			errorMessage += "Cidade inválida!\n"; 
+		}
+
+		if (addressField.getText() == null || addressField.getText().length() == 0) {
+			errorMessage += "Endereço inválida!\n"; 
+		}
+
+		if (postalCodeField.getText() == null || postalCodeField.getText().length() == 0) {
+			errorMessage += "Invalid postal code!\n"; 
+		}
+
+		if (phoneField.getText() == null || phoneField.getText().length() == 0) {
+			errorMessage += "Invalid Phone!\n"; 
+		}
+
+		if (emailField.getText() == null || emailField.getText().length() == 0) {
+			errorMessage += "Invalid email!\n"; 
+		}
+
+		if (birthdayField.getText() == null || birthdayField.getText().length() == 0) {
+			errorMessage += "Invalid birthday!\n"; 
+		}
+
+		if (ageField.getText() == null || ageField.getText().length() == 0) {
+			errorMessage += "Invalid age!\n"; 
+		}
+		if (errorMessage.length() == 0) {
+
+			try {
+				DataBase.insertNewMember(fullNameField.getText(), cpfField.getText(), 
+						rgField.getText(), cityField.getText(), addressField.getText(), 
+						postalCodeField.getText(), phoneField.getText(), emailField.getText(), 
+						birthdayField.getText(), Integer.parseInt(ageField.getText()), 
+						contractBox.getValue(), paymentTypeBox.getValue(), paydayBox.getValue());
+
+				return true;
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} 
+
+		else if (errorMessage.length() != 0) {
+			Alert alert2 = new Alert(AlertType.ERROR);
+
+			alert2.setTitle("Campos Inválidos");
+			alert2.setHeaderText("Por favor, corrija os campos inválidos");
+			alert2.setContentText(errorMessage);
+			alert2.showAndWait();
+
+			return false;
+		}
+		return false;
 	}
 
 	public void setMainApp (MainApp mainApp){

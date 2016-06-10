@@ -31,7 +31,7 @@ public class VerifyPaymentController {
 		if (isInputValid()) {
 			member.setCpf(member.getCpf());
 			memberNameLabel.setText(member.getFullName());
-			paymentStatusLabel.setText(checkPaymentStatus());
+			//paymentStatusLabel.setText(checkPaymentStatus());
 		}
 	}
 	
@@ -40,7 +40,7 @@ public class VerifyPaymentController {
 		mainApp.showMenuReceptionist();
 	}
 	
-	private String checkPaymentStatus () {
+	/*private Boolean checkPaymentStatus () {
 		if (member.getPaymentStatus() == true) {
 			return "Paid";
 		}
@@ -48,7 +48,7 @@ public class VerifyPaymentController {
 		else {
 			return "Not Paid";
 		}
-	}
+	}*/
 	
 	private boolean isInputValid() {
 		
@@ -63,7 +63,9 @@ public class VerifyPaymentController {
 			
 			else {
 				System.out.println("Não encontrou o cpf no banco");
+				//inserir ALERT!!
 				return false;
+				
 			}
 		}
 		
