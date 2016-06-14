@@ -114,10 +114,10 @@ public class MainApp extends Application {
 			// Carrega o registerMember.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("/br/com/joao/gym/view/MenuReceptionist.fxml"));
-			AnchorPane RegisterMember = (AnchorPane) loader.load();
+			AnchorPane MenuReceptionist = (AnchorPane) loader.load();
 
 			// Define o person overview dentro do root layout.
-			rootLayout.setCenter(RegisterMember);
+			rootLayout.setCenter(MenuReceptionist);
 
 			//Define o controller da view MenuReceptionist
 			MenuReceptionistController controller = loader.getController();
@@ -140,10 +140,10 @@ public class MainApp extends Application {
 			// Carrega o registerMember.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("/br/com/joao/gym/view/MenuInstructor.fxml"));
-			AnchorPane RegisterMember = (AnchorPane) loader.load();
+			AnchorPane MenuInstructor = (AnchorPane) loader.load();
 
 			// Define o person overview dentro do root layout.
-			rootLayout.setCenter(RegisterMember);
+			rootLayout.setCenter(MenuInstructor);
 
 			//Define o controller da view MenuInstructor
 			MenuInstructorController controller = loader.getController();
@@ -192,10 +192,10 @@ public class MainApp extends Application {
 			// Carrega o registerMember.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("/br/com/joao/gym/view/VerifyPayment.fxml"));
-			AnchorPane RegisterMember = (AnchorPane) loader.load();
+			AnchorPane VerifyPayment = (AnchorPane) loader.load();
 
 			// Define o person overview dentro do root layout.
-			rootLayout.setCenter(RegisterMember);
+			rootLayout.setCenter(VerifyPayment);
 
 			//Define o controller da view VerifyPayment
 			VerifyPaymentController controller = loader.getController();
@@ -218,13 +218,13 @@ public class MainApp extends Application {
 			// Carrega o registerMember.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("/br/com/joao/gym/view/ScheduleEvaluation.fxml"));
-			AnchorPane RegisterMember = (AnchorPane) loader.load();
+			AnchorPane ScheduleEvaluation = (AnchorPane) loader.load();
 
 			// Define o person overview dentro do root layout.
-			rootLayout.setCenter(RegisterMember);
+			rootLayout.setCenter(ScheduleEvaluation);
 
 			//Define o controller da view ScheduleEvaluation
-			RegisterMemberController controller = loader.getController();
+			ScheduleEvaluationController controller = loader.getController();
 
 			controller.setMainApp(this);
 
@@ -244,10 +244,10 @@ public class MainApp extends Application {
 			// Carrega o registerMember.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("/br/com/joao/gym/view/CreateSeries.fxml"));
-			AnchorPane RegisterMember = (AnchorPane) loader.load();
+			AnchorPane CreateSeries = (AnchorPane) loader.load();
 
 			// Define o person overview dentro do root layout.
-			rootLayout.setCenter(RegisterMember);
+			rootLayout.setCenter(CreateSeries);
 
 			//Define o controller da view CreateSeries
 			CreateSeriesController controller = loader.getController();
@@ -270,10 +270,10 @@ public class MainApp extends Application {
 			// Carrega o registerMember.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("/br/com/joao/gym/view/CurrentSeries.fxml"));
-			AnchorPane RegisterMember = (AnchorPane) loader.load();
+			AnchorPane CurrentSeries = (AnchorPane) loader.load();
 
 			// Define o person overview dentro do root layout.
-			rootLayout.setCenter(RegisterMember);
+			rootLayout.setCenter(CurrentSeries);
 
 			//Define o controller da view CurrentSeries
 			CurrentSeriesController controller = loader.getController();

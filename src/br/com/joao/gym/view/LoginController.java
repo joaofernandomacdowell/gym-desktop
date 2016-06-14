@@ -27,7 +27,7 @@ public class LoginController {
 	
 	public void setLogin(User user) throws Exception {
         this.user = user;
-        //user.userName = userNameField.getText();//loginField.setText(user.getUserName());
+        //user.userName = userNameField.getText();
         //passwordField.setText(user.getUserPassword());
 	}
 	

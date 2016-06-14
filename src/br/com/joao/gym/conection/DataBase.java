@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import br.com.joao.gym.model.Evaluation;
 import br.com.joao.gym.model.Member;
 import br.com.joao.gym.model.User;
 import br.com.joao.gym.model.Series;
@@ -14,9 +15,12 @@ import br.com.joao.gym.model.Series;
 public class DataBase {
 
 	static User user = new User();
+	static Evaluation evaluation = new Evaluation();
 
 	static	Connection connection = null;  
 	Statement stmt = null;
+	
+	//DatePicker date;
 
 	public static Connection getConnection() throws Exception {
 
@@ -131,11 +135,11 @@ public class DataBase {
 		return series;		
 	}
 
-	public static boolean insertUser(String userName, String userPassword, String userGroup) throws Exception {
+	public static boolean insertUser(String userName, String userPassword) throws Exception {
 		System.out.println("--------------------Iniciando cadastro de usuario-----------------------");
 		Connection c = getConnection();
 
-		PreparedStatement ps = c.prepareStatement("INSERT INTO Users (name, password, group) VALUES" + "(?,?,?)");
+		PreparedStatement ps = c.prepareStatement("INSERT INTO Users (name, password, group) VALUES" + "(?,?)");
 
 		System.out.println("Login sendo cadastrado: " + userName);
 		ps.setString(1, userName);
@@ -159,6 +163,79 @@ public class DataBase {
 		return true;
 	}
 
+	public static boolean insertNewEvaluation(String memberCpf, String date, String time, String instructorName) throws Exception {
+		System.out.println("--------------------Iniciando cadastro de avaliação-----------------------");
+		Connection c = getConnection();
+
+		PreparedStatement ps = c.prepareStatement("INSERT INTO Evaluation (member_cpf, date, time, instructorName) VALUES" + "(?,?,?,?)");
+		
+		//date = new DatePicker();
+		
+		System.out.println("MemberCpf sendo cadastrada a avaliação: " + memberCpf);
+		ps.setString(1, memberCpf);
+
+		System.out.println("Data sendo cadastrada: " + date);
+		ps.setString(2, date);
+
+		System.out.println("Horário da avaliação: " + time);
+		ps.setString(3, time);
+		
+		System.out.println("Instructor sendo cadastrado para avaliação: " + instructorName);
+		ps.setString(4, instructorName);
+	
+		int res = ps.executeUpdate();
+
+		if (res != 1) {
+			return false;
+		}
+
+		System.out.println("-------------------Avaliação cadastrada-----------------");
+		c.close();
+		ps.close();
+
+		return true;
+	}
+
+	public static User getEvaluation (String memberCpf) throws SQLException, Exception {
+
+		Connection c = getConnection();
+		Statement stmt = null;
+		stmt = c.createStatement();
+		
+
+		PreparedStatement ps = c.prepareStatement("SELECT * FROM Evaluation WHERE member_cpf = ? ");  
+
+		//Aqui você seta os valores dos ?   
+		ps.setString(1, memberCpf);   
+		ResultSet rs = ps.executeQuery();
+
+		System.out.println("Fazendo consulta da avaliação agendada");
+
+		while (rs.next()) {
+
+			evaluation.setMemberCpf((rs.getString("member_cpf")));
+			System.out.println("Conteudo da consulta do memberCpf:" + evaluation.getMemberCpf());
+			
+			evaluation.setDate(rs.getDate("date"));
+			System.out.println("Conteudo da consulta da data:" + evaluation.getDate());
+			
+			evaluation.setTime(rs.getString("time"));
+			System.out.println("Conteudo da consulta do time: " + evaluation.getTime());
+			
+			evaluation.setTime(rs.getString("instructor_name"));
+			System.out.println("Conteudo da consulta do instructorName: " + evaluation.getInstructorName());
+
+			System.out.println("Consulta realizada");
+		}
+
+		rs.close();
+		stmt.close();
+		c.close();
+
+		return user;		
+	}
+
+	
 	public static boolean insertNewMember(String full_name, String cpf, 
 			String rg, String city, String address, String postal_code,
 			String phone, String email, String birthday, int age, 
