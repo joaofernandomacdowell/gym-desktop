@@ -1,31 +1,47 @@
 package br.com.joao.gym.model;
 
-import java.sql.Date;
-
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Evaluation {
 
+	private final IntegerProperty id;
 	private final StringProperty memberCpf;
-	private final ObjectProperty<Date> date;
+	private final StringProperty date;
+	//private final ObjectProperty<Date> date;
 	private final StringProperty time;
 	private final StringProperty instructorName;
 
 
 	public Evaluation(){
-		this(null, null, null, null);
+		this(0, null, null, null, null);
 	}
 
-	public Evaluation(String memberCpf, Date date, String time, String instructorName){
+	public Evaluation(int id, String memberCpf, String date, String time, String instructorName) {
+		this.id = new SimpleIntegerProperty(id);
 		this.memberCpf = new SimpleStringProperty (memberCpf);
-		this.date = new SimpleObjectProperty<Date> (date);
+		this.date = new SimpleStringProperty(date);
 		this.time = new SimpleStringProperty (time);
 		this.instructorName = new SimpleStringProperty(instructorName);
 	}
 
+	//id methods
+	public int getId() {
+		return id.get();
+	}
+
+	public void setId(int id) {
+		this.id.set(id);
+	}
+
+	public IntegerProperty idProperty() {
+		return id;
+	}
+	//end: id methods
+
+	
 	// memberCpf methods
 	public String getMemberCpf() {
 		return memberCpf.get();
@@ -35,22 +51,22 @@ public class Evaluation {
 		this.memberCpf.set(memberCpf);
 	}
 
-	public StringProperty userNameProperty() {
+	public StringProperty memberCpfProperty() {
 		return memberCpf;
 	}
 	//end: memberCpf methods
 
 
 	//date methods
-	public Date getDate() {
+	public String getDate() {
 		return date.get();
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date.set(date);
 	}
 
-	public ObjectProperty<Date> userPasswordProperty() {
+	public StringProperty dateProperty() {
 		return date;
 	}
 	//end: date methods
@@ -70,7 +86,7 @@ public class Evaluation {
 	}
 	//end: time methods
 
-	
+
 	//instructorName methods
 	public String getInstructorName() {
 		return instructorName.get();

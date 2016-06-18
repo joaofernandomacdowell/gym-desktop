@@ -7,11 +7,17 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
+
+import java.time.LocalDate;
+import java.util.Calendar;
+
 import br.com.joao.gym.application.MainApp;
 import br.com.joao.gym.conection.DataBase;
 import br.com.joao.gym.model.Member;
+import br.com.joao.gym.util.DateUtil;
 
 
 public class RegisterMemberController {
@@ -38,10 +44,14 @@ public class RegisterMemberController {
 
 	//Personal Informations
 	//INSERIR GÊNERO: MASCULINO/FEMININO
+	/*
 	@FXML
-	private TextField birthdayField;
-	//@FXML
-	//private DatePicker birthdayField;
+	private TextField dateBirthField;
+	*/
+	
+	@FXML
+	private DatePicker dateBirthField;
+	
 	@FXML
 	private TextField ageField;
 
@@ -65,9 +75,12 @@ public class RegisterMemberController {
 	@FXML
 	private Tab userNameLabel3;
 
-	private Member member;
-	public boolean paymentStatus = false;
 	private MainApp mainApp;
+	
+	public boolean paymentStatus = false;
+	public String payDate;
+	public LocalDate localDate;
+	
 
 	ObservableList<String> contractList = FXCollections.observableArrayList(
 			"Smart", "Black"
@@ -98,19 +111,17 @@ public class RegisterMemberController {
 		//calculateAge();
 	}
 
-	/*private void calculateAge() {
+	@FXML
+	private void calculateAge() {
     	Calendar now = Calendar.getInstance();
     	int year = now.get(Calendar.YEAR);
-    	int birthYear = birthday.getValue().getYear();
+    	int birthYear = dateBirthField.getValue().getYear();
     	int age = year - birthYear;
     	ageField.setText(Integer.toString(age));
-    }*/
+    }
 
 
 	public void setMember(Member member) throws Exception {
-
-		this.member = member;
-
 		fullNameField.setText(member.getFullName());
 		cpfField.setText(member.getCpf());
 		rgField.setText(member.getRg());
@@ -121,8 +132,15 @@ public class RegisterMemberController {
 		phoneField.setText(member.getPhone());
 		emailField.setText(member.getEmail());
 
-		birthdayField.setText(member.getBirthday());
-		//birthdayField.setPromptText("dd.mm.yyyy");
+		
+		if (member.getDateBirth() != null) {
+		    dateBirthField.setValue(member.getDateBirth());
+		} 
+		
+		else {
+		    dateBirthField.setValue(null);
+		}
+		
 		ageField.setText(Integer.toString(member.getAge()));
 
 		contractBox.setValue(member.getContract());
@@ -140,22 +158,34 @@ public class RegisterMemberController {
 	//Chamado quando User clica no botão Register
 	@FXML
 	private void handleRegister() {
-
-
+		
+		//System.out.println("Mes = " + date.getYear());
+		
 		if (isInputValid()) {
 			Alert alertSuccess = new Alert(AlertType.CONFIRMATION);
 
 			try {
-				DataBase.insertNewMember(fullNameField.getText(), cpfField.getText(), 
+				DataBase.insertMember(fullNameField.getText(), cpfField.getText(), 
 						rgField.getText(), cityField.getText(), addressField.getText(), 
 						postalCodeField.getText(), phoneField.getText(), emailField.getText(), 
-						birthdayField.getText(), Integer.parseInt(ageField.getText()), 
+						dateBirthField, Integer.parseInt(ageField.getText()), 
 						contractBox.getValue(), paymentTypeBox.getValue(), paydayBox.getValue());
-
+				
+				//localDate = new LocalDate(, 0, 0);
+				//String payDate = DateUtil.format(dateBirthField.getValue());
+				
+				payDate = paydayBox.getValue()+"/"+(Integer.toString(localDate.getMonthValue()))+"/"+(Integer.toString(localDate.getYear()));
+				System.out.println("payDate = " + payDate);
+				
 				alertSuccess.showAndWait();
 				alertSuccess.setTitle("User Registred!");
 				alertSuccess.setContentText("User Registred Successfully");
-				mainApp.showMenuReceptionist();
+				
+				
+				
+				//Limpa os Fields
+				clearFields();
+				
 			} catch (NumberFormatException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -192,23 +222,23 @@ public class RegisterMemberController {
 		String errorMessage = "";
 
 		if (fullNameField.getText() == null || fullNameField.getText().length() == 0) {
-			errorMessage += "Nome inválido!\n"; 
+			errorMessage += "Invalid Name!\n"; 
 		}
 
 		if (cpfField.getText() == null || cpfField.getText().length() == 0) {
-			errorMessage += "CPF inválido!\n"; 
+			errorMessage += "Invalid CPF!\n"; 
 		}
 
 		if (rgField.getText() == null || rgField.getText().length() == 0) {
-			errorMessage += "RG inválido!\n"; 
+			errorMessage += "Invalid RG!\n"; 
 		}
 
 		if (cityField.getText() == null || cityField.getText().length() == 0) {
-			errorMessage += "Cidade inválida!\n"; 
+			errorMessage += "Invalid City!\n"; 
 		}
 
 		if (addressField.getText() == null || addressField.getText().length() == 0) {
-			errorMessage += "Endereço inválida!\n"; 
+			errorMessage += "Invalid Address!\n"; 
 		}
 
 		if (postalCodeField.getText() == null || postalCodeField.getText().length() == 0) {
@@ -223,9 +253,9 @@ public class RegisterMemberController {
 			errorMessage += "Invalid email!\n"; 
 		}
 
-		if (birthdayField.getText() == null || birthdayField.getText().length() == 0) {
-			errorMessage += "Invalid birthday!\n"; 
-		}
+		//if (dateBirthField.getText() == null || dateBirthField.getText().length() == 0) {
+		//	errorMessage += "Invalid birthday!\n"; 
+		//}
 
 		if (ageField.getText() == null || ageField.getText().length() == 0) {
 			errorMessage += "Invalid age!\n"; 
@@ -237,8 +267,8 @@ public class RegisterMemberController {
 		else if (errorMessage.length() != 0) {
 			Alert alert2 = new Alert(AlertType.ERROR);
 
-			alert2.setTitle("Campos Inválidos");
-			alert2.setHeaderText("Por favor, corrija os campos inválidos");
+			alert2.setTitle("Invalid Fields");
+			alert2.setHeaderText("Please, correct the invalid fields");
 			alert2.setContentText(errorMessage);
 			alert2.showAndWait();
 
@@ -247,6 +277,19 @@ public class RegisterMemberController {
 		return false;
 	}
 
+	private void clearFields() {
+		fullNameField.clear();
+		cpfField.clear();
+		rgField.clear();
+		cityField.clear();
+		addressField.clear();
+		phoneField.clear();
+		postalCodeField.clear();
+		emailField.clear();
+		//dateBirthField.clear();
+		ageField.clear();
+	}
+	
 	public void setMainApp (MainApp mainApp){
 		this.mainApp = mainApp;
 	}

@@ -1,6 +1,8 @@
 package br.com.joao.gym.application;
 
 import java.io.IOException;
+import java.time.LocalDate;
+
 import br.com.joao.gym.conection.DataBase;
 import br.com.joao.gym.model.User;
 import br.com.joao.gym.view.*;
@@ -18,6 +20,7 @@ public class MainApp extends Application {
 	private BorderPane rootLayout;
 	DataBase connection;
 	User user;
+	static LocalDate localDate = null;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -237,11 +240,11 @@ public class MainApp extends Application {
 		}
 	}
 
-	//Mostra o MenuInstructor dentro do root layout
+	//Mostra o CreateSeries dentro do root layout
 	public boolean showCreateSeries() throws Exception {
 
 		try {
-			// Carrega o registerMember.
+			// Carrega o CreateSeries.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("/br/com/joao/gym/view/CreateSeries.fxml"));
 			AnchorPane CreateSeries = (AnchorPane) loader.load();
@@ -263,7 +266,7 @@ public class MainApp extends Application {
 		}
 	}
 
-	//Mostra o MenuInstructor dentro do root layout
+	//Mostra o CurrentSeries dentro do root layout
 	public boolean showCurrentSeries() throws Exception {
 
 		try {
@@ -295,6 +298,9 @@ public class MainApp extends Application {
 	}
 
 	public static void main(String[] args) throws Exception {
+		//LocalDate dataNatal = null;
+		//dataNatal = LocalDate.of(dataNatal.getYear(), dataNatal.getMonthValue(), 20);
+		//System.out.println("Natal: "+dataNatal);
 		DataBase.getConnection();
 		launch(args);
 	}

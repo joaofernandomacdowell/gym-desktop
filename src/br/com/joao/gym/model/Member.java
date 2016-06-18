@@ -1,7 +1,11 @@
 package br.com.joao.gym.model;
 
+import java.time.LocalDate;
+
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -16,8 +20,8 @@ public class Member {
 	private final StringProperty postalCode;
 	private final StringProperty phone;
 	private final StringProperty email;
-	private final StringProperty birthday;
-	//private final ObjectProperty<LocalDate> birthday;
+	//private final StringProperty dateBirth;
+	private final ObjectProperty<LocalDate> dateBirth;
 	private final IntegerProperty age;
 	private final StringProperty contract;
 	private final StringProperty paymentType;
@@ -30,7 +34,7 @@ public class Member {
 
 
 	public Member(String fullName, String cpf, String rg, String city, String address, 
-			String postalCode, String phone, String email, String birthday, int age,
+			String postalCode, String phone, String email, LocalDate dateBirth, int age,
 			String contract, String paymentType, String payday) {
 
 		this.fullName = new SimpleStringProperty (fullName);
@@ -41,9 +45,10 @@ public class Member {
 		this.postalCode = new SimpleStringProperty (postalCode);
 		this.phone = new SimpleStringProperty (phone);
 		this.email = new SimpleStringProperty(email);
-		this.birthday = new SimpleStringProperty(birthday);
+		
+		this.dateBirth = new SimpleObjectProperty<LocalDate>(dateBirth);
 		this.age = new SimpleIntegerProperty(age);
-		//this.birthday = new SimpleObjectProperty<LocalDate>(birthday);
+		
 		this.contract = new SimpleStringProperty(contract);
 		this.paymentType = new SimpleStringProperty(paymentType);
 		this.payday = new SimpleStringProperty(payday);
@@ -170,16 +175,16 @@ public class Member {
 
 
 	//birth methods
-	public String getBirthday() {
-		return birthday.get();
+	public LocalDate getDateBirth() {
+		return dateBirth.get();
 	} 
 
-	public void setBirthday(String birthday) {
-		this.birthday.set(birthday);
+	public void setDateBirth(LocalDate dateBirth) {
+		this.dateBirth.set(dateBirth);
 	}
 
-	public StringProperty birthdayProperty() {
-		return birthday;
+	public ObjectProperty<LocalDate> dateBirthProperty() {
+		return dateBirth;
 	}	
 	//end: birth methods
 

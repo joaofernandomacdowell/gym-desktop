@@ -5,8 +5,10 @@ import br.com.joao.gym.conection.DataBase;
 import br.com.joao.gym.model.Member;
 import br.com.joao.gym.model.Series;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 
 public class MenuInstructorController {
 
@@ -58,9 +60,14 @@ public class MenuInstructorController {
 
 			else {
 				System.out.println("Não encontrou o cpf no banco");
-				//inserir ALERT!!
-				return false;
+				
+				Alert alert2 = new Alert(AlertType.ERROR);
 
+				alert2.setTitle("Invalid CPF");
+				alert2.setHeaderText("This CPF is not registered");
+				alert2.setContentText("Please correct the input");
+				alert2.showAndWait();
+				return false;
 			}
 		}
 

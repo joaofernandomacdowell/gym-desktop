@@ -1,53 +1,49 @@
 package br.com.joao.gym.model;
 
-import java.time.LocalDate;
-
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class Series {
+public class ItemSeries {
 
 	private final IntegerProperty id;
 	private final StringProperty memberCpf;
-	private final IntegerProperty exerciseNum;
+	private final StringProperty training;
+	private final StringProperty dateStart;
+	private final StringProperty dateEnd;
+	private final StringProperty exerciseNum;
 	private final StringProperty exerciseName; 
-	private final IntegerProperty equipmentNum;
+	private final StringProperty equipment;
 	private final StringProperty qtdSeries;
 	private final StringProperty reps;
 	private final StringProperty weight;
 	private final StringProperty regulation;
 	private final StringProperty obs;
-	private final StringProperty training;
-	private final ObjectProperty<LocalDate> dateStart;
-	private final ObjectProperty<LocalDate> dateEnd;
 
-
-	public Series() { 
-		this(0, null, 0, null, 0, null, null, null, null, null, null, null, null); 
+	public ItemSeries() { 
+		this(0, null, null, null, null, null, null, null, null, null, null, null, null); 
 	}
 
 
-	public Series(int id, String memberCpf, int exerciseNum, String exerciseName, 
-			int equipmentNum, String qtdSeries, String reps, String weight, 
-			String regulation, String obs, String training, LocalDate dateStart, LocalDate dateEnd) {
+	public ItemSeries(int id, String memberCpf, String training, String dateStart, String dateEnd, 
+			String exerciseNum, String exerciseName, String equipment, String qtdSeries, 
+			String reps, String weight, String regulation, String obs) {
 
 		this.id = new SimpleIntegerProperty(id);
 		this.memberCpf = new SimpleStringProperty(memberCpf);
-		this.exerciseNum = new SimpleIntegerProperty(exerciseNum);
+		this.training = new SimpleStringProperty(training);
+		this.dateStart = new SimpleStringProperty(dateStart);
+		this.dateEnd = new SimpleStringProperty(dateEnd);
+
+		this.exerciseNum = new SimpleStringProperty(exerciseNum);
 		this.exerciseName = new SimpleStringProperty(exerciseName);
-		this.equipmentNum = new SimpleIntegerProperty(equipmentNum);
+		this.equipment = new SimpleStringProperty(equipment);
 		this.qtdSeries = new SimpleStringProperty(qtdSeries);
 		this.reps = new SimpleStringProperty(reps);
 		this.weight = new SimpleStringProperty(weight);
 		this.regulation= new SimpleStringProperty(regulation);
 		this.obs = new SimpleStringProperty(obs);
-		this.dateStart = new SimpleObjectProperty<LocalDate>(dateStart);
-		this.dateEnd = new SimpleObjectProperty<LocalDate>(dateEnd);
-		this.training = new SimpleStringProperty(training);
 	}
 
 	//id methods
@@ -77,19 +73,64 @@ public class Series {
 	public StringProperty memberCpfProperty() {
 		return memberCpf;
 	}
+	//end: memberCpf methods
+
+
+	//training methods
+	public String getTraining() {
+		return training.get();
+	}
+
+	public void setTraining(String training) {
+		this.training.set(training);
+	}
+
+	public StringProperty trainingProperty() {
+		return training;
+	}
 	//end: memberCPF methods
 
 
+	//dateStart methods
+	public String getDateStart() {
+		return dateStart.get();
+	}
+
+	public void setDateStart(String dateStart) {
+		this.dateStart.set(dateStart);
+	}
+
+	public StringProperty dateStartProperty() {
+		return dateStart;
+	}
+	//end: memberCPF methods
+
+
+	//dateEnd methods
+	public String getDateEnd() {
+		return dateEnd.get();
+	}
+
+	public void setDateEnd(String dateEnd) {
+		this.dateEnd.set(dateEnd);
+	}
+
+	public StringProperty dateEndProperty() {
+		return dateEnd;
+	}
+	//end: memberCpf methods
+
+	
 	//exerciseNum methods
-	public int getExerciseNum() {
+	public String getExerciseNum() {
 		return exerciseNum.get();
 	}
 
-	public void setExerciseNum(int exerciseNum) {
+	public void setExerciseNum(String exerciseNum) {
 		this.exerciseNum.set(exerciseNum);
 	}
 
-	public IntegerProperty exerciseNumProperty() {
+	public StringProperty exerciseNumProperty() {
 		return exerciseNum;
 	}
 	//end: exerciseNum methods
@@ -111,33 +152,33 @@ public class Series {
 
 
 	//equipmentNum methods
-	public Integer getEquipmentNum() {
-		return equipmentNum.get();
+	public String getEquipment() {
+		return equipment.get();
 	} 
 
-	public void setEquipmentNum(int equipmentNum) {
-		this.equipmentNum.set(equipmentNum);
+	public void setEquipment(String equipment) {
+		this.equipment.set(equipment);
 	}
 
-	public IntegerProperty equipmentNumProperty() {
-		return equipmentNum;
+	public StringProperty equipmentProperty() {
+		return equipment;
 	}
 	//end: equipmentNum methods
 
 
-	//series methods
+	//qtdSeries methods
 	public String getQtdSeries() {
 		return qtdSeries.get();
 	}
 
-	public void setPostalCode(String qtdSeries) {
+	public void setQtdSeries(String qtdSeries) {
 		this.qtdSeries.set(qtdSeries);
 	}
 
 	public StringProperty qtdSeriesProperty() {
 		return qtdSeries;
 	}
-	//end: series methods
+	//end: qtdSeries methods
 
 
 	//reps methods
@@ -194,53 +235,8 @@ public class Series {
 		this.obs.set(obs);
 	}
 
-	public StringProperty obsStringProperty() {
+	public StringProperty obsProperty() {
 		return obs;
 	}	
 	//end: obs methods
-
-
-	//training methods
-	public String getTraining() {
-		return training.get();
-	} 
-
-	public void setTraining(String training) {
-		this.training.set(training);
-	}
-
-	public StringProperty trainingStringProperty() {
-		return training;
-	}	
-	//end: training methods
-
-	//dateStart methods
-	public LocalDate getDateStart() {
-		return dateStart.get();
-	} 
-
-	public void setDateStart(LocalDate dateStart) {
-		this.dateStart.set(dateStart);
-	}
-
-	public ObjectProperty<LocalDate> datesStartProperty() {
-		return dateStart;
-	}	
-	//end: dateStart methods
-
-
-	//dateEnd methods
-	public LocalDate getDateEnd() {
-		return dateEnd.get();
-	} 
-
-	public void setDateEnd(LocalDate dateEnd) {
-		this.dateEnd.set(dateEnd);
-	}
-
-	public ObjectProperty<LocalDate> datesEndProperty() {
-		return dateEnd;
-	}	
-	//end: dateEnd methods
-
 }

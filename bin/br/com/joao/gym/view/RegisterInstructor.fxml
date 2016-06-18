@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane minHeight="550.0" minWidth="700.0" style="-fx-background-color: #787878;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.joao.gym.view.RegisterMemberController">
+<AnchorPane minHeight="630.0" minWidth="700.0" style="-fx-background-color: #787878;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.joao.gym.view.RegisterMemberController">
    <children>
       <Label fx:id="userNameLabel1" layoutX="610.0" layoutY="40.0" text="UserName" textFill="#e1e1e1" />
       <Button layoutX="425.0" layoutY="464.0" mnemonicParsing="false" text="Back">
