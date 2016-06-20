@@ -165,19 +165,19 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <Label text="Payment Type:" textFill="WHITE" GridPane.rowIndex="1">
+                              <Label text="Payment Type:" textFill="WHITE" GridPane.rowIndex="2">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="contractBox" prefWidth="150.0" GridPane.columnIndex="1" />
-                              <ComboBox fx:id="paymentTypeBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <Label text="Payday:" textFill="WHITE" GridPane.rowIndex="2">
+                              <Label text="Payday:" textFill="WHITE" GridPane.rowIndex="1">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="paydayBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <ChoiceBox fx:id="paydayBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <ChoiceBox fx:id="paymentTypeBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <ChoiceBox fx:id="contractBox" prefWidth="150.0" GridPane.columnIndex="1" />
                            </children>
                            <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="214.0" minWidth="10.0" prefWidth="88.0" />

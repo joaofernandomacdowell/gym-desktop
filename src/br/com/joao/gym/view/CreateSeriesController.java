@@ -69,7 +69,7 @@ public class CreateSeriesController {
 	
 	@FXML
 	private void initialize() {
-		loadTable();
+		loadColumns();
 		table.setItems(getItemSeries());
 	}
 
@@ -135,7 +135,7 @@ public class CreateSeriesController {
 		mainApp.showMenuInstructor(user);
 	}
 	
-	public void loadTable() {
+	public void loadColumns() {
 
 		numColumn.setCellValueFactory(new PropertyValueFactory<>("exerciseNum"));
 		exerciseColumn.setCellValueFactory(new PropertyValueFactory<>("exerciseName"));
@@ -167,7 +167,7 @@ public class CreateSeriesController {
 	}
 	
 	/*
-	public void loadTableByCells() {
+	public void loadColumnsByCells() {
 		numColumn.setCellValueFactory(cellData -> cellData.getValue().exerciseNumProperty());
 		exerciseColumn.setCellValueFactory(cellData -> cellData.getValue().exerciseNameProperty());
 		equipmentColumn.setCellValueFactory(cellData -> cellData.getValue().equipmentProperty());

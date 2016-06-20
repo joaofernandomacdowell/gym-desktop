@@ -46,8 +46,8 @@ public class VerifyPaymentController {
 	private TableView<Pay> table;
 
 	//Column's Table (interface only)
-	@FXML
-	private TableColumn<Pay, String> cpfColumn;
+	//@FXML
+	//private TableColumn<Pay, String> cpfColumn;
 	@FXML
 	private TableColumn<Pay, String> mounthlyColumn;
 	@FXML
@@ -69,6 +69,7 @@ public class VerifyPaymentController {
 
 	@FXML
 	private void initialize() {
+		table.setVisible(false);
 		hideLabels();
 	}
 
@@ -87,9 +88,10 @@ public class VerifyPaymentController {
 			
 			showLabels();
 			
-			loadTable();
+			loadColumns();
 			pay = DataBase.getPay(member.getCpf(), payList);
 			table.setItems(payList);
+			table.setVisible(true);
 		}
 		
 		
@@ -141,8 +143,7 @@ public class VerifyPaymentController {
 		}
 	}
 
-	private void loadTable() {
-		cpfColumn.setCellValueFactory(new PropertyValueFactory<>("memberCpf"));
+	private void loadColumns() {
 		mounthlyColumn.setCellValueFactory(new PropertyValueFactory<>("mounthly"));
 		amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
 		paymentStatusColumn.setCellValueFactory(new PropertyValueFactory<>("paymentStatus"));

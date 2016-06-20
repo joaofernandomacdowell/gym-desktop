@@ -163,7 +163,7 @@ public class RegisterMemberController {
 				//localDate = new LocalDate(, 0, 0);
 				//String payDate = DateUtil.format(dateBirthField.getValue());
 				
-				payDate = paydayBox.getValue()+"/"+(Integer.toString(localDate.getMonthValue()))+"/"+(Integer.toString(localDate.getYear()));
+				//payDate = paydayBox.getValue()+"/"+(Integer.toString(localDate.getMonthValue()))+"/"+(Integer.toString(localDate.getYear()));
 				System.out.println("payDate = " + payDate);
 				
 				alertSuccess.showAndWait();

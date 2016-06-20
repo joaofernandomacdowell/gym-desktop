@@ -205,7 +205,7 @@ public class MainApp extends Application {
 
 			//Define o controller da view VerifyPayment
 			VerifyPaymentController controller = loader.getController();
-
+			controller.setVerifyPayment(user);
 			controller.setMainApp(this);
 
 			return true;
@@ -231,7 +231,7 @@ public class MainApp extends Application {
 
 			//Define o controller da view ScheduleEvaluation
 			ScheduleEvaluationController controller = loader.getController();
-
+			controller.setScheduleEvaluation(user);
 			controller.setMainApp(this);
 
 			return true;

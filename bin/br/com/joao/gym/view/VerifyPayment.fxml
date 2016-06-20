@@ -50,12 +50,11 @@
       </Button>
       <Separator layoutX="36.0" layoutY="236.0" prefHeight="20.0" prefWidth="641.0" />
       <Label fx:id="userNameLabel" layoutX="580.0" layoutY="55.0" text="userNameLabel" textFill="WHITE" />
-      <TableView fx:id="table" layoutX="307.0" layoutY="276.0" prefHeight="325.0" prefWidth="352.0">
+      <TableView fx:id="table" layoutX="350.0" layoutY="273.0" prefHeight="325.0" prefWidth="298.0">
         <columns>
-            <TableColumn fx:id="cpfColumn" prefWidth="103.0" text="CPF" />
-          <TableColumn fx:id="mounthlyColumn" prefWidth="99.0" text="Mounthly" />
-            <TableColumn fx:id="amountColumn" prefWidth="50.0" text="Amount" />
-          <TableColumn fx:id="paymentStatusColumn" prefWidth="105.0" text="Payment Status" />
+          <TableColumn fx:id="mounthlyColumn" prefWidth="115.0" text="Mounthly" />
+            <TableColumn fx:id="amountColumn" prefWidth="88.0" text="Amount" />
+          <TableColumn fx:id="paymentStatusColumn" prefWidth="94.0" text="Payment Status" />
         </columns>
       </TableView>
       <Label fx:id="memberNameLabel" layoutX="69.0" layoutY="325.0" text="memberNameLabel" textFill="WHITE">
