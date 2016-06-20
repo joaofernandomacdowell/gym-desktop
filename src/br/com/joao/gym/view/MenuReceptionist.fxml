@@ -28,7 +28,7 @@
                   <Font size="14.0" />
                </font>
                <tooltip>
-                  <Tooltip text="Click to register a new client">
+                  <Tooltip text="Click to register a new member">
                      <font>
                         <Font size="11.0" />
                      </font>
@@ -39,7 +39,7 @@
                   <Font size="14.0" />
                </font>
                <tooltip>
-                  <Tooltip text="Click to acess an existing client">
+                  <Tooltip text="Click to verify a member">
                      <font>
                         <Font size="11.0" />
                      </font>
@@ -50,7 +50,7 @@
                   <Font size="14.0" />
                </font>
                <tooltip>
-                  <Tooltip text="Click to acess an existing client">
+                  <Tooltip text="Click to schedule an evaluation">
                      <font>
                         <Font size="11.0" />
                      </font>
@@ -59,6 +59,6 @@
             </Button>
          </children>
       </GridPane>
-      <Label layoutX="569.0" layoutY="45.0" text="UserName" textFill="WHITE" />
+      <Label fx:id="userNameLabel" layoutX="543.0" layoutY="45.0" text="userNameLabel" textFill="WHITE" />
    </children>
 </AnchorPane>

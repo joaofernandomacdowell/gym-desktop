@@ -8,12 +8,12 @@
 
 <AnchorPane fx:id="anchorPane" prefHeight="650.0" prefWidth="700.0" style="-fx-background-color: #787878;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.joao.gym.view.CreateSeriesController">
    <children>
-      <Label layoutX="25.0" layoutY="22.0" text="Create Series" textFill="WHITE">
+      <Label layoutX="40.0" layoutY="50.0" text="Create Series" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TableView fx:id="table" layoutX="28.0" layoutY="72.0" prefHeight="399.0" prefWidth="656.0">
+      <TableView fx:id="table" layoutX="29.0" layoutY="105.0" prefHeight="399.0" prefWidth="656.0">
         <columns>
           <TableColumn fx:id="numColumn" prefWidth="45.0" text="Num." />
           <TableColumn fx:id="exerciseColumn" prefWidth="209.0" resizable="false" text="Exercise" />
@@ -25,33 +25,34 @@
             <TableColumn fx:id="obsColumn" prefWidth="158.0" text="Obs" />
         </columns>
       </TableView>
-      <TextField fx:id="numField" layoutX="28.0" layoutY="487.0" prefHeight="25.0" prefWidth="41.0" promptText="Num" />
-      <TextField fx:id="exerciseField" layoutX="77.0" layoutY="487.0" prefHeight="25.0" prefWidth="204.0" promptText="Exercise" />
-      <TextField fx:id="equipmentField" layoutX="288.0" layoutY="487.0" prefHeight="25.0" prefWidth="49.0" promptText="Equip." />
-      <TextField fx:id="qtdSeriesField" layoutX="346.0" layoutY="487.0" prefHeight="25.0" prefWidth="49.0" promptText="Series" />
-      <TextField fx:id="repsField" layoutX="404.0" layoutY="487.0" prefHeight="25.0" prefWidth="49.0" promptText="Reps." />
-      <TextField fx:id="weightField" layoutX="462.0" layoutY="487.0" prefHeight="25.0" prefWidth="49.0" promptText="Weight" />
-      <TextField fx:id="regulationField" layoutX="520.0" layoutY="487.0" prefHeight="25.0" prefWidth="49.0" promptText="Reg." />
-      <TextField fx:id="obsField" layoutX="577.0" layoutY="487.0" prefHeight="25.0" prefWidth="108.0" promptText="Obs" />
-      <Button layoutX="487.0" layoutY="543.0" mnemonicParsing="false" onAction="#handleDeleteExercise" text="Delete Item">
+      <TextField fx:id="numField" layoutX="29.0" layoutY="520.0" prefHeight="25.0" prefWidth="41.0" promptText="Num" />
+      <TextField fx:id="exerciseField" layoutX="78.0" layoutY="520.0" prefHeight="25.0" prefWidth="204.0" promptText="Exercise" />
+      <TextField fx:id="equipmentField" layoutX="289.0" layoutY="520.0" prefHeight="25.0" prefWidth="49.0" promptText="Equip." />
+      <TextField fx:id="qtdSeriesField" layoutX="347.0" layoutY="520.0" prefHeight="25.0" prefWidth="49.0" promptText="Series" />
+      <TextField fx:id="repsField" layoutX="405.0" layoutY="520.0" prefHeight="25.0" prefWidth="49.0" promptText="Reps." />
+      <TextField fx:id="weightField" layoutX="463.0" layoutY="520.0" prefHeight="25.0" prefWidth="49.0" promptText="Weight" />
+      <TextField fx:id="regulationField" layoutX="521.0" layoutY="520.0" prefHeight="25.0" prefWidth="49.0" promptText="Reg." />
+      <TextField fx:id="obsField" layoutX="578.0" layoutY="520.0" prefHeight="25.0" prefWidth="108.0" promptText="Obs" />
+      <Button layoutX="488.0" layoutY="576.0" mnemonicParsing="false" onAction="#handleDeleteExercise" text="Delete Item">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button layoutX="606.0" layoutY="543.0" mnemonicParsing="false" onAction="#handleAddExercise" text="Add Item">
+      <Button layoutX="607.0" layoutY="576.0" mnemonicParsing="false" onAction="#handleAddExercise" text="Add Item">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button layoutX="28.0" layoutY="543.0" mnemonicParsing="false" onAction="#handleBack" text="Back">
+      <Button layoutX="29.0" layoutY="576.0" mnemonicParsing="false" onAction="#handleBack" text="Back">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button layoutX="99.0" layoutY="543.0" mnemonicParsing="false" onAction="#handleRegisterSeries" text="Register Series">
+      <Button layoutX="100.0" layoutY="576.0" mnemonicParsing="false" text="Register Series">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
+      <Label fx:id="userNameLabel" layoutX="580.0" layoutY="55.0" text="userNameLabel" textFill="WHITE" />
    </children>
 </AnchorPane>

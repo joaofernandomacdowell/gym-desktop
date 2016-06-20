@@ -25,26 +25,20 @@ public class LoginController {
 		
 	}
 	
-	public void setLogin(User user) throws Exception {
-        this.user = user;
-        //user.userName = userNameField.getText();
-        //passwordField.setText(user.getUserPassword());
-	}
-	
 	@FXML
     private void handleSubmit() throws Exception {
 		int acc_type = loginIsValid();
 		
     	if (acc_type == 0) {
-    		mainApp.showMenuAdmin();
+    		mainApp.showMenuAdmin(user);
     	}
     	
     	else if (acc_type == 1) {
-    		mainApp.showMenuReceptionist();
+    		mainApp.showMenuReceptionist(user);
     	}
     	
     	else if (acc_type == 2) {
-    		mainApp.showMenuInstructor();
+    		mainApp.showMenuInstructor(user);
     	}
     }
 	
@@ -53,11 +47,10 @@ public class LoginController {
     	user = (DataBase.getUser(userNameField.getText()));
     	
     	System.out.println("Usuário encontrado no banco: " + user.getUserName());
-    	System.out.println("Senha encontrado no banco: " + user.getUserPassword());
-    	System.out.println("Senha encontrado no banco: " + user.getUserPassword());
-    	//System.out.println("conteudo do startswith: " + user.getUserName().startsWith("a"));
-    	//System.out.println(user.getUserPassword());
+    	System.out.println("Senha encontrado no banco: " + user.getUserPassword());	
     	
+    	user.setUserName(user.getUserName());
+    	System.out.println("UserName na model: " + user.getUserName());
     	
     	if(userNameField.getText().isEmpty() || user.getUserName() == null 
     			|| !userNameField.getText().contentEquals(user.getUserName())){
@@ -87,10 +80,6 @@ public class LoginController {
     	return 3; //for future purposes this method can't use else here                     
 	}  
     
-    public void setMainApp(MainApp mainApp) {
-		this.mainApp = mainApp;
-	}
-    
     public boolean checkPassword(){
     	Alert alert = new Alert(AlertType.ERROR);
     	
@@ -107,4 +96,13 @@ public class LoginController {
         	return false;
     	}
     }
+    
+    public void setMainApp(MainApp mainApp) {
+		this.mainApp = mainApp;
+	}
+    
+    public void setLogin(User user) throws Exception {
+        this.user = user;
+	}
+	
 }

@@ -10,7 +10,9 @@ import java.time.LocalDate;
 import br.com.joao.gym.model.Evaluation;
 import br.com.joao.gym.model.ItemSeries;
 import br.com.joao.gym.model.Member;
+import br.com.joao.gym.model.Pay;
 import br.com.joao.gym.model.User;
+import javafx.collections.ObservableList;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import br.com.joao.gym.model.Series;
@@ -18,6 +20,7 @@ import br.com.joao.gym.util.DateUtil;
 
 public class DataBase {
 
+	static Pay pay = new Pay();
 	static User user = new User();
 	static Evaluation evaluation = new Evaluation();
 	static ItemSeries itemSeries = new ItemSeries();
@@ -59,8 +62,12 @@ public class DataBase {
 
 			user.setUserName(rs.getString("user_name"));
 			System.out.println("Conteudo da consulta do user name:" + user.getUserName());
+
 			user.setUserPassword(rs.getString("user_password"));
 			System.out.println("Conteudo da consulta do user password:" + user.getUserPassword());
+
+			user.setUserGroup(rs.getString("user_group"));
+			System.out.println("Conteudo da consulta do user password:" + user.getUserGroup());
 
 			System.out.println("Consulta realizada");
 		}
@@ -89,10 +96,23 @@ public class DataBase {
 
 		while (rs.next()) {
 
-			member.setCpf(rs.getString("cpf"));
-			System.out.println("Conteudo da consulta do cpf:" + member.getCpf());
 			member.setFullName(rs.getString("full_name"));
-			System.out.println("Conteudo da consulta do full_name:" + member.getFullName());
+			member.setCpf(rs.getString("cpf"));
+			member.setRg(rs.getString("rg"));
+			member.setCity(rs.getString("city"));
+			member.setAddress(rs.getString("address"));
+			member.setPostalCode(rs.getString("postal_code"));
+			member.setPhone(rs.getString("phone"));
+			member.setEmail(rs.getString("email"));
+
+			member.setGender(rs.getString("gender"));
+			member.setDateBirth("date_birth");
+			member.setAge(rs.getInt("age"));
+
+			member.setMedicalCertificate(rs.getBoolean("medical_certificate"));
+			member.setContract(rs.getString("contract"));
+			member.setPaymentType("payment_type");
+			member.setPayday(rs.getString("payday"));
 
 			System.out.println("Consulta realizada");
 		}
@@ -104,19 +124,19 @@ public class DataBase {
 		return member;		
 	}
 
-	public static boolean insertMember(String full_name, String cpf, 
-			String rg, String city, String address, String postal_code,
-			String phone, String email, DatePicker dateBirth, int age, 
+	public static boolean insertMember(String full_name, String cpf, String rg, 
+			String city, String address, String postal_code, String phone, String email, 
+			String gender, DatePicker dateBirth, int age, boolean medical_certificate, 
 			String contract, String payment_type, String payday) throws Exception {
 
 		System.out.println("--------------------Iniciando cadastro de novo Member-----------------------");
 		Connection c = getConnection();
 
 		PreparedStatement ps = c.prepareStatement("INSERT INTO Member (full_name, cpf, rg, city, address, "
-				+ "postal_code, phone, email, date_birth, age, contract, payment_type, payday) "
-				+ "VALUES" + "(?,?,?,?,?,?,?,?,?,?,?,?,?)");
+				+ "postal_code, phone, email, gender, date_birth, age, medical_certificate, contract, "
+				+ "payment_type, payday)" + "VALUES" + "(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 
-		System.out.println("Nome completo: " + full_name);
+		System.out.println("full_name: " + full_name);
 		ps.setString(1, full_name);
 
 		System.out.println("CPF: " + cpf);
@@ -124,9 +144,6 @@ public class DataBase {
 
 		System.out.println("RG: " + rg);
 		ps.setString(3, rg);
-
-		//System.out.println("registry: " + registry);
-		//ps.setInt(4, registry);
 
 		System.out.println("city: " + city);
 		ps.setString(4, city);
@@ -143,24 +160,26 @@ public class DataBase {
 		System.out.println("email: " + email);
 		ps.setString(8, email);
 
-		ps.setString(9, ((TextField)dateBirth.getEditor()).getText());
-		System.out.println("date_birth: " + dateBirth.getValue());
-		//ps.setDate(9, dateBirth);
+		System.out.println("gender: " + gender);
+		ps.setString(9, gender);
 
-		//System.out.println("birthday: " + birthday);
-		//ps.setDate(10, birthday);
+		ps.setString(10, ((TextField)dateBirth.getEditor()).getText());
+		System.out.println("date_birth: " + dateBirth.getValue());
 
 		System.out.println("age: " + age);
-		ps.setInt(10, age);
+		ps.setInt(11, age);
+
+		System.out.println("medical_certificate: " + medical_certificate);
+		ps.setBoolean(12, medical_certificate);
 
 		System.out.println("contract: " + contract);
-		ps.setString(11, contract);
+		ps.setString(13, contract);
 
 		System.out.println("payment_type: " + payment_type);
-		ps.setString(12, payment_type);
+		ps.setString(14, payment_type);
 
 		System.out.println("payday: " + payday);
-		ps.setString(13, payday);
+		ps.setString(15, payday);
 
 		int res = ps.executeUpdate();
 
@@ -175,6 +194,8 @@ public class DataBase {
 
 		return true;
 	}
+	
+	/*
 
 	public static Series getItemSeries (String member_cpf, String training) throws SQLException, Exception {
 
@@ -196,40 +217,40 @@ public class DataBase {
 
 			itemSeries.setId((rs.getInt("id_item")));
 			System.out.println("Conteudo da consulta do id do item de serie:" + itemSeries.getId());
-			
+
 			itemSeries.setMemberCpf((rs.getString("member_cpf")));
 			System.out.println("Conteudo da consulta do memberCpf da serie:" + itemSeries.getMemberCpf());
-			
+
 			itemSeries.setTraining((rs.getString("training")));
 			System.out.println("Conteudo da consulta do training da serie:" + itemSeries.getTraining());
-			
+
 			itemSeries.setDateStart((rs.getString("date_start")));
 			System.out.println("Conteudo da consulta do dateStart da serie:" + itemSeries.getDateStart());
-			
+
 			itemSeries.setDateEnd((rs.getString("date_end")));
 			System.out.println("Conteudo da consulta do dateEnd da serie:" + itemSeries.getDateEnd());
-			
+
 			itemSeries.setExerciseNum((rs.getString("exercise_num")));
 			System.out.println("Conteudo da consulta do memberCpf da serie:" + itemSeries.getExerciseNum());
-			
+
 			itemSeries.setExerciseName((rs.getString("exercise_name")));
 			System.out.println("Conteudo da consulta do memberCpf da serie:" + itemSeries.getExerciseName());
-			
+
 			itemSeries.setEquipment((rs.getString("equipment")));
 			System.out.println("Conteudo da consulta do memberCpf da serie:" + itemSeries.getEquipment());
-			
+
 			itemSeries.setQtdSeries((rs.getString("qtd_series")));
 			System.out.println("Conteudo da consulta do memberCpf da serie:" + itemSeries.getQtdSeries());
-			
+
 			itemSeries.setReps((rs.getString("reps")));
 			System.out.println("Conteudo da consulta do memberCpf da serie:" + itemSeries.getReps());
-			
+
 			itemSeries.setWeight((rs.getString("weight")));
 			System.out.println("Conteudo da consulta do memberCpf da serie:" + itemSeries.getWeight());
-			
+
 			itemSeries.setRegulation((rs.getString("regulation")));
 			System.out.println("Conteudo da consulta do memberCpf da serie:" + itemSeries.getRegulation());
-			
+
 			itemSeries.setObs((rs.getString("obs")));
 			System.out.println("Conteudo da consulta do memberCpf da serie:" + itemSeries.getObs());
 
@@ -242,6 +263,8 @@ public class DataBase {
 
 		return series;		
 	}
+	
+	*/
 
 	public static Series getTrainingSeries (String id) throws SQLException, Exception {
 
@@ -276,7 +299,6 @@ public class DataBase {
 		return series;		
 	}
 
-	
 	public static boolean insertSeries(int id, String memberCpf, String training, 
 			LocalDate dateStart, DatePicker dateEnd, String exerciseNum, 
 			String exerciseName, String equipment, String qtdSeries,
@@ -300,7 +322,7 @@ public class DataBase {
 
 		System.out.println("date_start: " + dateStart);
 		ps.setString(4, DateUtil.format(java.time.LocalDate.now()));
-		
+
 		System.out.println("date_end: " + dateEnd);
 		ps.setString(5, ((TextField)dateEnd.getEditor()).getText());
 
@@ -498,5 +520,50 @@ public class DataBase {
 		c.close();
 
 		return evaluation;		
+	}
+
+	public static Pay getPay (String memberCpf, ObservableList<Pay> data) throws SQLException, Exception {
+
+		Connection c = getConnection();
+		Statement stmt = null;
+		stmt = c.createStatement();
+
+		PreparedStatement ps = c.prepareStatement("SELECT * FROM Pay WHERE member_cpf = ? ");  
+
+		//Aqui você seta os valores dos ?   
+		ps.setString(1, memberCpf);   
+		ResultSet rs = ps.executeQuery();
+
+		System.out.println("Fazendo consulta de usuario");
+
+		while (rs.next()) {
+
+			pay.setMemberCpf(rs.getString("member_cpf"));
+			System.out.println("Conteudo da consulta do member_cpf:" + pay.getMemberCpf());
+
+			pay.setMounthly(rs.getString("mounthly"));
+			System.out.println("Conteudo da consulta do mounthly:" + pay.getMounthly());
+
+			pay.setAmount(rs.getDouble("amount"));
+			System.out.println("Conteudo da consulta do amount:" + pay.getAmount());
+
+			pay.setPaymentStatus(rs.getBoolean("payment_status"));
+			System.out.println("Conteudo da consulta da payment_status:" + pay.getPaymentStatus());
+
+			data.add(new Pay(
+					rs.getString("member_cpf"),
+					rs.getString("mounthly"),
+					rs.getDouble("amount"),
+					rs.getBoolean("payment_status")
+					));
+
+			System.out.println("Consulta realizada");
+		}
+
+		rs.close();
+		stmt.close();
+		c.close();
+
+		return pay;		
 	}
 }

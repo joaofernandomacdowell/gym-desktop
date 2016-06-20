@@ -85,7 +85,7 @@ public class MainApp extends Application {
 	}
 
 	//Mostra o MenuAdmin dentro do root layout
-	public boolean showMenuAdmin() throws Exception {
+	public boolean showMenuAdmin(User user) throws Exception {
 
 		try {
 			// Carrega o registerMember.
@@ -111,7 +111,7 @@ public class MainApp extends Application {
 	}
 
 	//Mostra o MenuRecepcionist dentro do root layout.
-	public boolean showMenuReceptionist() throws Exception {
+	public boolean showMenuReceptionist(User user) throws Exception {
 
 		try {
 			// Carrega o registerMember.
@@ -124,7 +124,8 @@ public class MainApp extends Application {
 
 			//Define o controller da view MenuReceptionist
 			MenuReceptionistController controller = loader.getController();
-
+			
+			controller.setMenuReceptionist(user);
 			controller.setMainApp(this);
 
 			return true;
@@ -137,7 +138,7 @@ public class MainApp extends Application {
 	}
 
 	//Mostra o MenuInstructor dentro do root layout
-	public boolean showMenuInstructor() throws Exception {
+	public boolean showMenuInstructor(User user) throws Exception {
 
 		try {
 			// Carrega o registerMember.
@@ -150,7 +151,8 @@ public class MainApp extends Application {
 
 			//Define o controller da view MenuInstructor
 			MenuInstructorController controller = loader.getController();
-
+			
+			controller.setMenuInstructor(user);
 			controller.setMainApp(this);
 
 			return true;
@@ -163,7 +165,7 @@ public class MainApp extends Application {
 	}
 
 	//Mostra o RegisterMember dentro do root layout.
-	public boolean showRegisterMember() throws Exception {
+	public boolean showRegisterMember(User user) throws Exception {
 
 		try {
 			// Carrega o registerMember.
@@ -177,6 +179,7 @@ public class MainApp extends Application {
 			//Define o controller da view RegisterMember
 			RegisterMemberController controller = loader.getController();
 
+			controller.setRegisterMember(user);
 			controller.setMainApp(this);
 
 			return true;
@@ -189,7 +192,7 @@ public class MainApp extends Application {
 	}
 
 	//Mostra o VerifyPayment dentro do root layout.
-	public boolean showVerifyPayment() throws Exception {
+	public boolean showVerifyPayment(User user) throws Exception {
 
 		try {
 			// Carrega o registerMember.
@@ -215,7 +218,7 @@ public class MainApp extends Application {
 	}
 
 	//Mostra o ScheduleEvaluation dentro do root layout.
-	public boolean showScheduleEvaluation() throws Exception {
+	public boolean showScheduleEvaluation(User user) throws Exception {
 
 		try {
 			// Carrega o registerMember.
@@ -267,7 +270,7 @@ public class MainApp extends Application {
 	}
 
 	//Mostra o CurrentSeries dentro do root layout
-	public boolean showCurrentSeries() throws Exception {
+	public boolean showCurrentSeries(User user) throws Exception {
 
 		try {
 			// Carrega o registerMember.

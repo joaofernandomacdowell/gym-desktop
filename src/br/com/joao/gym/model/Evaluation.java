@@ -10,7 +10,6 @@ public class Evaluation {
 	private final IntegerProperty id;
 	private final StringProperty memberCpf;
 	private final StringProperty date;
-	//private final ObjectProperty<Date> date;
 	private final StringProperty time;
 	private final StringProperty instructorName;
 

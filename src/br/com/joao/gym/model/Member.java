@@ -1,11 +1,9 @@
 package br.com.joao.gym.model;
 
-import java.time.LocalDate;
-
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -20,22 +18,25 @@ public class Member {
 	private final StringProperty postalCode;
 	private final StringProperty phone;
 	private final StringProperty email;
-	//private final StringProperty dateBirth;
-	private final ObjectProperty<LocalDate> dateBirth;
+
+	private final StringProperty gender;
+	private final StringProperty dateBirth;
 	private final IntegerProperty age;
+
+	private final BooleanProperty medicalCertificate;
 	private final StringProperty contract;
 	private final StringProperty paymentType;
 	private final StringProperty payday;
 
 
 	public Member() { 
-		this(null, null, null, null, null, null, null, null, null, 0, null, null, null); 
+		this(null, null, null, null, null, null, null, null, null, null, 0, false, null, null, null); 
 	}
 
 
 	public Member(String fullName, String cpf, String rg, String city, String address, 
-			String postalCode, String phone, String email, LocalDate dateBirth, int age,
-			String contract, String paymentType, String payday) {
+			String postalCode, String phone, String email, String gender, String dateBirth, 
+			int age, boolean medicalCertificate, String contract, String paymentType, String payday) {
 
 		this.fullName = new SimpleStringProperty (fullName);
 		this.cpf = new SimpleStringProperty (cpf);
@@ -45,10 +46,12 @@ public class Member {
 		this.postalCode = new SimpleStringProperty (postalCode);
 		this.phone = new SimpleStringProperty (phone);
 		this.email = new SimpleStringProperty(email);
-		
-		this.dateBirth = new SimpleObjectProperty<LocalDate>(dateBirth);
+
+		this.gender = new SimpleStringProperty(gender);
+		this.dateBirth = new SimpleStringProperty(dateBirth);
 		this.age = new SimpleIntegerProperty(age);
-		
+
+		this.medicalCertificate = new SimpleBooleanProperty(medicalCertificate);
 		this.contract = new SimpleStringProperty(contract);
 		this.paymentType = new SimpleStringProperty(paymentType);
 		this.payday = new SimpleStringProperty(payday);
@@ -175,15 +178,15 @@ public class Member {
 
 
 	//birth methods
-	public LocalDate getDateBirth() {
+	public String getDateBirth() {
 		return dateBirth.get();
 	} 
 
-	public void setDateBirth(LocalDate dateBirth) {
+	public void setDateBirth(String dateBirth) {
 		this.dateBirth.set(dateBirth);
 	}
 
-	public ObjectProperty<LocalDate> dateBirthProperty() {
+	public StringProperty dateBirthProperty() {
 		return dateBirth;
 	}	
 	//end: birth methods
@@ -204,6 +207,21 @@ public class Member {
 	//end: age methods
 
 
+	//medicalCertificate methods
+	public boolean getMedicalCertificate() {
+		return medicalCertificate.get();
+	}
+
+	public void setMedicalCertificate(boolean medicalCertificate) {
+		this.medicalCertificate.set(medicalCertificate);
+	}
+
+	public BooleanProperty medicalCertificateProperty() {
+		return medicalCertificate;
+	}
+	//end: medicalCertificate methods
+
+	
 	//contract methods
 	public String getContract() {
 		return contract.get();
@@ -238,12 +256,27 @@ public class Member {
 		return payday.get();
 	} 
 
-	public void setPayday(String paymentStatus) {
-		this.payday.set(paymentStatus);
+	public void setPayday(String payday) {
+		this.payday.set(payday);
 	}
 
 	public StringProperty paydayProperty() {
 		return payday;
 	}
 	//end: payday methods
+
+
+	//gender methods
+	public String getGender() {
+		return gender.get();
+	} 
+
+	public void setGender(String gender) {
+		this.gender.set(gender);
+	}
+
+	public StringProperty genderProperty() {
+		return gender;
+	}
+	//end: gender methods
 }

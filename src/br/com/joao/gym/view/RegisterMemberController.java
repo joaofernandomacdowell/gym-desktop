@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -17,13 +18,13 @@ import java.util.Calendar;
 import br.com.joao.gym.application.MainApp;
 import br.com.joao.gym.conection.DataBase;
 import br.com.joao.gym.model.Member;
+import br.com.joao.gym.model.User;
 import br.com.joao.gym.util.DateUtil;
 
 
 public class RegisterMemberController {
 
 	//Contact Informations
-
 	@FXML
 	private TextField fullNameField;
 	@FXML
@@ -41,46 +42,41 @@ public class RegisterMemberController {
 	@FXML
 	private TextField emailField;
 
-
 	//Personal Informations
-	//INSERIR GÊNERO: MASCULINO/FEMININO
-	/*
 	@FXML
-	private TextField dateBirthField;
-	*/
-	
+	private ChoiceBox<String> genderBox; 
 	@FXML
-	private DatePicker dateBirthField;
-	
+	private DatePicker dateBirthPicker;
 	@FXML
 	private TextField ageField;
 
-
 	//Contract and Payment
-
 	@FXML
-	private ComboBox<String> contractBox; 
+	private ChoiceBox<String> contractBox; 
 	@FXML
-	private ComboBox<String> paymentTypeBox;
+	private ChoiceBox<String> paymentTypeBox;
 	@FXML
-	private ComboBox<String> paydayBox;
+	private ChoiceBox<String> paydayBox;
 
 
 	//Receptionist that is logged
-
 	@FXML
 	private Label userNameLabel1;
 	@FXML
-	private Tab userNameLabel2;
+	private Label userNameLabel2;
 	@FXML
-	private Tab userNameLabel3;
+	private Label userNameLabel3;
 
-	private MainApp mainApp;
-	
 	public boolean paymentStatus = false;
 	public String payDate;
 	public LocalDate localDate;
 	
+	private User user;
+	private MainApp mainApp;
+	
+	ObservableList<String> genderList = FXCollections.observableArrayList(
+			"Male", "Female", "Undefined"
+			);
 
 	ObservableList<String> contractList = FXCollections.observableArrayList(
 			"Smart", "Black"
@@ -99,6 +95,8 @@ public class RegisterMemberController {
 
 	@FXML
 	private void initialize() {
+		genderBox.setItems(genderList);
+		
 		contractBox.setValue("Black");
 		contractBox.setItems(contractList);
 
@@ -107,15 +105,13 @@ public class RegisterMemberController {
 
 		paydayBox.setValue("20");
 		paydayBox.setItems(paydayList);
-
-		//calculateAge();
 	}
 
 	@FXML
 	private void calculateAge() {
     	Calendar now = Calendar.getInstance();
     	int year = now.get(Calendar.YEAR);
-    	int birthYear = dateBirthField.getValue().getYear();
+    	int birthYear = dateBirthPicker.getValue().getYear();
     	int age = year - birthYear;
     	ageField.setText(Integer.toString(age));
     }
@@ -131,8 +127,9 @@ public class RegisterMemberController {
 		postalCodeField.setText(member.getPostalCode());
 		phoneField.setText(member.getPhone());
 		emailField.setText(member.getEmail());
-
 		
+		genderBox.setValue(member.getGender());
+		/*
 		if (member.getDateBirth() != null) {
 		    dateBirthField.setValue(member.getDateBirth());
 		} 
@@ -140,7 +137,7 @@ public class RegisterMemberController {
 		else {
 		    dateBirthField.setValue(null);
 		}
-		
+		*/
 		ageField.setText(Integer.toString(member.getAge()));
 
 		contractBox.setValue(member.getContract());
@@ -149,17 +146,9 @@ public class RegisterMemberController {
 
 	}
 
-	/**
-	 * Retorna true se o usuário clicar OK,caso contrário false.
-	 * 
-	 * @return
-	 */
-
-	//Chamado quando User clica no botão Register
+	//Register button clicked
 	@FXML
 	private void handleRegister() {
-		
-		//System.out.println("Mes = " + date.getYear());
 		
 		if (isInputValid()) {
 			Alert alertSuccess = new Alert(AlertType.CONFIRMATION);
@@ -168,8 +157,8 @@ public class RegisterMemberController {
 				DataBase.insertMember(fullNameField.getText(), cpfField.getText(), 
 						rgField.getText(), cityField.getText(), addressField.getText(), 
 						postalCodeField.getText(), phoneField.getText(), emailField.getText(), 
-						dateBirthField, Integer.parseInt(ageField.getText()), 
-						contractBox.getValue(), paymentTypeBox.getValue(), paydayBox.getValue());
+						genderBox.getValue(), dateBirthPicker, Integer.parseInt(ageField.getText()), 
+						false, contractBox.getValue(), paymentTypeBox.getValue(), paydayBox.getValue());
 				
 				//localDate = new LocalDate(, 0, 0);
 				//String payDate = DateUtil.format(dateBirthField.getValue());
@@ -203,7 +192,7 @@ public class RegisterMemberController {
 	//Chamado quando o usuário clica Back.
 	@FXML
 	private void handleBack() throws Exception {
-		mainApp.showMenuReceptionist();
+		mainApp.showMenuReceptionist(user);
 	}
 
 	//Chamado quando o usuário clica em LogOut
@@ -288,6 +277,13 @@ public class RegisterMemberController {
 		emailField.clear();
 		//dateBirthField.clear();
 		ageField.clear();
+	}
+	
+	public void setRegisterMember(User user) {
+		this.user = user;
+		userNameLabel1.setText(user.getUserName());
+		userNameLabel2.setText(user.getUserName());
+		userNameLabel3.setText(user.getUserName());
 	}
 	
 	public void setMainApp (MainApp mainApp){

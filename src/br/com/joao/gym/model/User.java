@@ -5,7 +5,7 @@ import javafx.beans.property.StringProperty;
 
 public class User {
 	
-	public final StringProperty userName;
+	private final StringProperty userName;
 	private final StringProperty userPassword;
 	private final StringProperty userGroup;
 	
@@ -49,7 +49,7 @@ public class User {
 	//end: password methods
 	
 
-	//password methods
+	//userGroup methods
 	public String getUserGroup() {
 		return userGroup.get();
 	}
@@ -61,7 +61,7 @@ public class User {
 	public StringProperty userGroupProperty() {
 		return userGroup;
 	}
-	//end: password methods
+	//end: userGroup methods
 }
 
 

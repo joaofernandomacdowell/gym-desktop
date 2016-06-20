@@ -3,6 +3,7 @@ package br.com.joao.gym.view;
 import br.com.joao.gym.application.MainApp;
 import br.com.joao.gym.conection.DataBase;
 import br.com.joao.gym.model.ItemSeries;
+import br.com.joao.gym.model.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,6 +12,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class CreateSeriesController {
@@ -55,12 +57,15 @@ public class CreateSeriesController {
 	@FXML
 	private TextField obsField;
 	
-	ObservableList<ItemSeries> itensList = FXCollections.observableArrayList(
-			new ItemSeries("1", "Supino Reto", "12", "4", "10-12", "25", "0", ""),
-			new ItemSeries("2", "Supino Inclinado com halteres", "13", "3", "8-10", "24", "45", ""));
-
+	@FXML
+	private Label userNameLabel;
 	
-	MainApp mainApp;
+	ObservableList<ItemSeries> itensList = FXCollections.observableArrayList(
+			new ItemSeries(1, "Supino Reto", "12", "4", "10-12", "25", "0", ""),
+			new ItemSeries(2, "Supino Inclinado com halteres", "13", "3", "8-10", "24", "45", ""));
+
+	private User user;
+	private MainApp mainApp;
 	
 	@FXML
 	private void initialize() {
@@ -73,9 +78,9 @@ public class CreateSeriesController {
 	private void handleAddExercise() {
 		ItemSeries itemSeries = new ItemSeries();
 		
-		itemSeries.setExerciseNum(numField.getText());
+		itemSeries.setExerciseNum(Integer.parseInt(numField.getText()));
 		itemSeries.setExerciseName(exerciseField.getText());
-		itemSeries.setEquipmentNum(equipmentField.getText());
+		itemSeries.setEquipment(equipmentField.getText());
 		itemSeries.setReps(repsField.getText());
 		itemSeries.setQtdSeries(qtdSeriesField.getText());
 		itemSeries.setRegulation(regulationField.getText());
@@ -98,17 +103,14 @@ public class CreateSeriesController {
 	}
 	
 	//Register Series button clicked
+	/*
 	@FXML
 	private void handleRegisterSeries() {
 		
 		Alert alertSucess = new Alert(AlertType.CONFIRMATION);
 		
 		try {
-			DataBase.insertSeries(numField.getText(), memberCpf, 
-					rgField.getText(), cityField.getText(), addressField.getText(), 
-					postalCodeField.getText(), phoneField.getText(), emailField.getText(), 
-					dateBirthField.getValue(), Integer.parseInt(ageField.getText()), 
-					contractBox.getValue(), paymentTypeBox.getValue(), paydayBox.getValue());
+			DataBase.insertSeries();
 			
 			//localDate = new LocalDate(, 0, 0);
 			//String payDate = DateUtil.format(dateBirthField.getValue());
@@ -125,12 +127,12 @@ public class CreateSeriesController {
 			e.printStackTrace();
 		}
 	}
-	}
+	}*/
 	
 	//Back button clicked
 	@FXML
 	private void handleBack() throws Exception {
-		mainApp.showMenuInstructor();
+		mainApp.showMenuInstructor(user);
 	}
 	
 	public void loadTable() {
@@ -144,8 +146,8 @@ public class CreateSeriesController {
 		regulationColumn.setCellValueFactory(new PropertyValueFactory<>("regulation"));
 		obsColumn.setCellValueFactory(new PropertyValueFactory<>("obs"));
 		
-		//table.getColumns().addAll(numColumn, exerciseColumn, equipmentColumn, 
-			//	qtdSeriesColumn, repsColumn, weightColumn, regulationColumn, obsColumn);
+		/*table.getColumns().addAll(numColumn, exerciseColumn, equipmentColumn, 
+				qtdSeriesColumn, repsColumn, weightColumn, regulationColumn, obsColumn);*/
 	}
 	
 	
@@ -177,7 +179,10 @@ public class CreateSeriesController {
 	}
 	 */
 	
-	
+	public void setCreateSeries(User user) {
+		this.user = user;
+		userNameLabel.setText(user.getUserName());
+	}
 
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;

@@ -4,6 +4,7 @@ import br.com.joao.gym.application.MainApp;
 import br.com.joao.gym.conection.DataBase;
 import br.com.joao.gym.model.Member;
 import br.com.joao.gym.model.Series;
+import br.com.joao.gym.model.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -12,15 +13,19 @@ import javafx.scene.control.Alert.AlertType;
 
 public class MenuInstructorController {
 
-	MainApp mainApp;
-	Member member;
-	Series series = new Series ();
-
 	@FXML
 	private TextField cpfField;
 	
 	@FXML
 	private Label fullNameLabel;
+	
+	@FXML
+	private Label userNameLabel;
+	
+	User user;
+	Member member;
+	Series series = new Series();
+	MainApp mainApp;
 	
 	@FXML
 	private void initialize(){ 
@@ -79,9 +84,14 @@ public class MenuInstructorController {
 
 	@FXML
 	private void handleCurrentSeries() throws Exception {
-		mainApp.showCurrentSeries();
+		mainApp.showCurrentSeries(user);
 	}
 
+	public void setMenuInstructor(User user) {
+		this.user = user;
+		userNameLabel.setText(user.getUserName());
+	}
+	
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 	}

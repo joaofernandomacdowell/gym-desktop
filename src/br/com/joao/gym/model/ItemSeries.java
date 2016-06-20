@@ -7,12 +7,12 @@ import javafx.beans.property.StringProperty;
 
 public class ItemSeries {
 
-	private final IntegerProperty id;
-	private final StringProperty memberCpf;
-	private final StringProperty training;
-	private final StringProperty dateStart;
-	private final StringProperty dateEnd;
-	private final StringProperty exerciseNum;
+	//private final IntegerProperty id;
+	//private final StringProperty memberCpf;
+	//private final StringProperty training;
+	//private final StringProperty dateStart;
+	//private final StringProperty dateEnd;
+	private final IntegerProperty exerciseNum;
 	private final StringProperty exerciseName; 
 	private final StringProperty equipment;
 	private final StringProperty qtdSeries;
@@ -22,21 +22,28 @@ public class ItemSeries {
 	private final StringProperty obs;
 
 	public ItemSeries() { 
-		this(0, null, null, null, null, null, null, null, null, null, null, null, null); 
+		this(0, null, null, null, null, null, null, null); 
 	}
+	
+	/*
+	public ItemSeries() { 
+		this(0, null, null, null, null, null, null, null, null, null, null, null, null); 
+	}*/
 
 
-	public ItemSeries(int id, String memberCpf, String training, String dateStart, String dateEnd, 
-			String exerciseNum, String exerciseName, String equipment, String qtdSeries, 
+	public ItemSeries(/*int id, String memberCpf, String training, String dateStart, String dateEnd,*/ 
+			int exerciseNum, String exerciseName, String equipment, String qtdSeries, 
 			String reps, String weight, String regulation, String obs) {
 
+		/*
 		this.id = new SimpleIntegerProperty(id);
 		this.memberCpf = new SimpleStringProperty(memberCpf);
 		this.training = new SimpleStringProperty(training);
 		this.dateStart = new SimpleStringProperty(dateStart);
 		this.dateEnd = new SimpleStringProperty(dateEnd);
-
-		this.exerciseNum = new SimpleStringProperty(exerciseNum);
+		 */
+		
+		this.exerciseNum = new SimpleIntegerProperty(exerciseNum);
 		this.exerciseName = new SimpleStringProperty(exerciseName);
 		this.equipment = new SimpleStringProperty(equipment);
 		this.qtdSeries = new SimpleStringProperty(qtdSeries);
@@ -46,6 +53,7 @@ public class ItemSeries {
 		this.obs = new SimpleStringProperty(obs);
 	}
 
+	/*
 	//id methods
 	public int getId() {
 		return id.get();
@@ -118,19 +126,19 @@ public class ItemSeries {
 	public StringProperty dateEndProperty() {
 		return dateEnd;
 	}
-	//end: memberCpf methods
-
+	//end: dateEnd methods
+	*/
 	
 	//exerciseNum methods
-	public String getExerciseNum() {
+	public int getExerciseNum() {
 		return exerciseNum.get();
 	}
 
-	public void setExerciseNum(String exerciseNum) {
+	public void setExerciseNum(Integer exerciseNum) {
 		this.exerciseNum.set(exerciseNum);
 	}
 
-	public StringProperty exerciseNumProperty() {
+	public IntegerProperty exerciseNumProperty() {
 		return exerciseNum;
 	}
 	//end: exerciseNum methods

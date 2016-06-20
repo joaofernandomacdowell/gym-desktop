@@ -50,12 +50,12 @@
             <RowConstraints maxHeight="34.0" minHeight="0.0" prefHeight="28.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
-      <Label layoutX="60.0" layoutY="50.0" text="Schedule Evaluation" textFill="WHITE">
+      <Label layoutX="40.0" layoutY="50.0" text="Schedule Evaluation" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Separator layoutX="50.0" layoutY="90.0" prefHeight="20.0" prefWidth="559.0" />
+      <Separator layoutX="40.0" layoutY="90.0" prefHeight="20.0" prefWidth="628.0" />
       <Button layoutX="197.0" layoutY="348.0" mnemonicParsing="false" onAction="#handleBack" text="Back">
          <font>
             <Font size="14.0" />
@@ -66,5 +66,6 @@
             <Font size="14.0" />
          </font>
       </Button>
+      <Label fx:id="userNameLabel" layoutX="580.0" layoutY="50.0" text="userNameLabel" textFill="WHITE" />
    </children>
 </AnchorPane>

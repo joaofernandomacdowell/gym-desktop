@@ -97,12 +97,12 @@
                               <Font size="14.0" />
                            </font>
                         </Button>
-                        <Label fx:id="userNameLabel1" layoutX="600.0" layoutY="30.0" text="UserName" textFill="#e1e1e1" />
+                        <Label fx:id="userNameLabel1" layoutX="580.0" layoutY="55.0" text="userNameLabel1" textFill="#e1e1e1" />
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab fx:id="userNameLabel2" text="Personal Informations">
+          <Tab text="Personal Informations">
                <content>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
@@ -112,20 +112,26 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <GridPane layoutX="40.0" layoutY="130.0" prefHeight="77.0" prefWidth="246.0">
+                        <GridPane layoutX="40.0" layoutY="130.0" prefHeight="77.0" prefWidth="246.0" vgap="15.0">
                            <children>
-                              <Label text="Date of Birth:" textFill="WHITE">
+                              <Label text="Date of Birth:" textFill="WHITE" GridPane.rowIndex="1">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <Label text="Age:" textFill="WHITE" GridPane.rowIndex="1">
+                              <Label text="Age:" textFill="WHITE" GridPane.rowIndex="2">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="ageField" onMouseClicked="#calculateAge" prefHeight="25.0" prefWidth="170.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <DatePicker fx:id="dateBirthField" GridPane.columnIndex="1" />
+                              <TextField fx:id="ageField" onMouseClicked="#calculateAge" prefHeight="25.0" prefWidth="170.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <DatePicker fx:id="dateBirthPicker" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Label text="Gender:" textFill="WHITE">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <ChoiceBox fx:id="genderBox" prefHeight="25.0" prefWidth="173.0" GridPane.columnIndex="1" />
                            </children>
                            <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="214.0" minWidth="10.0" prefWidth="88.0" />
@@ -134,14 +140,15 @@
                            <rowConstraints>
                               <RowConstraints minHeight="20.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="20.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="20.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
                            </rowConstraints>
                         </GridPane>
-                        <Label fx:id="userNameLabel1" layoutX="600.0" layoutY="30.0" text="UserName" textFill="#e1e1e1" />
+                        <Label fx:id="userNameLabel2" layoutX="580.0" layoutY="55.0" text="userName2" textFill="#e1e1e1" />
                      </children>
                   </AnchorPane>
                </content>
           </Tab>
-            <Tab fx:id="userNameLabel3" text="Contract and Payment">
+            <Tab text="Contract and Payment">
                <content>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
@@ -182,7 +189,7 @@
                               <RowConstraints minHeight="20.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
                            </rowConstraints>
                         </GridPane>
-                        <Label fx:id="userNameLabel11" layoutX="600.0" layoutY="30.0" text="UserName" textFill="#e1e1e1" />
+                        <Label fx:id="userNameLabel3" layoutX="580.0" layoutY="55.0" text="userName3" textFill="#e1e1e1" />
                      </children>
                   </AnchorPane>
                </content>

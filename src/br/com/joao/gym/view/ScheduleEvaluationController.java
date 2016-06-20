@@ -3,9 +3,11 @@ package br.com.joao.gym.view;
 import br.com.joao.gym.application.MainApp;
 import br.com.joao.gym.conection.DataBase;
 import br.com.joao.gym.model.Evaluation;
+import br.com.joao.gym.model.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 
 public class ScheduleEvaluationController {
 
@@ -19,10 +21,15 @@ public class ScheduleEvaluationController {
 	@FXML
 	private TextField instructorNameField;
 
+	@FXML
+	private Label userNameLabel;
+	
+	
 	private int id = 0;
 
-	private MainApp mainApp;
+	private User user;
 	private Evaluation evaluation = new Evaluation();
+	private MainApp mainApp;
 
 	@FXML
 	private void initialize() { 
@@ -37,13 +44,14 @@ public class ScheduleEvaluationController {
 
 		/*
 		if (evaluation.getDate() != null) {
-		    datePicker.setValue(evaluation.getDate());
+		    datePicker.setValue(arg0);
 		} 
 
 		else {
 		    datePicker.setValue(null);
-		}*/
-
+		}
+		*/
+		
 		timeField.setText(evaluation.getTime());
 		instructorNameField.setText(evaluation.getTime());
 	}
@@ -93,9 +101,14 @@ public class ScheduleEvaluationController {
 
 	@FXML
 	private void handleBack() throws Exception {
-		mainApp.showMenuReceptionist();
+		mainApp.showMenuReceptionist(user);
 	}
 
+	public void setScheduleEvaluation(User user) {
+		this.user = user;
+		userNameLabel.setText(user.getUserName());
+	}
+	
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 	}
