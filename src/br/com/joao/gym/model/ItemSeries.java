@@ -7,12 +7,12 @@ import javafx.beans.property.StringProperty;
 
 public class ItemSeries {
 
-	//private final IntegerProperty id;
-	//private final StringProperty memberCpf;
-	//private final StringProperty training;
-	//private final StringProperty dateStart;
-	//private final StringProperty dateEnd;
-	private final IntegerProperty exerciseNum;
+	private final StringProperty memberCpf;
+	private final IntegerProperty idItem;
+	private final IntegerProperty idSerie;
+	private final StringProperty workout;
+
+	private final IntegerProperty timesExecuted;
 	private final StringProperty exerciseName; 
 	private final StringProperty equipment;
 	private final StringProperty qtdSeries;
@@ -22,28 +22,20 @@ public class ItemSeries {
 	private final StringProperty obs;
 
 	public ItemSeries() { 
-		this(0, null, null, null, null, null, null, null); 
+		this(null, 0, 0, null, 0, null, null, null, null, null, null, null); 
 	}
-	
-	/*
-	public ItemSeries() { 
-		this(0, null, null, null, null, null, null, null, null, null, null, null, null); 
-	}*/
 
 
-	public ItemSeries(/*int id, String memberCpf, String training, String dateStart, String dateEnd,*/ 
-			int exerciseNum, String exerciseName, String equipment, String qtdSeries, 
+	public ItemSeries(String memberCpf, int idItem, int idSerie, String workout,
+			int timesExecuted, String exerciseName, String equipment, String qtdSeries, 
 			String reps, String weight, String regulation, String obs) {
 
-		/*
-		this.id = new SimpleIntegerProperty(id);
 		this.memberCpf = new SimpleStringProperty(memberCpf);
-		this.training = new SimpleStringProperty(training);
-		this.dateStart = new SimpleStringProperty(dateStart);
-		this.dateEnd = new SimpleStringProperty(dateEnd);
-		 */
-		
-		this.exerciseNum = new SimpleIntegerProperty(exerciseNum);
+		this.idItem = new SimpleIntegerProperty(idItem);
+		this.idSerie = new SimpleIntegerProperty(idSerie);
+		this.workout = new SimpleStringProperty(workout);
+
+		this.timesExecuted = new SimpleIntegerProperty(timesExecuted);
 		this.exerciseName = new SimpleStringProperty(exerciseName);
 		this.equipment = new SimpleStringProperty(equipment);
 		this.qtdSeries = new SimpleStringProperty(qtdSeries);
@@ -52,22 +44,6 @@ public class ItemSeries {
 		this.regulation= new SimpleStringProperty(regulation);
 		this.obs = new SimpleStringProperty(obs);
 	}
-
-	/*
-	//id methods
-	public int getId() {
-		return id.get();
-	} 
-
-	public void setId(int id) {
-		this.id.set(id);
-	}
-
-	public IntegerProperty idProperty() {
-		return id;
-	}
-	//end: id methods
-
 
 	//memberCpf methods
 	public String getMemberCpf() {
@@ -83,65 +59,64 @@ public class ItemSeries {
 	}
 	//end: memberCpf methods
 
-
-	//training methods
-	public String getTraining() {
-		return training.get();
-	}
-
-	public void setTraining(String training) {
-		this.training.set(training);
-	}
-
-	public StringProperty trainingProperty() {
-		return training;
-	}
-	//end: memberCPF methods
-
-
-	//dateStart methods
-	public String getDateStart() {
-		return dateStart.get();
-	}
-
-	public void setDateStart(String dateStart) {
-		this.dateStart.set(dateStart);
-	}
-
-	public StringProperty dateStartProperty() {
-		return dateStart;
-	}
-	//end: memberCPF methods
-
-
-	//dateEnd methods
-	public String getDateEnd() {
-		return dateEnd.get();
-	}
-
-	public void setDateEnd(String dateEnd) {
-		this.dateEnd.set(dateEnd);
-	}
-
-	public StringProperty dateEndProperty() {
-		return dateEnd;
-	}
-	//end: dateEnd methods
-	*/
 	
-	//exerciseNum methods
-	public int getExerciseNum() {
-		return exerciseNum.get();
+	//idItem methods
+	public int getIdItem() {
+		return idItem.get();
+	} 
+
+	public void setIdItem(int idItem) {
+		this.idItem.set(idItem);
 	}
 
-	public void setExerciseNum(Integer exerciseNum) {
-		this.exerciseNum.set(exerciseNum);
+	public IntegerProperty idItemProperty() {
+		return idItem;
+	}
+	//end: idItem methods
+
+	//idSerie methods
+	public int getIdSerie() {
+		return idSerie.get();
+	} 
+
+	public void setIdSerie(int idSerie) {
+		this.idSerie.set(idSerie);
 	}
 
-	public IntegerProperty exerciseNumProperty() {
-		return exerciseNum;
+	public IntegerProperty idSerieProperty() {
+		return idSerie;
 	}
-	//end: exerciseNum methods
+	//end: idSerie methods
+
+
+	//workout methods
+	public String getWorkout() {
+		return workout.get();
+	}
+
+	public void setWorkout(String workout) {
+		this.workout.set(workout);
+	}
+
+	public StringProperty workoutProperty() {
+		return workout;
+	}
+	//end: workout methods
+
+
+	//timesExecuted methods
+	public int getTimesExecuted() {
+		return timesExecuted.get();
+	}
+
+	public void setTimesExecuted(Integer timesExecuted) {
+		this.timesExecuted.set(timesExecuted);
+	}
+
+	public IntegerProperty timesExecutedProperty() {
+		return timesExecuted;
+	}
+	//end: timesExecuted methods
 
 
 	//exerciseName methods

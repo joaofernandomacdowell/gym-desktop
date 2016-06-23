@@ -1,13 +1,9 @@
 package br.com.joao.gym.view;
 
-import java.sql.SQLException;
-
 import br.com.joao.gym.application.MainApp;
 import br.com.joao.gym.conection.DataBase;
-import br.com.joao.gym.model.ItemSeries;
 import br.com.joao.gym.model.Member;
 import br.com.joao.gym.model.Pay;
-import br.com.joao.gym.model.Payment;
 import br.com.joao.gym.model.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,7 +11,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.text.Text;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -41,6 +36,20 @@ public class VerifyPaymentController {
 	@FXML
 	private Label memberEmailLabel;
 
+	//Member info
+	@FXML
+	private Label nameLabel;
+	@FXML
+	private Label cpfLabel;
+	@FXML
+	private Label rgLabel;
+	@FXML
+	private Label addressLabel;
+	@FXML
+	private Label phoneLabel;
+	@FXML
+	private Label emailLabel;
+
 	//Table View
 	@FXML
 	private TableView<Pay> table;
@@ -54,17 +63,17 @@ public class VerifyPaymentController {
 	private TableColumn<Pay, Double> amountColumn;
 	@FXML
 	private TableColumn<Pay, String> paymentStatusColumn;
-	
 
 	//User that is loged
 	@FXML
 	private Label userNameLabel;
 
 	ObservableList<Pay> payList = FXCollections.observableArrayList();
-	
+	private boolean payment_status;
+
 	private User user;
-	private Member member;
 	private Pay pay;
+	private Member member;
 	private MainApp mainApp;
 
 	@FXML
@@ -76,25 +85,43 @@ public class VerifyPaymentController {
 	@FXML
 	private void handleSearch() throws Exception {	
 		if (isInputValid()) {
-			
+
 			member.setCpf(cpfField.getText());
-			
+
 			memberNameLabel.setText(member.getFullName());
 			memberCpfLabel.setText(member.getCpf());
 			memberRgLabel.setText(member.getRg());
 			memberAddressLabel.setText(member.getAddress());
 			memberPhoneLabel.setText(member.getPhone());
 			memberEmailLabel.setText(member.getEmail());
-			
+
 			showLabels();
-			
+
 			loadColumns();
 			pay = DataBase.getPay(member.getCpf(), payList);
 			table.setItems(payList);
 			table.setVisible(true);
 		}
+	}
+	
+	@FXML
+	private void handlePayMounthly() throws Exception {
 		
+		table.setOnMouseClicked(e-> {
+			try {
+				Pay pay = (Pay)table.getSelectionModel().getSelectedItem();
+				pay = DataBase.getMounthly(pay.getMounthly());
+			}
+			
+			catch(Exception er) {
+				System.out.println(er);
+			}
+		});
 		
+		payment_status = pay.getPaymentStatus();
+		payment_status = true;
+		
+		DataBase.updatePaymentStatus(payment_status, pay.getMounthly());
 	}
 
 	@FXML
@@ -102,7 +129,8 @@ public class VerifyPaymentController {
 		mainApp.showMenuReceptionist(user);
 	}
 
-	/*private Boolean checkPaymentStatus () {
+	/*
+	private Boolean checkPaymentStatus () {
 		if (member.getPaymentStatus() == true) {
 			return "Paid";
 		}
@@ -110,24 +138,23 @@ public class VerifyPaymentController {
 		else {
 			return "Not Paid";
 		}
-	}*/
+	}
+	*/
 
 	private boolean isInputValid() {
-
 		try {
-
 			member = DataBase.getMember(cpfField.getText());
 
 			if (cpfField.getText().equals(member.getCpf())) {	
 				//pay = DataBase.getPay(cpfField.getText(), payList);
 				//table.setItems(payList);
-				
+
 				return true;
 			}
 
 			else {
 				Alert alert = new Alert(AlertType.ERROR);
-				
+
 				alert.setTitle("Invalid CPF");
 				alert.setHeaderText("This CPF is not registered");
 				alert.setContentText("Please correct the input");
@@ -148,7 +175,7 @@ public class VerifyPaymentController {
 		amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
 		paymentStatusColumn.setCellValueFactory(new PropertyValueFactory<>("paymentStatus"));
 	}
-	
+
 	private void hideLabels() {
 		memberNameLabel.setVisible(false);
 		memberCpfLabel.setVisible(false);
@@ -157,7 +184,7 @@ public class VerifyPaymentController {
 		memberPhoneLabel.setVisible(false);
 		memberEmailLabel.setVisible(false);
 	}
-	
+
 	private void showLabels() {
 		memberNameLabel.setVisible(true);
 		memberCpfLabel.setVisible(true);
@@ -166,7 +193,7 @@ public class VerifyPaymentController {
 		memberPhoneLabel.setVisible(true);
 		memberEmailLabel.setVisible(true);
 	}
-	
+
 	public void setVerifyPayment(User user) {
 		this.user = user;
 		userNameLabel.setText(user.getUserName());

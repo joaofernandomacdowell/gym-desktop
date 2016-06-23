@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="630.0" prefWidth="700.0" style="-fx-background-color: #787878;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.joao.gym.view.MedicalCertificateController">
+   <children>
+      <Label layoutX="40.0" layoutY="50.0" text="Medical Certificate" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Separator layoutX="40.0" layoutY="90.0" prefHeight="20.0" prefWidth="627.0" />
+      <Button layoutX="214.0" layoutY="500.0" mnemonicParsing="false" onAction="#handleRegister" text="Register" />
+      <Button layoutX="137.0" layoutY="500.0" mnemonicParsing="false" onAction="#handleBack" text="Back" />
+      <Label fx:id="userNameLabel" layoutX="580.0" layoutY="55.0" text="userNameLabel" textFill="#e1e1e1" />
+      <TextField fx:id="medicNameField" layoutX="125.0" layoutY="268.0" />
+      <Label layoutX="40.0" layoutY="272.0" text="Medic Name:" textFill="WHITE" />
+      <Label layoutX="40.0" layoutY="324.0" text="CRM:" textFill="WHITE" />
+      <TextField fx:id="crmField" layoutX="125.0" layoutY="320.0" />
+      <Label layoutX="40.0" layoutY="384.0" text="Start Date:" textFill="WHITE" />
+      <Label layoutX="40.0" layoutY="444.0" text="End Date:" textFill="WHITE" />
+      <DatePicker fx:id="dateStartPicker" layoutX="125.0" layoutY="380.0" prefHeight="25.0" prefWidth="149.0" />
+      <DatePicker fx:id="dateEndPicker" layoutX="125.0" layoutY="440.0" prefHeight="25.0" prefWidth="149.0" />
+      <TextField fx:id="memberCpfField" layoutX="40.0" layoutY="150.0" promptText="Member CPF" />
+      <Button layoutX="224.0" layoutY="150.0" mnemonicParsing="false" onAction="#handleAccessMember" text="Access Member" />
+      <Separator layoutX="40.0" layoutY="205.0" prefHeight="20.0" prefWidth="627.0" />
+      <Label fx:id="memberNameLabel1" layoutX="414.0" layoutY="256.0" text="Member Informations" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="memberNameLabel" layoutX="414.0" layoutY="345.0" text="memberNameLabel" textFill="WHITE" />
+      <Label fx:id="statusLabel" layoutX="416.0" layoutY="444.0" text="medicalCertificateStatusLabel" textFill="WHITE" />
+      <Label fx:id="medicalCertificateStatusLabel" layoutX="414.0" layoutY="411.0" text="Medical Certificate Status:" textFill="WHITE" />
+      <Label fx:id="nameLabel" layoutX="414.0" layoutY="312.0" text="Name:" textFill="WHITE" />
+   </children>
+</AnchorPane>

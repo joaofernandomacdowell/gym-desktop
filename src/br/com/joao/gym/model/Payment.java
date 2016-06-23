@@ -20,6 +20,7 @@ public class Payment {
 	public final BooleanProperty november;
 	public final BooleanProperty december;
 
+	@SuppressWarnings("unused")
 	private final StringProperty memberCpf;
 
 

@@ -99,6 +99,7 @@ public class MainApp extends Application {
 			//Define o controller da view RegisterMember
 			MenuAdminController controller = loader.getController();
 
+			controller.setMenuAdmin(user);
 			controller.setMainApp(this);
 
 			return true;
@@ -124,7 +125,7 @@ public class MainApp extends Application {
 
 			//Define o controller da view MenuReceptionist
 			MenuReceptionistController controller = loader.getController();
-			
+
 			controller.setMenuReceptionist(user);
 			controller.setMainApp(this);
 
@@ -151,7 +152,7 @@ public class MainApp extends Application {
 
 			//Define o controller da view MenuInstructor
 			MenuInstructorController controller = loader.getController();
-			
+
 			controller.setMenuInstructor(user);
 			controller.setMainApp(this);
 
@@ -243,8 +244,34 @@ public class MainApp extends Application {
 		}
 	}
 
+	//Mostra o ScheduleEvaluation dentro do root layout.
+	public boolean showMedicalCertificate(User user) throws Exception {
+
+		try {
+			// Carrega o registerMember.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("/br/com/joao/gym/view/MedicalCertificate.fxml"));
+			AnchorPane MedicalCertificate = (AnchorPane) loader.load();
+
+			// Define o person overview dentro do root layout.
+			rootLayout.setCenter(MedicalCertificate);
+
+			//Define o controller da view MedicalCertificate
+			MedicalCertificateController controller = loader.getController();
+			controller.setMedicalCertificate(user);
+			controller.setMainApp(this);
+
+			return true;
+		}
+
+		catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
 	//Mostra o CreateSeries dentro do root layout
-	public boolean showCreateSeries() throws Exception {
+	public boolean showCreateSeries(User user) throws Exception {
 
 		try {
 			// Carrega o CreateSeries.
@@ -258,6 +285,7 @@ public class MainApp extends Application {
 			//Define o controller da view CreateSeries
 			CreateSeriesController controller = loader.getController();
 
+			controller.setCreateSeries(user);
 			controller.setMainApp(this);
 
 			return true;
@@ -270,20 +298,21 @@ public class MainApp extends Application {
 	}
 
 	//Mostra o CurrentSeries dentro do root layout
-	public boolean showCurrentSeries(User user) throws Exception {
+	public boolean showViewSeries(User user) throws Exception {
 
 		try {
 			// Carrega o registerMember.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("/br/com/joao/gym/view/CurrentSeries.fxml"));
-			AnchorPane CurrentSeries = (AnchorPane) loader.load();
+			loader.setLocation(MainApp.class.getResource("/br/com/joao/gym/view/ViewSeries.fxml"));
+			AnchorPane ViewSeries = (AnchorPane) loader.load();
 
 			// Define o person overview dentro do root layout.
-			rootLayout.setCenter(CurrentSeries);
+			rootLayout.setCenter(ViewSeries);
 
 			//Define o controller da view CurrentSeries
-			CurrentSeriesController controller = loader.getController();
+			ViewSeriesController controller = loader.getController();
 
+			controller.setViewSeries(user);
 			controller.setMainApp(this);
 
 			return true;

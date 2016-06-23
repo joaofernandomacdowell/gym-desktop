@@ -1,11 +1,9 @@
 package br.com.joao.gym.model;
 
-import java.time.LocalDate;
-
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -13,41 +11,26 @@ public class Series {
 
 	private final IntegerProperty id;
 	private final StringProperty memberCpf;
-	private final IntegerProperty exerciseNum;
-	private final StringProperty exerciseName; 
-	private final IntegerProperty equipmentNum;
-	private final StringProperty qtdSeries;
-	private final StringProperty reps;
-	private final StringProperty weight;
-	private final StringProperty regulation;
-	private final StringProperty obs;
-	private final StringProperty training;
-	private final ObjectProperty<LocalDate> dateStart;
-	private final ObjectProperty<LocalDate> dateEnd;
+	private final BooleanProperty workoutA; //workout A
+	private final BooleanProperty workoutB; //workout B
+	private final BooleanProperty workoutC; //workout C
+	private final StringProperty dateStart;
+	private final StringProperty dateEnd;
 
 
 	public Series() { 
-		this(0, null, 0, null, 0, null, null, null, null, null, null, null, null); 
+		this(0, null, false, false, false, null, null); 
 	}
 
 
-	public Series(int id, String memberCpf, int exerciseNum, String exerciseName, 
-			int equipmentNum, String qtdSeries, String reps, String weight, 
-			String regulation, String obs, String training, LocalDate dateStart, LocalDate dateEnd) {
-
+	public Series(int id, String memberCpf, boolean workoutA, boolean workoutB, boolean workoutC, String dateStart, String dateEnd) {
 		this.id = new SimpleIntegerProperty(id);
 		this.memberCpf = new SimpleStringProperty(memberCpf);
-		this.exerciseNum = new SimpleIntegerProperty(exerciseNum);
-		this.exerciseName = new SimpleStringProperty(exerciseName);
-		this.equipmentNum = new SimpleIntegerProperty(equipmentNum);
-		this.qtdSeries = new SimpleStringProperty(qtdSeries);
-		this.reps = new SimpleStringProperty(reps);
-		this.weight = new SimpleStringProperty(weight);
-		this.regulation= new SimpleStringProperty(regulation);
-		this.obs = new SimpleStringProperty(obs);
-		this.dateStart = new SimpleObjectProperty<LocalDate>(dateStart);
-		this.dateEnd = new SimpleObjectProperty<LocalDate>(dateEnd);
-		this.training = new SimpleStringProperty(training);
+		this.workoutA = new SimpleBooleanProperty(workoutA);
+		this.workoutB = new SimpleBooleanProperty(workoutB);
+		this.workoutC = new SimpleBooleanProperty(workoutC);
+		this.dateStart = new SimpleStringProperty(dateStart);
+		this.dateEnd = new SimpleStringProperty(dateEnd);
 	}
 
 	//id methods
@@ -80,167 +63,77 @@ public class Series {
 	//end: memberCPF methods
 
 
-	//exerciseNum methods
-	public int getExerciseNum() {
-		return exerciseNum.get();
-	}
-
-	public void setExerciseNum(int exerciseNum) {
-		this.exerciseNum.set(exerciseNum);
-	}
-
-	public IntegerProperty exerciseNumProperty() {
-		return exerciseNum;
-	}
-	//end: exerciseNum methods
-
-
-	//exerciseName methods
-	public String getExerciseName() {
-		return exerciseName.get();
+	//workout A methods
+	public boolean getWorkoutA() {
+		return workoutA.get();
 	} 
 
-	public void setExerciseName(String exerciseName) {
-		this.exerciseName.set(exerciseName);
+	public void setWorkoutA(boolean workoutA) {
+		this.workoutA.set(workoutA);
 	}
 
-	public StringProperty exerciseNameProperty() {
-		return exerciseName;
-	}
-	//end: exerciseName methods
-
-
-	//equipmentNum methods
-	public Integer getEquipmentNum() {
-		return equipmentNum.get();
-	} 
-
-	public void setEquipmentNum(int equipmentNum) {
-		this.equipmentNum.set(equipmentNum);
-	}
-
-	public IntegerProperty equipmentNumProperty() {
-		return equipmentNum;
-	}
-	//end: equipmentNum methods
-
-
-	//series methods
-	public String getQtdSeries() {
-		return qtdSeries.get();
-	}
-
-	public void setPostalCode(String qtdSeries) {
-		this.qtdSeries.set(qtdSeries);
-	}
-
-	public StringProperty qtdSeriesProperty() {
-		return qtdSeries;
-	}
-	//end: series methods
-
-
-	//reps methods
-	public String getReps() {
-		return reps.get();
-	}
-
-	public void setReps(String reps) {
-		this.reps.set(reps);
-	}
-
-	public StringProperty repsProperty() {
-		return reps;
-	}
-	//end: reps methods
-
-
-	//weight methods
-	public String getWeight() {
-		return weight.get();
-	} 
-
-	public void setWeight(String weight) {
-		this.weight.set(weight);
-	}
-
-	public StringProperty weightProperty() {
-		return weight;
-	}
-	//end: weight methods
-
-
-	//regulation methods
-	public String getRegulation() {
-		return regulation.get();
-	} 
-
-	public void setRegulation(String regulation) {
-		this.regulation.set(regulation);
-	}
-
-	public StringProperty regulationProperty() {
-		return regulation;
+	public BooleanProperty workoutAStringProperty() {
+		return workoutA;
 	}	
-	//end: regulation methods
+	//end: workout A methods
 
 
-	//obs methods
-	public String getObs() {
-		return obs.get();
+	//workoutB methods
+	public boolean getWorkoutB() {
+		return workoutB.get();
 	} 
 
-	public void setObs(String obs) {
-		this.obs.set(obs);
+	public void setWorkoutB(boolean workoutB) {
+		this.workoutB.set(workoutB);
 	}
 
-	public StringProperty obsStringProperty() {
-		return obs;
+	public BooleanProperty workoutBStringProperty() {
+		return workoutB;
 	}	
-	//end: obs methods
+	//end: workoutB methods
 
 
-	//training methods
-	public String getTraining() {
-		return training.get();
+	//workoutC methods
+	public boolean getWorkoutC() {
+		return workoutC.get();
 	} 
 
-	public void setTraining(String training) {
-		this.training.set(training);
+	public void setWorkoutC(boolean workoutC) {
+		this.workoutC.set(workoutC);
 	}
 
-	public StringProperty trainingStringProperty() {
-		return training;
+	public BooleanProperty workoutCStringProperty() {
+		return workoutC;
 	}	
-	//end: training methods
+	//end: workoutC methods
+
 
 	//dateStart methods
-	public LocalDate getDateStart() {
+	public String getDateStart() {
 		return dateStart.get();
 	} 
 
-	public void setDateStart(LocalDate dateStart) {
+	public void setDateStart(String dateStart) {
 		this.dateStart.set(dateStart);
 	}
 
-	public ObjectProperty<LocalDate> datesStartProperty() {
+	public StringProperty datesStartProperty() {
 		return dateStart;
 	}	
 	//end: dateStart methods
 
 
 	//dateEnd methods
-	public LocalDate getDateEnd() {
+	public String getDateEnd() {
 		return dateEnd.get();
 	} 
 
-	public void setDateEnd(LocalDate dateEnd) {
+	public void setDateEnd(String dateEnd) {
 		this.dateEnd.set(dateEnd);
 	}
 
-	public ObjectProperty<LocalDate> datesEndProperty() {
+	public StringProperty datesEndProperty() {
 		return dateEnd;
 	}	
 	//end: dateEnd methods
-
 }

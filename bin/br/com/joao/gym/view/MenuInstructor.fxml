@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.effect.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -9,44 +8,41 @@
 
 <AnchorPane prefHeight="630.0" prefWidth="700.0" style="-fx-background-color: #787878;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.joao.gym.view.MenuInstructorController">
    <children>
-      <Label layoutX="40.0" layoutY="50.0" text="Instructor Menu" textFill="WHITE">
+      <Label layoutX="60.0" layoutY="40.0" text="Instructor Menu" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <GridPane hgap="10.0" layoutX="60.0" layoutY="130.0" prefHeight="27.0" prefWidth="265.0" vgap="10.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
+      <GridPane layoutX="60.0" layoutY="104.0" prefHeight="159.0" prefWidth="182.0" vgap="20.0">
          <children>
-            <TextField fx:id="cpfField" prefHeight="40.0" prefWidth="131.0" promptText="Member CPF" />
-            <Button mnemonicParsing="false" onAction="#handleAcessMember" prefHeight="30.0" prefWidth="124.0" text="Access Member" GridPane.columnIndex="1">
-               <font>
-                  <Font size="14.0" />
-               </font>
+            <Button mnemonicParsing="false" onAction="#handleViewExistingSeries" prefHeight="30.0" prefWidth="170.0" text="View Existing Series" GridPane.rowIndex="1">
+               <tooltip>
+                  <Tooltip text="Click to create a new series">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Tooltip>
+               </tooltip>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#handleCreateNewSeries" prefHeight="30.0" prefWidth="170.0" text="Create New Series">
+               <tooltip>
+                  <Tooltip text="Click to view existing series/perform workout ">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Tooltip>
+               </tooltip>
             </Button>
          </children>
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="187.0" minWidth="10.0" prefWidth="134.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
       </GridPane>
-      <Separator layoutX="60.0" layoutY="198.0" prefHeight="3.0" prefWidth="577.0" />
-      <Label fx:id="fullNameLabel" layoutX="60.0" layoutY="241.0" text="fullNameLabel" textFill="WHITE">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <Button layoutX="350.0" layoutY="474.0" mnemonicParsing="false" onAction="#handleCurrentSeries" prefHeight="30.0" prefWidth="124.0" text="Current Series">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Button>
-      <Button layoutX="507.0" layoutY="474.0" mnemonicParsing="false" onAction="#handleCreateNewSeries" prefHeight="30.0" prefWidth="151.0" text="Create New Series">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Button>
-      <Label fx:id="userNameLabel" layoutX="580.0" layoutY="55.0" text="userNameLabel" textFill="WHITE" />
+      <Label fx:id="userNameLabel" layoutX="543.0" layoutY="45.0" text="userNameLabel" textFill="WHITE" />
    </children>
 </AnchorPane>

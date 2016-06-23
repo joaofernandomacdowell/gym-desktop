@@ -11,40 +11,30 @@ import br.com.joao.gym.model.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class CreateSeriesController {
+public class ViewSeriesController {
 
 	//Input
 	@FXML
 	private TextField memberCpfField;
 
+	//Member info
 	@FXML
-	private Label memberNameLabel;
-
+	private Label dateStartLabel;
 	@FXML
-	private ChoiceBox<String> workoutBox;
-
+	private Label dateEndLabel;
 	@FXML
-	private Button addButton;
+	private Label startsLabel;
 	@FXML
-	private Button deleteButton;
-	@FXML
-	private Button backButton;
-
-	@FXML
-	private DatePicker dateStart;
-	@FXML
-	private DatePicker dateEnd;
+	private Label endsLabel;
 
 	//Table View
 	@FXML
@@ -69,8 +59,6 @@ public class CreateSeriesController {
 	private TableColumn<ItemSeries, String> obsColumn;
 
 	//TextFields (for adding and delete rows of the Table
-	/*@FXML
-	private TextField numField;*/
 	@FXML
 	private TextField exerciseField;
 	@FXML
@@ -87,28 +75,32 @@ public class CreateSeriesController {
 	private TextField obsField;
 
 	@FXML
-	private Label userNameLabel;
+	private Button addButton;
+	@FXML
+	private Button deleteButton;
+	@FXML
+	private Button execItem;
+	@FXML
+	private Button updateSeriesButton;
+	@FXML
+	private Button backButton;
 	
-	boolean workout_a = false;
-    boolean workout_b = false;
-    boolean workout_c = false;
-
-	ObservableList<ItemSeries> itensList = FXCollections.observableArrayList();
-	ObservableList<String> workoutList = FXCollections.observableArrayList(
-			"A", "B", "C"
-			);
+	private String cpf, workout;
+	private int id_series;
+	ObservableList<ItemSeries> itemList = FXCollections.observableArrayList();
 
 	User user;
-	Series series = new Series();
-	Member member;
+	Series series;
 	ItemSeries itemSeries;
+	Member member;
 	MainApp mainApp;
+
+	//User that is loged
+	@FXML
+	private Label userNameLabel;
 
 	@FXML
 	private void initialize() {
-		workoutBox.setValue("A");
-		workoutBox.setItems(workoutList);
-
 		table.setVisible(false);
 		hideLabels();
 		hideButtons();
@@ -118,43 +110,26 @@ public class CreateSeriesController {
 	//Access Member button clicked
 	@FXML
 	private void handleAccessMember() throws SQLException, Exception {
-		if (isCpfValid()) {
-			series.setMemberCpf(member.getCpf());
-
+		if (isInputValid()) {
+			series.setMemberCpf(memberCpfField.getText());
+			
 			showLabels();
-
-			memberNameLabel.setText(member.getFullName());
-
+			
+			loadColumns();
+			itemSeries = DataBase.getItemSeries(series.getMemberCpf(), "A", itemList);
+			
+			cpf = itemSeries.getMemberCpf();
+			id_series = itemSeries.getIdSerie();
+			workout = itemSeries.getWorkout();
+			
+			table.setItems(itemList);
+			table.setVisible(true);
+			showButtons();
+			showLabels();
+			showFields();
+			
 			System.out.println(series.getMemberCpf());		
 		}	
-	}
-
-	//Select Workout button clicked
-	@FXML
-	private void handleSelectWorkout() throws Exception {
-		System.out.println("workoutBox value: " + workoutBox.getValue());
-		//System.out.println("workBox value: " + );
-		if(workoutBox.getValue().equals("A")) {
-			workout_a = true;
-		}
-
-		else if(workoutBox.getValue().equals("B")) {
-			workout_b = true;
-		}
-
-		else if(workoutBox.getValue().equals("C")) {
-			workout_c = true;
-		}
-
-		DataBase.insertSeries(series.getMemberCpf(), workout_a, workout_b, workout_c, dateStart, dateEnd);
-
-		loadColumns();
-		table.setItems(getItemSeries());
-		
-		table.setVisible(true);
-
-		showButtons();
-		showFields();
 	}
 
 	//Add Exercise button clicked
@@ -172,11 +147,11 @@ public class CreateSeriesController {
 
 		table.getItems().add(itemSeries);
 
-		DataBase.insertItemSeries(series.getMemberCpf(), series.getId(), workoutBox.getValue(), itemSeries.getTimesExecuted(), 
+		DataBase.insertItemSeries(cpf, id_series, workout, itemSeries.getTimesExecuted(), 
 				itemSeries.getExerciseName(), itemSeries.getEquipment(), itemSeries.getQtdSeries(), 
 				itemSeries.getReps(), itemSeries.getWeight(), itemSeries.getRegulation(), 
 				itemSeries.getObs());
-
+		
 		clearFields();
 	}
 
@@ -191,12 +166,65 @@ public class CreateSeriesController {
 		itemSelected.forEach(allItens::remove);
 	}
 
+	//Update button clicked
+	@FXML
+	private void handleExecItem() throws Exception {
+		
+		table.setOnMouseClicked(e-> {
+			try {
+				ItemSeries itemSeries = (ItemSeries)table.getSelectionModel().getSelectedItem();
+				DataBase.getSingleItemSeries(itemSeries.getIdItem());
+			}
+			
+			catch(Exception er) {
+				System.out.println(er);
+			}
+		});
+		
+		int timesExecuted = itemSeries.getTimesExecuted();
+		timesExecuted++;
+		
+		DataBase.updateItemTimesExecuted(timesExecuted, itemSeries.getIdItem());
+	}
+	
+	@FXML
+	private void handleUpdateSeries() throws SQLException, Exception {
+	}
+
 	//Back button clicked
 	@FXML
 	private void handleBack() throws Exception {
 		mainApp.showMenuInstructor(user);
 	}
 
+	private boolean isInputValid() {
+		try {
+			series = DataBase.getSeries(memberCpfField.getText());
+
+			if (memberCpfField.getText().equals(series.getMemberCpf())) {	
+				dateStartLabel.setText(series.getDateStart());
+				dateEndLabel.setText(series.getDateEnd());
+				return true;
+			}
+
+			else {
+				Alert alert = new Alert(AlertType.ERROR);
+				
+				alert.setTitle("Invalid CPF");
+				alert.setHeaderText("This CPF does not have registered series");
+				alert.setContentText("Please correct the input");
+				alert.showAndWait();
+
+				return false;
+			}
+		}
+
+		catch(Exception e) {
+			System.out.println(e);
+			return false;
+		}
+	}
+	
 	public void loadColumns() {
 		timesColumn.setCellValueFactory(new PropertyValueFactory<>("timesExecuted"));
 		exerciseColumn.setCellValueFactory(new PropertyValueFactory<>("exerciseName"));
@@ -208,27 +236,35 @@ public class CreateSeriesController {
 		obsColumn.setCellValueFactory(new PropertyValueFactory<>("obs"));
 
 		/*table.getColumns().addAll(numColumn, exerciseColumn, equipmentColumn, 
-					qtdSeriesColumn, repsColumn, weightColumn, regulationColumn, obsColumn);*/
+				qtdSeriesColumn, repsColumn, weightColumn, regulationColumn, obsColumn);*/
 	}
 
 	private void hideButtons() {
 		addButton.setVisible(false);
 		deleteButton.setVisible(false);
-		backButton.setVisible(false);
+		updateSeriesButton.setVisible(false);
+		execItem.setVisible(false);
 	}
 
 	private void showButtons() {
 		addButton.setVisible(true);
 		deleteButton.setVisible(true);
-		backButton.setVisible(true);
+		updateSeriesButton.setVisible(true);
+		execItem.setVisible(true);
 	}
 
 	private void hideLabels() {
-		memberNameLabel.setVisible(false);
+		startsLabel.setVisible(false);
+		endsLabel.setVisible(false);
+		dateStartLabel.setVisible(false);
+		dateEndLabel.setVisible(false);
 	}
 
 	private void showLabels() {
-		memberNameLabel.setVisible(true);
+		startsLabel.setVisible(true);
+		endsLabel.setVisible(true);
+		dateStartLabel.setVisible(true);
+		dateEndLabel.setVisible(true);
 	}
 
 	private void clearFields() {
@@ -261,54 +297,7 @@ public class CreateSeriesController {
 		obsField.setVisible(true);
 	}
 
-
-	private boolean isCpfValid() {
-		try {
-			member = DataBase.getMember(memberCpfField.getText());
-
-			if (memberCpfField.getText().equals(member.getCpf())) {
-				System.out.println("cpf encontrado: " + member.getCpf());
-				series.setMemberCpf(member.getCpf());
-				
-				return true;
-			}
-
-			else {
-				Alert alert = new Alert(AlertType.ERROR);
-
-				alert.setTitle("Invalid CPF");
-				alert.setHeaderText("This CPF is not registred");
-				alert.setContentText("Please correct the input");
-				alert.showAndWait();
-
-				return false;
-			}
-		}
-
-		catch(Exception e) {
-			System.out.println(e);
-			return false;
-		}
-	}
-
-	public ObservableList<ItemSeries> getItemSeries() {		
-		return itensList;
-	}
-
-	/*
-	public void loadColumnsByCells() {
-		numColumn.setCellValueFactory(cellData -> cellData.getValue().exerciseNumProperty());
-		exerciseColumn.setCellValueFactory(cellData -> cellData.getValue().exerciseNameProperty());
-		equipmentColumn.setCellValueFactory(cellData -> cellData.getValue().equipmentProperty());
-		qtdSeriesColumn.setCellValueFactory(cellData -> cellData.getValue().qtdSeriesProperty());
-		repsColumn.setCellValueFactory(cellData -> cellData.getValue().repsProperty());
-		weightColumn.setCellValueFactory(cellData -> cellData.getValue().weightProperty());
-		regulationColumn.setCellValueFactory(cellData -> cellData.getValue().regulationProperty());
-		obsColumn.setCellValueFactory(cellData -> cellData.getValue().obsProperty());
-	}
-	 */
-
-	public void setCreateSeries(User user) {
+	public void setViewSeries(User user) {
 		this.user = user;
 		userNameLabel.setText(user.getUserName());
 	}

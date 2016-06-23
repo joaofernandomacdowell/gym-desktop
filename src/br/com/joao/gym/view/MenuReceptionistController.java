@@ -33,6 +33,11 @@ public class MenuReceptionistController {
 		mainApp.showScheduleEvaluation(user);
 	}
 	
+	@FXML
+	private void handleMedicalCertificate() throws Exception {
+		mainApp.showMedicalCertificate(user);
+	}
+	
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 	}

@@ -7,11 +7,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.Tab;
-
+import javafx.scene.control.RadioButton;
 import java.time.LocalDate;
 import java.util.Calendar;
 
@@ -19,7 +17,6 @@ import br.com.joao.gym.application.MainApp;
 import br.com.joao.gym.conection.DataBase;
 import br.com.joao.gym.model.Member;
 import br.com.joao.gym.model.User;
-import br.com.joao.gym.util.DateUtil;
 
 
 public class RegisterMemberController {
@@ -44,7 +41,9 @@ public class RegisterMemberController {
 
 	//Personal Informations
 	@FXML
-	private ChoiceBox<String> genderBox; 
+	private RadioButton maleButton;
+	@FXML
+	private RadioButton femaleButton;
 	@FXML
 	private DatePicker dateBirthPicker;
 	@FXML
@@ -68,15 +67,12 @@ public class RegisterMemberController {
 	private Label userNameLabel3;
 
 	public boolean paymentStatus = false;
+	public String genderString; 
 	public String payDate;
 	public LocalDate localDate;
 	
 	private User user;
 	private MainApp mainApp;
-	
-	ObservableList<String> genderList = FXCollections.observableArrayList(
-			"Male", "Female", "Undefined"
-			);
 
 	ObservableList<String> contractList = FXCollections.observableArrayList(
 			"Smart", "Black"
@@ -95,8 +91,6 @@ public class RegisterMemberController {
 
 	@FXML
 	private void initialize() {
-		genderBox.setItems(genderList);
-		
 		contractBox.setValue("Black");
 		contractBox.setItems(contractList);
 
@@ -106,6 +100,8 @@ public class RegisterMemberController {
 		paydayBox.setValue("20");
 		paydayBox.setItems(paydayList);
 	}
+	
+	
 
 	@FXML
 	private void calculateAge() {
@@ -115,35 +111,16 @@ public class RegisterMemberController {
     	int age = year - birthYear;
     	ageField.setText(Integer.toString(age));
     }
+	
 
-
-	public void setMember(Member member) throws Exception {
-		fullNameField.setText(member.getFullName());
-		cpfField.setText(member.getCpf());
-		rgField.setText(member.getRg());
-		cityField.setText(member.getCity());
-
-		addressField.setText(member.getCity());
-		postalCodeField.setText(member.getPostalCode());
-		phoneField.setText(member.getPhone());
-		emailField.setText(member.getEmail());
-		
-		genderBox.setValue(member.getGender());
-		/*
-		if (member.getDateBirth() != null) {
-		    dateBirthField.setValue(member.getDateBirth());
-		} 
-		
-		else {
-		    dateBirthField.setValue(null);
-		}
-		*/
-		ageField.setText(Integer.toString(member.getAge()));
-
-		contractBox.setValue(member.getContract());
-		paymentTypeBox.setValue(member.getPaymentType());
-		paydayBox.setValue(member.getPayday());
-
+	@FXML
+	private void handleMaleClicked() {
+		genderString = maleButton.getText();
+	}
+	
+	@FXML
+	private void handleFemaleClicked() {
+		genderString = femaleButton.getText();
 	}
 
 	//Register button clicked
@@ -157,7 +134,7 @@ public class RegisterMemberController {
 				DataBase.insertMember(fullNameField.getText(), cpfField.getText(), 
 						rgField.getText(), cityField.getText(), addressField.getText(), 
 						postalCodeField.getText(), phoneField.getText(), emailField.getText(), 
-						genderBox.getValue(), dateBirthPicker, Integer.parseInt(ageField.getText()), 
+						dateBirthPicker, Integer.parseInt(ageField.getText()), genderString,
 						false, contractBox.getValue(), paymentTypeBox.getValue(), paydayBox.getValue());
 				
 				//localDate = new LocalDate(, 0, 0);
@@ -167,19 +144,16 @@ public class RegisterMemberController {
 				System.out.println("payDate = " + payDate);
 				
 				alertSuccess.showAndWait();
-				alertSuccess.setTitle("User Registred!");
-				alertSuccess.setContentText("User Registred Successfully");
-				
-				
-				
+				alertSuccess.setTitle("Member Registred!");
+				alertSuccess.setContentText("Member registred successfully!");
+						
 				//Limpa os Fields
 				clearFields();
 				
 			} catch (NumberFormatException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+				
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -189,13 +163,13 @@ public class RegisterMemberController {
 		}
 	}
 
-	//Chamado quando o usuário clica Back.
+	//Back button clicked
 	@FXML
 	private void handleBack() throws Exception {
 		mainApp.showMenuReceptionist(user);
 	}
 
-	//Chamado quando o usuário clica em LogOut
+	//LogOut button clicked
 	@FXML
 	private void handleLogOut() throws Exception{	
 		mainApp.showLogin();
@@ -242,13 +216,19 @@ public class RegisterMemberController {
 			errorMessage += "Invalid email!\n"; 
 		}
 
-		//if (dateBirthField.getText() == null || dateBirthField.getText().length() == 0) {
-		//	errorMessage += "Invalid birthday!\n"; 
-		//}
+		if (dateBirthPicker.getValue() == null) {
+			errorMessage += "Select a Date!\n"; 
+		}
 
 		if (ageField.getText() == null || ageField.getText().length() == 0) {
 			errorMessage += "Invalid age!\n"; 
 		}
+		
+		if (genderString == null || genderString.length() == 0) {
+			errorMessage += "Select a gender!\n"; 
+		}
+		
+		
 		if (errorMessage.length() == 0) {
 			return true;
 		} 
@@ -279,12 +259,43 @@ public class RegisterMemberController {
 		ageField.clear();
 	}
 	
+	public void setMember(Member member) throws Exception {
+		fullNameField.setText(member.getFullName());
+		cpfField.setText(member.getCpf());
+		rgField.setText(member.getRg());
+		cityField.setText(member.getCity());
+
+		addressField.setText(member.getCity());
+		postalCodeField.setText(member.getPostalCode());
+		phoneField.setText(member.getPhone());
+		emailField.setText(member.getEmail());
+		
+		genderString = member.getGender();
+		/*
+		if (member.getDateBirth() != null) {
+		    dateBirthField.setValue(member.getDateBirth());
+		} 
+		
+		else {
+		    dateBirthField.setValue(null);
+		}
+		*/
+		ageField.setText(Integer.toString(member.getAge()));
+
+		contractBox.setValue(member.getContract());
+		paymentTypeBox.setValue(member.getPaymentType());
+		paydayBox.setValue(member.getPayday());
+
+	}
+	
 	public void setRegisterMember(User user) {
 		this.user = user;
 		userNameLabel1.setText(user.getUserName());
 		userNameLabel2.setText(user.getUserName());
 		userNameLabel3.setText(user.getUserName());
 	}
+	
+	
 	
 	public void setMainApp (MainApp mainApp){
 		this.mainApp = mainApp;

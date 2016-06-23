@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import br.com.joao.gym.model.Evaluation;
 import br.com.joao.gym.model.ItemSeries;
 import br.com.joao.gym.model.Member;
@@ -16,7 +15,6 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import br.com.joao.gym.model.Series;
-import br.com.joao.gym.util.DateUtil;
 
 public class DataBase {
 
@@ -24,7 +22,7 @@ public class DataBase {
 	static User user = new User();
 	static Evaluation evaluation = new Evaluation();
 	static ItemSeries itemSeries = new ItemSeries();
-
+	static Series series = new Series();
 	static	Connection connection = null;  
 	Statement stmt = null;
 
@@ -79,7 +77,7 @@ public class DataBase {
 		return user;		
 	}
 
-	public static Member getMember (String memberCpf) throws SQLException, Exception {
+	public static Member getMember (String cpf) throws SQLException, Exception {
 
 		Connection c = getConnection();
 		Statement stmt = null;
@@ -89,7 +87,7 @@ public class DataBase {
 		PreparedStatement ps = c.prepareStatement("SELECT * FROM Member WHERE cpf = ? ");  
 
 		//Aqui você seta os valores dos ?   
-		ps.setString(1, memberCpf);   
+		ps.setString(1, cpf);   
 		ResultSet rs = ps.executeQuery();
 
 		System.out.println("Fazendo consulta de member");
@@ -124,9 +122,129 @@ public class DataBase {
 		return member;		
 	}
 
+	public static void updateMedicalStatus(String cpf, boolean medicalCertificate) throws Exception {
+
+		System.out.println("--------------------Atualiza atestado médico-----------------------");
+		Connection c = getConnection();
+		
+		PreparedStatement ps = c.prepareStatement("UPDATE Member SET medical_certificate = ? WHERE cpf = ?");
+		ps.setBoolean(1, medicalCertificate);
+		ps.setString(2, cpf);
+		
+		int res = ps.executeUpdate();
+		//c.commit();
+		
+		if (res != 1) {
+			System.out.println("Não executou a query");
+		}
+		
+		c.close();
+		ps.close();
+	}
+	
+	public static void insertItemSeries (String member_cpf, int id_series, String workout, int times_executed,
+			String exercise_name, String equipment, String qtd_series, String reps, String weight,
+			String regulation, String obs) throws SQLException, Exception {
+
+		Connection c = getConnection();
+
+		PreparedStatement ps = c.prepareStatement(" INSERT INTO ItemSeries (member_cpf, id_series,"
+				+ "workout, times_executed, exercise_name, equipment, qtd_series, reps,"
+																+ "weight, regulation, obs)" + "VALUES" + "(?,?,?,?,?,?,?,?,?,?,?)");  
+
+		System.out.println("Fazendo consulta da serie");
+
+		System.out.println("member_cpf: " + member_cpf);
+		ps.setString(1, member_cpf);
+		
+		System.out.println("id_series: " + id_series);
+		ps.setInt(2, id_series);
+		
+		//System.out.println("id_item: " + id_item);
+		//ps.setInt(3, id_item);
+
+		System.out.println("workout: " + workout);
+		ps.setString(3, workout);
+
+		System.out.println("times_executeed: " + times_executed);
+		ps.setInt(4, times_executed);
+		
+		System.out.println("exercise_name: " + exercise_name);
+		ps.setString(5, exercise_name);
+
+		System.out.println("equipment: " + equipment);
+		ps.setString(6, equipment);
+
+		System.out.println("qtd_series: " + qtd_series);
+		ps.setString(7, qtd_series);
+
+		System.out.println("reps: " + reps);
+		ps.setString(8, reps);
+
+		System.out.println("weight: " + weight);
+		ps.setString(9, weight);  
+
+		System.out.println("regulation: " + regulation);
+		ps.setString(10, regulation);
+
+		System.out.println("obs: " + obs);
+		ps.setString(11, obs);
+
+		int res = ps.executeUpdate();
+
+		if (res != 1) {
+			System.out.println("Não executou a query");
+		}
+
+		System.out.println("-------------------ItemSerie cadastrado-----------------");
+		c.close();
+		ps.close();
+	}
+
+	public static void updateItemTimesExecuted(int timesExecuted, int idItem) throws Exception {
+
+		System.out.println("--------------------Update Times Executed-----------------------");
+		Connection c = getConnection();
+		
+		PreparedStatement ps = c.prepareStatement("UPDATE ItemSeries SET times_executed = ? WHERE id_item = ?");
+		ps.setInt(1, timesExecuted);
+		ps.setInt(2, idItem);
+		
+		int res = ps.executeUpdate();
+		//c.commit();
+		
+		if (res != 1) {
+			System.out.println("Não executou a query");
+		}
+		
+		c.close();
+		ps.close();
+	}
+	
+	public static void updatePaymentStatus(boolean payment_status, String mounthly) throws Exception {
+
+		System.out.println("--------------------Update PaymentStatus-----------------------");
+		Connection c = getConnection();
+		
+		PreparedStatement ps = c.prepareStatement("UPDATE Pay SET payment_status = ? WHERE mounthly = ?");
+		ps.setBoolean(1, payment_status);
+		ps.setString(2, mounthly);
+		
+		int res = ps.executeUpdate();
+		//c.commit();
+		
+		if (res != 1) {
+			System.out.println("Não executou a query");
+		}
+		
+		c.close();
+		ps.close();
+	}
+
+
 	public static boolean insertMember(String full_name, String cpf, String rg, 
 			String city, String address, String postal_code, String phone, String email, 
-			String gender, DatePicker dateBirth, int age, boolean medical_certificate, 
+			DatePicker dateBirth, int age, String gender, boolean medical_certificate, 
 			String contract, String payment_type, String payday) throws Exception {
 
 		System.out.println("--------------------Iniciando cadastro de novo Member-----------------------");
@@ -160,14 +278,14 @@ public class DataBase {
 		System.out.println("email: " + email);
 		ps.setString(8, email);
 
-		System.out.println("gender: " + gender);
-		ps.setString(9, gender);
-
-		ps.setString(10, ((TextField)dateBirth.getEditor()).getText());
+		ps.setString(9, ((TextField)dateBirth.getEditor()).getText());
 		System.out.println("date_birth: " + dateBirth.getValue());
 
 		System.out.println("age: " + age);
-		ps.setInt(11, age);
+		ps.setInt(10, age);
+
+		System.out.println("gender: " + gender);
+		ps.setString(11, gender);
 
 		System.out.println("medical_certificate: " + medical_certificate);
 		ps.setBoolean(12, medical_certificate);
@@ -195,64 +313,216 @@ public class DataBase {
 		return true;
 	}
 	
-	/*
+	public static boolean insertMedicalCertificate(String memberCpf, String nameMedic, String crm, 
+			DatePicker dateStart, DatePicker dateEnd) throws Exception {
 
-	public static Series getItemSeries (String member_cpf, String training) throws SQLException, Exception {
+		System.out.println("--------------------Iniciando cadastro de atestado médico-----------------------");
+		Connection c = getConnection();
+
+		PreparedStatement ps = c.prepareStatement("INSERT INTO MedicalCertificate (member_cpf, crm, medic_name, "
+				+ "date_start, date_end)" + "VALUES" + "(?,?,?,?,?)");
+
+		System.out.println("member_cpf: " + memberCpf);
+		ps.setString(1, memberCpf);
+
+		System.out.println("nameMedic: " + nameMedic);
+		ps.setString(2, nameMedic);
+
+		System.out.println("crm: " + crm);
+		ps.setString(3, crm);
+
+		System.out.println("date_start: " + dateStart.getValue());
+		ps.setString(4, ((TextField)dateStart.getEditor()).getText());
+
+		System.out.println("date_end: " + dateEnd.getValue());
+		ps.setString(5, ((TextField)dateStart.getEditor()).getText());
+
+		int res = ps.executeUpdate();
+
+		if (res != 1) {
+			System.out.println("Não executou a query");
+			return false;
+		}
+
+		System.out.println("-------------------Atestado médico cadastrado-----------------");
+		c.close();
+		ps.close();
+
+		return true;
+	}
+
+	public static ItemSeries getSingleItemSeries (int idItem) throws SQLException, Exception {
 
 		Connection c = getConnection();
 		Statement stmt = null;
 		stmt = c.createStatement();
-		Series series = new Series();
+		//Series series = new Series();
 
-		PreparedStatement ps = c.prepareStatement("SELECT * FROM ItemSeries WHERE member_cpf = ? AND training = ?");  
+		PreparedStatement ps = c.prepareStatement("SELECT * FROM ItemSeries WHERE id_item = ?");  
 
 		//Aqui você seta os valores dos ?   
-		ps.setString(1, member_cpf); 
-		ps.setString(2, training);
+		ps.setInt(1, idItem); 
+	
 		ResultSet rs = ps.executeQuery();
 
 		System.out.println("Fazendo consulta da serie");
 
 		while (rs.next()) {
 
-			itemSeries.setId((rs.getInt("id_item")));
-			System.out.println("Conteudo da consulta do id do item de serie:" + itemSeries.getId());
-
 			itemSeries.setMemberCpf((rs.getString("member_cpf")));
-			System.out.println("Conteudo da consulta do memberCpf da serie:" + itemSeries.getMemberCpf());
+			System.out.println("member member_cpf:" + itemSeries.getMemberCpf());
 
-			itemSeries.setTraining((rs.getString("training")));
-			System.out.println("Conteudo da consulta do training da serie:" + itemSeries.getTraining());
+			itemSeries.setIdItem((rs.getInt("id_item")));
+			System.out.println("id Item:" + itemSeries.getIdItem());
 
-			itemSeries.setDateStart((rs.getString("date_start")));
-			System.out.println("Conteudo da consulta do dateStart da serie:" + itemSeries.getDateStart());
+			itemSeries.setIdSerie((rs.getInt("id_series")));
+			System.out.println("id Serie:" + itemSeries.getIdSerie());
 
-			itemSeries.setDateEnd((rs.getString("date_end")));
-			System.out.println("Conteudo da consulta do dateEnd da serie:" + itemSeries.getDateEnd());
+			itemSeries.setWorkout((rs.getString("workout")));
+			System.out.println("workout:" + itemSeries.getWorkout());
 
-			itemSeries.setExerciseNum((rs.getString("exercise_num")));
-			System.out.println("Conteudo da consulta do memberCpf da serie:" + itemSeries.getExerciseNum());
+			itemSeries.setTimesExecuted((rs.getInt("times_executed")));
+			System.out.println("times executed:" + itemSeries.getTimesExecuted());
 
 			itemSeries.setExerciseName((rs.getString("exercise_name")));
-			System.out.println("Conteudo da consulta do memberCpf da serie:" + itemSeries.getExerciseName());
+			System.out.println("exercise name:" + itemSeries.getExerciseName());
 
 			itemSeries.setEquipment((rs.getString("equipment")));
-			System.out.println("Conteudo da consulta do memberCpf da serie:" + itemSeries.getEquipment());
+			System.out.println("equipment:" + itemSeries.getEquipment());
 
 			itemSeries.setQtdSeries((rs.getString("qtd_series")));
-			System.out.println("Conteudo da consulta do memberCpf da serie:" + itemSeries.getQtdSeries());
+			System.out.println("qtd series:" + itemSeries.getQtdSeries());
 
 			itemSeries.setReps((rs.getString("reps")));
-			System.out.println("Conteudo da consulta do memberCpf da serie:" + itemSeries.getReps());
+			System.out.println("reps:" + itemSeries.getReps());
 
 			itemSeries.setWeight((rs.getString("weight")));
-			System.out.println("Conteudo da consulta do memberCpf da serie:" + itemSeries.getWeight());
+			System.out.println("weight:" + itemSeries.getWeight());
 
 			itemSeries.setRegulation((rs.getString("regulation")));
-			System.out.println("Conteudo da consulta do memberCpf da serie:" + itemSeries.getRegulation());
+			System.out.println("regulation:" + itemSeries.getRegulation());
 
 			itemSeries.setObs((rs.getString("obs")));
-			System.out.println("Conteudo da consulta do memberCpf da serie:" + itemSeries.getObs());
+			System.out.println("obs:" + itemSeries.getObs());
+			 
+			System.out.println("Consulta realizada");
+		}
+
+		rs.close();
+		stmt.close();
+		c.close();
+
+		return itemSeries;		
+	}
+	
+	public static Pay getMounthly (String mounthly) throws SQLException, Exception {
+
+		Connection c = getConnection();
+		Statement stmt = null;
+		stmt = c.createStatement();
+		//Series series = new Series();
+
+		PreparedStatement ps = c.prepareStatement("SELECT * FROM Pay WHERE mounthly = ?");  
+
+		//Aqui você seta os valores dos ?   
+		ps.setString(1, mounthly); 
+	
+		ResultSet rs = ps.executeQuery();
+
+		System.out.println("Fazendo consulta da serie");
+
+		while (rs.next()) {
+			
+			pay.setMemberCpf((rs.getString("member_cpf")));
+			System.out.println("member_cpf:" + pay.getMemberCpf());
+
+			pay.setMounthly((rs.getString("mounthly")));
+			System.out.println("mounthly:" + pay.getMounthly());
+			
+			pay.setAmount((rs.getDouble("amount")));
+			System.out.println("amount:" + pay.getAmount());
+			
+			pay.setPaymentStatus((rs.getBoolean("payment_status")));
+			System.out.println("payment_status:" + pay.getPaymentStatus());
+			 
+			System.out.println("Consulta realizada");
+		}
+
+		rs.close();
+		stmt.close();
+		c.close();
+
+		return pay;		
+	}
+
+	public static ItemSeries getItemSeries (String member_cpf, String workout, ObservableList<ItemSeries> data) throws SQLException, Exception {
+
+		Connection c = getConnection();
+		Statement stmt = null;
+		stmt = c.createStatement();
+		//Series series = new Series();
+
+		PreparedStatement ps = c.prepareStatement("SELECT * FROM ItemSeries WHERE member_cpf = ? AND workout = ?");  
+
+		//Aqui você seta os valores dos ?   
+		ps.setString(1, member_cpf); 
+		ps.setString(2, workout);
+		ResultSet rs = ps.executeQuery();
+
+		System.out.println("Fazendo consulta da serie");
+
+		while (rs.next()) {
+
+			itemSeries.setMemberCpf((rs.getString("member_cpf")));
+			System.out.println("member_cpf:" + itemSeries.getMemberCpf());
+
+			itemSeries.setIdItem((rs.getInt("id_item")));
+			System.out.println("id_item:" + itemSeries.getIdItem());
+
+			itemSeries.setIdSerie((rs.getInt("id_series")));
+			System.out.println("id_series:" + itemSeries.getIdSerie());
+
+			itemSeries.setWorkout((rs.getString("workout")));
+			System.out.println("workout:" + itemSeries.getWorkout());
+
+			itemSeries.setTimesExecuted((rs.getInt("times_executed")));
+			System.out.println("times_executed:" + itemSeries.getTimesExecuted());
+
+			itemSeries.setExerciseName((rs.getString("exercise_name")));
+			System.out.println("exercisename:" + itemSeries.getExerciseName());
+
+			itemSeries.setEquipment((rs.getString("equipment")));
+			System.out.println("equipment:" + itemSeries.getEquipment());
+
+			itemSeries.setQtdSeries((rs.getString("qtd_series")));
+			System.out.println("qtd series:" + itemSeries.getQtdSeries());
+
+			itemSeries.setReps((rs.getString("reps")));
+			System.out.println("reps:" + itemSeries.getReps());
+
+			itemSeries.setWeight((rs.getString("weight")));
+			System.out.println("weight:" + itemSeries.getWeight());
+
+			itemSeries.setRegulation((rs.getString("regulation")));
+			System.out.println("regulation:" + itemSeries.getRegulation());
+
+			itemSeries.setObs((rs.getString("obs")));
+			System.out.println("obs:" + itemSeries.getObs());
+
+			data.add(new ItemSeries(
+					rs.getString("member_cpf"),
+					rs.getInt("id_item"),
+					rs.getInt("id_series"),
+					rs.getString("workout"),
+					rs.getInt("times_executed"),
+					rs.getString("exercise_name"),
+					rs.getString("equipment"),
+					rs.getString("qtd_series"),
+					rs.getString("reps"),
+					rs.getString("weight"),
+					rs.getString("regulation"),
+					rs.getString("obs")
+					));
 
 			System.out.println("Consulta realizada");
 		}
@@ -261,22 +531,20 @@ public class DataBase {
 		stmt.close();
 		c.close();
 
-		return series;		
+		return itemSeries;		
 	}
-	
-	*/
 
-	public static Series getTrainingSeries (String id) throws SQLException, Exception {
+	public static Series getSeries (String memberCpf) throws SQLException, Exception {
 
 		Connection c = getConnection();
 		Statement stmt = null;
 		stmt = c.createStatement();
-		Series series = new Series();
+		//Series series = new Series();
 
-		PreparedStatement ps = c.prepareStatement("SELECT * FROM Series WHERE id = ? ");  
+		PreparedStatement ps = c.prepareStatement("SELECT * FROM Series WHERE member_cpf = ? ");  
 
 		//Aqui você seta os valores dos ?   
-		ps.setString(1, id);   
+		ps.setString(1, memberCpf);   
 		ResultSet rs = ps.executeQuery();
 
 		System.out.println("Fazendo consulta da serie");
@@ -287,7 +555,22 @@ public class DataBase {
 			System.out.println("Conteudo da consulta do id da serie:" + series.getId());
 
 			series.setMemberCpf(rs.getString("member_cpf"));
-			System.out.println("Conteudo da consulta do cpf do member:" + series.getMemberCpf());
+			System.out.println("Conteudo da consulta do id_series do member:" + series.getMemberCpf());
+
+			series.setWorkoutA(rs.getBoolean("workout_a"));
+			System.out.println("Conteudo da consulta do workout_a:" + series.getWorkoutA());
+
+			series.setWorkoutB(rs.getBoolean("workout_b"));
+			System.out.println("Conteudo da consulta do workout_b:" + series.getWorkoutB());
+
+			series.setWorkoutC(rs.getBoolean("workout_c"));
+			System.out.println("Conteudo da consulta do workout_c:" + series.getWorkoutC());
+
+			series.setDateStart(rs.getString("date_start"));
+			System.out.println("Conteudo da consulta da dateStart:" + series.getDateStart());
+
+			series.setDateEnd(rs.getString("date_end"));
+			System.out.println("Conteudo da consulta do dateEnd:" + series.getDateEnd());
 
 			System.out.println("Consulta realizada");
 		}
@@ -299,69 +582,42 @@ public class DataBase {
 		return series;		
 	}
 
-	public static boolean insertSeries(int id, String memberCpf, String training, 
-			LocalDate dateStart, DatePicker dateEnd, String exerciseNum, 
-			String exerciseName, String equipment, String qtdSeries,
-			String reps, String weight, String regulation, String obs) throws Exception {
+	public static void insertSeries(String memberCpf, boolean workout_a, boolean workout_b, 
+			boolean workout_c, DatePicker dateStart, DatePicker dateEnd) throws Exception {
 
 		System.out.println("--------------------Iniciando cadastro de nova Serie-----------------------");
 		Connection c = getConnection();
 
-		PreparedStatement ps = c.prepareStatement("INSERT INTO Series (id, member_cpf, training, date_start, "
-				+ "date_end, exercise_num, exercise_name, equipment, qtd_series, reps, weight, regulation, obs"
-				+ "VALUES" + "(?,?,?,?,?,?,?,?,?,?,?,?,?)");
+		PreparedStatement ps = c.prepareStatement("INSERT INTO Series (member_cpf, workout_a, workout_b, workout_c, "
+				+ "date_start, date_end)" + "VALUES" + "(?,?,?,?,?,?)");
 
-		System.out.println("ID: " + id);
-		ps.setInt(1, id);
+		System.out.println("member_cpf: " + memberCpf);
+		ps.setString(1, memberCpf);
 
-		System.out.println("CPF: " + memberCpf);
-		ps.setString(2, memberCpf);
+		System.out.println("workout_a: " + workout_a);
+		ps.setBoolean(2, workout_a);
 
-		System.out.println("training: " + training);
-		ps.setString(3, training);
+		System.out.println("workout_b: " + workout_b);
+		ps.setBoolean(3, workout_b);
 
-		System.out.println("date_start: " + dateStart);
-		ps.setString(4, DateUtil.format(java.time.LocalDate.now()));
-
-		System.out.println("date_end: " + dateEnd);
-		ps.setString(5, ((TextField)dateEnd.getEditor()).getText());
-
-		System.out.println("exerciseNum: " + exerciseNum);
-		ps.setString(6, exerciseNum);
-
-		System.out.println("exercise_name: " + exerciseName);
-		ps.setString(7, exerciseName);
-
-		System.out.println("equipment: " + equipment);
-		ps.setString(8, equipment);
-
-		System.out.println("qtd_series: " + qtdSeries);
-		ps.setString(9, qtdSeries);
-
-		System.out.println("reps: " + reps);
-		ps.setString(10, reps);
-
-		System.out.println("weight: " + weight);
-		ps.setString(11, weight);
-
-		System.out.println("regulation: " + regulation);
-		ps.setString(12, regulation);
-
-		System.out.println("obs: " + obs);
-		ps.setString(13, obs);
+		System.out.println("workout_c: " + workout_c);
+		ps.setBoolean(4, workout_c);
+		
+		System.out.println("date_start: " + dateStart.getValue());
+		ps.setString(5, ((TextField)dateStart.getEditor()).getText());
+		
+		System.out.println("date_end: " + dateEnd.getValue());
+		ps.setString(6, ((TextField)dateEnd.getEditor()).getText());
 
 		int res = ps.executeUpdate();
 
 		if (res != 1) {
 			System.out.println("Não executou a query");
-			return false;
 		}
 
 		System.out.println("-------------------Serie cadastrada-----------------");
 		c.close();
 		ps.close();
-
-		return true;
 	}
 
 	public static boolean insertUser(String userName, String userPassword) throws Exception {
@@ -522,6 +778,7 @@ public class DataBase {
 		return evaluation;		
 	}
 
+	//PARECIDO PARA GET ITEM SERIES
 	public static Pay getPay (String memberCpf, ObservableList<Pay> data) throws SQLException, Exception {
 
 		Connection c = getConnection();
