@@ -330,9 +330,6 @@ public class MainApp extends Application {
 	}
 
 	public static void main(String[] args) throws Exception {
-		//LocalDate dataNatal = null;
-		//dataNatal = LocalDate.of(dataNatal.getYear(), dataNatal.getMonthValue(), 20);
-		//System.out.println("Natal: "+dataNatal);
 		DataBase.getConnection();
 		launch(args);
 	}
